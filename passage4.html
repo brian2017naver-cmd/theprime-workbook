@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지문4 · 수치심과 죄책감 | 더 프라임</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB;
+  --card: #FFFFFF;
+  --card2: #F0F4FF;
+  --primary: #3B6FD4;
+  --primary-lt: #EEF3FF;
+  --accent: #E8632A;
+  --accent-lt: #FFF1EB;
+  --correct: #1A9E6B;
+  --correct-lt: #E8FBF3;
+  --wrong: #D63B4A;
+  --wrong-lt: #FFF0F1;
+  --neutral: #7B8DB8;
+  --text: #1A2238;
+  --subtext: #5A6A8A;
+  --border: #DDE3F0;
+  --tag-low: #E8FBF3; --tag-low-c: #1A9E6B;
+  --tag-mid: #FFF8E8; --tag-mid-c: #C47A00;
+  --tag-high: #FFF0F1; --tag-high-c: #D63B4A;
+}
+html, body { min-height: 100vh; font-family: 'Nunito','Noto Sans KR',sans-serif; background: var(--bg); color: var(--text); }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.07);
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-logo {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+}
+.brand-name { font-size: 13px; font-weight: 800; color: var(--neutral); }
+.back-btn {
+  font-size: 13px; font-weight: 700; color: var(--primary);
+  text-decoration: none; display: flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--border);
+  transition: all 0.15s;
+}
+.back-btn:hover { background: var(--primary-lt); border-color: var(--primary); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 32px 32px 24px;
+}
+.hero-inner { max-width: 860px; margin: 0 auto; }
+.hero-tag {
+  display: inline-block; background: var(--primary-lt);
+  color: var(--primary); font-size: 10px; font-weight: 800;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 99px;
+  border: 1px solid rgba(59,111,212,0.18); margin-bottom: 10px;
+}
+.hero-title { font-size: 26px; font-weight: 900; margin-bottom: 6px; }
+.hero-title span { color: var(--primary); }
+.hero-sub { font-size: 14px; color: var(--subtext); font-family: 'Noto Sans KR',sans-serif; line-height: 1.7; margin-bottom: 20px; }
+
+/* passage box in hero */
+.passage-box {
+  background: var(--card2); border-left: 3px solid var(--primary);
+  border-radius: 0 12px 12px 0; padding: 16px 20px;
+  font-size: 13.5px; line-height: 1.95; color: var(--text);
+  font-family: 'Noto Sans KR','Nunito',sans-serif;
+  margin-bottom: 20px;
+}
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.filter-label { font-size: 12px; font-weight: 700; color: var(--neutral); }
+.filter-btn {
+  padding: 6px 16px; border-radius: 99px;
+  border: 1.5px solid var(--border); background: #fff;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito',sans-serif; transition: all 0.15s; color: var(--subtext);
+}
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.filter-btn.low.active  { background: var(--correct); border-color: var(--correct); }
+.filter-btn.mid.active  { background: #C47A00; border-color: #C47A00; }
+.filter-btn.high.active { background: var(--wrong); border-color: var(--wrong); }
+
+/* progress */
+.progress-strip {
+  max-width: 860px; margin: 0 auto; margin-top: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #6B8FF7); border-radius: 99px; transition: width 0.4s; }
+.progress-text { font-size: 12px; font-weight: 700; color: var(--neutral); white-space: nowrap; }
+
+/* ── MAIN ── */
+.main { max-width: 860px; margin: 32px auto; padding: 0 16px; }
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 28px 32px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.06);
+  transition: box-shadow 0.2s;
+}
+.q-card:hover { box-shadow: 0 4px 20px rgba(59,111,212,0.10); }
+.q-card.hidden { display: none; }
+.q-card.done-correct { border-color: rgba(26,158,107,0.35); }
+.q-card.done-wrong   { border-color: rgba(214,59,74,0.3); }
+.q-card.done-revealed { border-color: rgba(59,111,212,0.35); }
+
+.q-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.q-num {
+  font-size: 11px; font-weight: 800; color: var(--primary);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.q-type-tag {
+  font-size: 10px; font-weight: 700; color: var(--subtext);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 2px 9px; border-radius: 99px;
+  font-family: 'Noto Sans KR',sans-serif;
+}
+.diff-tag {
+  font-size: 10px; font-weight: 800; padding: 2px 9px; border-radius: 99px;
+  margin-left: auto;
+}
+.diff-tag.low  { background: var(--tag-low);  color: var(--tag-low-c); }
+.diff-tag.mid  { background: var(--tag-mid);  color: var(--tag-mid-c); }
+.diff-tag.high { background: var(--tag-high); color: var(--tag-high-c); }
+
+.q-stem {
+  font-size: 14.5px; font-weight: 700; color: var(--subtext);
+  font-family: 'Noto Sans KR',sans-serif; margin-bottom: 14px; line-height: 1.65;
+}
+.q-stem strong { color: var(--text); }
+
+/* mini passage inside card */
+.mini-passage {
+  background: var(--card2); border-left: 3px solid var(--primary);
+  border-radius: 0 10px 10px 0; padding: 13px 16px;
+  font-size: 13px; line-height: 1.9; color: var(--text);
+  font-family: 'Noto Sans KR','Nunito',sans-serif; margin-bottom: 14px;
+}
+.ul { text-decoration: underline; text-decoration-color: var(--accent); }
+.bld { font-weight: 700; }
+
+/* block quote */
+.boxi {
+  background: #fff; border: 1.5px dashed var(--border);
+  border-radius: 10px; padding: 12px 16px; margin-bottom: 12px;
+  font-size: 13px; line-height: 1.75; font-family: 'Noto Sans KR',sans-serif;
+  color: var(--subtext);
+}
+
+/* MCQ */
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.opts.one-col { grid-template-columns: 1fr; }
+.opt-btn {
+  background: #FAFBFF; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--text);
+  cursor: pointer; display: flex; align-items: flex-start; gap: 9px;
+  transition: all 0.15s; font-family: 'Noto Sans KR','Nunito',sans-serif;
+  text-align: left; line-height: 1.5;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-lt); transform: translateY(-1px); }
+.opt-n {
+  width: 20px; height: 20px; flex-shrink: 0; border-radius: 6px;
+  background: var(--border); display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--neutral); transition: all 0.15s; margin-top: 1px;
+}
+.opt-btn.correct { background: var(--correct-lt); border-color: var(--correct); color: #0F6B47; animation: pop .3s; }
+.opt-btn.correct .opt-n { background: var(--correct); color: #fff; }
+.opt-btn.wrong   { background: var(--wrong-lt); border-color: var(--wrong); color: #8B1A24; }
+.opt-btn.wrong   .opt-n { background: var(--wrong); color: #fff; }
+.opt-btn.reveal  { background: var(--correct-lt); border-color: var(--correct); }
+.opt-btn.reveal  .opt-n { background: var(--correct); color: #fff; }
+@keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
+
+/* SAQ */
+.saq-wrap { margin-bottom: 14px; }
+.saq-row { margin-bottom: 10px; }
+.saq-label { font-size: 11px; font-weight: 800; color: var(--neutral); letter-spacing: 0.07em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+.saq-input {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; font-size: 13.5px;
+  font-family: 'Noto Sans KR','Nunito',sans-serif;
+  color: var(--text); background: #FAFBFF; resize: none;
+  transition: border-color 0.18s; line-height: 1.6;
+}
+.saq-input:focus { outline: none; border-color: var(--primary); background: var(--primary-lt); }
+.check-btn {
+  background: var(--text); color: #fff; border: none; border-radius: 9px;
+  padding: 9px 22px; font-size: 12px; font-weight: 800; cursor: pointer;
+  font-family: 'Nunito',sans-serif; margin-top: 6px; transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { background: var(--primary); }
+.check-btn:disabled { opacity: 0.38; cursor: default; }
+
+/* feedback */
+.feedback {
+  border-radius: 10px; font-size: 12.5px; font-weight: 700;
+  display: flex; align-items: flex-start; gap: 7px;
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: all 0.28s ease; font-family: 'Noto Sans KR',sans-serif;
+}
+.feedback.show { opacity: 1; max-height: 300px; padding: 10px 14px; margin-bottom: 14px; }
+.feedback.correct-fb { background: var(--correct-lt); color: var(--correct); }
+.feedback.wrong-fb   { background: var(--wrong-lt); color: var(--wrong); }
+
+/* answer reveal for SAQ */
+.ans-reveal {
+  display: none; margin-top: 8px;
+  background: var(--correct-lt); border: 1px solid rgba(26,158,107,0.25);
+  border-radius: 10px; padding: 12px 15px;
+  font-size: 12.5px; font-family: 'Noto Sans KR',sans-serif;
+  color: #0F6B47; line-height: 1.75;
+}
+.ans-reveal.show { display: block; }
+.ans-reveal .al { font-weight: 800; margin-bottom: 4px; display: block; }
+
+/* score badge on card */
+.card-status {
+  display: none; font-size: 11px; font-weight: 800;
+  padding: 3px 10px; border-radius: 99px; margin-left: auto;
+}
+.card-status.ok  { display: inline-block; background: var(--correct-lt); color: var(--correct); }
+.card-status.bad { display: inline-block; background: var(--wrong-lt);   color: var(--wrong); }
+.card-status.rev { display: inline-block; background: var(--primary-lt); color: var(--primary); }
+
+/* ── SCORE PANEL ── */
+.score-panel {
+  display: none; background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 36px; text-align: center;
+  margin-bottom: 32px; box-shadow: 0 4px 24px rgba(59,111,212,0.10);
+}
+.score-panel.show { display: block; }
+.sp-ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: conic-gradient(var(--primary) var(--fill, 0deg), var(--border) 0);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; position: relative;
+}
+.sp-ring::before { content:''; position:absolute; inset:12px; border-radius:50%; background:var(--card); }
+.sp-inner { position:relative; z-index:1; }
+.sp-num { font-size: 34px; font-weight: 900; color: var(--primary); line-height: 1; }
+.sp-denom { font-size: 12px; color: var(--neutral); font-weight: 700; }
+.sp-title { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+.sp-sub { font-size: 13px; color: var(--subtext); font-family:'Noto Sans KR',sans-serif; margin-bottom: 24px; line-height: 1.7; }
+.sp-restart {
+  background: var(--primary); color: #fff; border: none; border-radius: 12px;
+  padding: 12px 36px; font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: 'Nunito',sans-serif; transition: all 0.18s;
+  box-shadow: 0 4px 16px rgba(59,111,212,0.25);
+}
+.sp-restart:hover { background: #2F5BBF; transform: translateY(-2px); }
+
+/* floating score */
+.float-score {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--primary); color: #fff;
+  border-radius: 99px; padding: 10px 20px;
+  font-size: 13px; font-weight: 800;
+  box-shadow: 0 4px 20px rgba(59,111,212,0.3);
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; transition: all 0.2s; z-index: 200;
+}
+.float-score:hover { background: #2F5BBF; transform: translateY(-2px); }
+
+@media (max-width: 560px) {
+  .opts { grid-template-columns: 1fr; }
+  .q-card { padding: 20px 16px; }
+  .hero { padding: 20px 16px 18px; }
+  .site-header { padding: 12px 16px; }
+}
+@media print {
+  .site-header, .float-score, .filter-bar, .progress-strip { display: none; }
+  .q-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <div class="brand-logo">P</div>
+    <span class="brand-name">THE PRIME</span>
+  </a>
+  <a href="index.html" class="back-btn">← 목록으로</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">지문 4 · 수치심과 죄책감</div>
+    <div class="hero-title">Shame vs. Guilt — <span>감정이 변화를 이끄는 방식</span></div>
+    <div class="hero-sub">2026년 북일여고 6월 고1 모의고사 | 총 17문항 | 영작·어법·어휘·순서·제목·내용일치</div>
+    <div class="passage-box">
+      Shame is about who we are, and guilt is about our behaviors. We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be. It's an uncomfortable feeling, but one that's helpful. When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as powerful as shame, but its effect is often positive while shame often is destructive. When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame corrodes the part of us that believes we can change and do better.
+    </div>
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <span class="filter-label">난이도</span>
+      <button class="filter-btn active" onclick="setFilter('all',this)">전체</button>
+      <button class="filter-btn low"  onclick="setFilter('low',this)">하</button>
+      <button class="filter-btn mid"  onclick="setFilter('mid',this)">중</button>
+      <button class="filter-btn high" onclick="setFilter('high',this)">상</button>
+    </div>
+    <div class="progress-strip">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progFill" style="width:0%"></div></div>
+      <span class="progress-text" id="progText">0 / 17 완료</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainArea">
+
+<!-- ── Q1: 문2 영작/해석 (주관식, 상) ── -->
+<div class="q-card" data-diff="high" data-idx="0">
+  <div class="q-head">
+    <span class="q-num">문 2</span>
+    <span class="q-type-tag">영작 / 해석</span>
+    <span class="diff-tag high">상</span>
+    <span class="card-status" id="cs-0"></span>
+  </div>
+  <div class="q-stem">다음 우리말과 뜻이 같도록 <보기> 안의 단어를 활용 및 변형하여 <strong>문장을 완성</strong>하시오.</div>
+  <div class="mini-passage">
+    It's an uncomfortable feeling, but one that's helpful.<br>
+    _______________, guilt is most often the motivator.
+  </div>
+  <div class="boxi">
+    &lt;보기&gt;<br>
+    we / have / we good / make / that / change / feel amends<br>
+    not for a when / something / about apologize to / we /<br>
+    do / do / behavior others / or
+  </div>
+  <div class="q-stem" style="margin-top:0">우리말: 우리가 저지른 일에 대해 사과하거나, 다른 사람들에게 잘못을 바로잡거나, 우리가 그것에 대해 좋은 기분을 느끼지 않는 행동을 바꿀 때</div>
+  <div class="saq-wrap">
+    <div class="saq-row">
+      <span class="saq-label">영작 →</span>
+      <textarea class="saq-input" id="s0a" rows="2" placeholder="When we apologize for ..."></textarea>
+    </div>
+    <button class="check-btn" id="ck0" onclick="revealSAQ(0)">정답 확인</button>
+    <div class="ans-reveal" id="ar0">
+      <span class="al">✅ 정답</span>
+      <strong>When we apologize for something we have done, make amends to others, or change a behavior that we do not feel good about</strong><br><br>
+      <span style="font-weight:600">해설:</span> 부사절 접속사 When + 주어 we에 이어 'apologize for', 'make amends to', 'change a behavior' 세 동사구를 병렬로 배열. something we have done에서 do → done(과거분사). do not feel good about에서 'about' 필수.
+    </div>
+  </div>
+  <div class="feedback" id="fb0"></div>
+</div>
+
+<!-- ── Q2: 문9 주제 완성 (주관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="1">
+  <div class="q-head">
+    <span class="q-num">문 9</span>
+    <span class="q-type-tag">주제 완성</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-1"></span>
+  </div>
+  <div class="q-stem">다음 글을 읽고 주어진 주제를 조건에 맞게 <strong>완성</strong>하시오.</div>
+  <div class="boxi">
+    the distinct effects of (A) __________ and (B) __________ on personal (C) __________.<br><br>
+    &lt;조건&gt; (A), (B), (C) 각각 본문에 사용된 어휘(1단어)로 채울 것
+  </div>
+  <div class="saq-wrap">
+    <div class="saq-row"><span class="saq-label">(A)</span><input class="saq-input" id="s1a" placeholder="1단어 입력"></div>
+    <div class="saq-row"><span class="saq-label">(B)</span><input class="saq-input" id="s1b" placeholder="1단어 입력"></div>
+    <div class="saq-row"><span class="saq-label">(C)</span><input class="saq-input" id="s1c" placeholder="1단어 입력"></div>
+    <button class="check-btn" id="ck1" onclick="revealSAQ(1)">정답 확인</button>
+    <div class="ans-reveal" id="ar1">
+      <span class="al">✅ 정답</span>
+      (A) <strong>shame</strong> &nbsp;/&nbsp; (B) <strong>guilt</strong> &nbsp;/&nbsp; (C) <strong>change</strong><br>
+      <em>※ (A)와 (B)의 순서는 바뀌어도 됩니다.</em><br><br>
+      <span style="font-weight:600">해설:</span> 수치심(shame)과 죄책감(guilt)이 개인적 변화(change)에 미치는 뚜렷한 영향에 대한 글입니다.
+    </div>
+  </div>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- ── Q3: 문12 어휘/영영풀이 (주관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="2">
+  <div class="q-head">
+    <span class="q-num">문 12</span>
+    <span class="q-type-tag">어휘 / 영영풀이</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-2"></span>
+  </div>
+  <div class="q-stem">다음 글을 읽고 맥락상 주어진 뜻풀이에 해당되는 어휘를 찾아 <strong>기본형(사전형)으로 쓰시오.</strong></div>
+  <div class="boxi">
+    (1) __________: to express regret or say sorry for a mistake or wrongdoing<br>
+    (2) __________: causing great damage or harm
+  </div>
+  <div class="saq-wrap">
+    <div class="saq-row"><span class="saq-label">(1)</span><input class="saq-input" id="s2a" placeholder="기본형으로 입력"></div>
+    <div class="saq-row"><span class="saq-label">(2)</span><input class="saq-input" id="s2b" placeholder="기본형으로 입력"></div>
+    <button class="check-btn" id="ck2" onclick="revealSAQ(2)">정답 확인</button>
+    <div class="ans-reveal" id="ar2">
+      <span class="al">✅ 정답</span>
+      (1) <strong>apologize</strong> — '실수나 잘못에 대해 후회를 표현하거나 미안하다고 말하다'<br>
+      (2) <strong>destructive</strong> — '큰 손상이나 해를 끼치는'
+    </div>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- ── Q4: 문15 어법 괄호 선택 (주관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="3">
+  <div class="q-head">
+    <span class="q-num">문 15</span>
+    <span class="q-type-tag">어법 괄호 선택</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-3"></span>
+  </div>
+  <div class="q-stem">다음 글의 괄호 안에서 <strong>어법에 맞는 표현을 고르시오.</strong></div>
+  <div class="mini-passage">
+    Shame is about who we are, and guilt is about our behaviors. We feel guilty when we hold up something we've done or failed (A) <span class="ul bld">[ to do / doing ]</span> against the kind of person we want to be. It's an uncomfortable feeling, but one (B) <span class="ul bld">[ what / that ]</span> is helpful. When we apologize for something we've done, make amends to others, or change a behavior (C) <span class="ul bld">[ what / that ]</span> we don't feel good about, guilt is most often the motivator. Guilt is just as (D) <span class="ul bld">[ powerful / powerfully ]</span> as shame, but its effect is often positive while shame often is (E) <span class="ul bld">[ destructively / destructive ]</span>. When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame (F) <span class="ul bld">[ corrodes / corroding ]</span> the part of us (G) <span class="ul bld">[ that / what ]</span> believes we can change and do better.
+  </div>
+  <div class="saq-wrap">
+    <div class="saq-row"><span class="saq-label">(A) to do / doing</span><input class="saq-input" id="s3a" placeholder="to do 또는 doing"></div>
+    <div class="saq-row"><span class="saq-label">(B) what / that</span><input class="saq-input" id="s3b" placeholder="what 또는 that"></div>
+    <div class="saq-row"><span class="saq-label">(C) what / that</span><input class="saq-input" id="s3c" placeholder="what 또는 that"></div>
+    <div class="saq-row"><span class="saq-label">(D) powerful / powerfully</span><input class="saq-input" id="s3d" placeholder="powerful 또는 powerfully"></div>
+    <div class="saq-row"><span class="saq-label">(E) destructively / destructive</span><input class="saq-input" id="s3e" placeholder="destructively 또는 destructive"></div>
+    <div class="saq-row"><span class="saq-label">(F) corrodes / corroding</span><input class="saq-input" id="s3f" placeholder="corrodes 또는 corroding"></div>
+    <div class="saq-row"><span class="saq-label">(G) that / what</span><input class="saq-input" id="s3g" placeholder="that 또는 what"></div>
+    <button class="check-btn" id="ck3" onclick="revealSAQ(3)">정답 확인</button>
+    <div class="ans-reveal" id="ar3">
+      <span class="al">✅ 정답</span>
+      (A) <strong>to do</strong> — fail to do: ~하지 못하다 (to부정사)<br>
+      (B) <strong>that</strong> — 선행사 one을 수식하는 주격 관계대명사 (what은 선행사 포함)<br>
+      (C) <strong>that</strong> — 선행사 a behavior를 수식하는 목적격 관계대명사<br>
+      (D) <strong>powerful</strong> — as ~ as 비교 구문 → 형용사<br>
+      (E) <strong>destructive</strong> — is의 주격 보어 → 형용사<br>
+      (F) <strong>corrodes</strong> — that절의 동사 (주어 shame, 현재시제)<br>
+      (G) <strong>that</strong> — 선행사 the part of us를 수식하는 주격 관계대명사
+    </div>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- ── Q5: 문18 순서배열 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="4">
+  <div class="q-head">
+    <span class="q-num">문 18</span>
+    <span class="q-type-tag">순서배열</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-4"></span>
+  </div>
+  <div class="q-stem">주어진 글 다음에 이어질 글의 <strong>순서로 가장 적절한 것</strong>은?</div>
+  <div class="boxi">
+    Shame is about who we are, and guilt is about our behaviors.
+  </div>
+  <div class="mini-passage">
+    (A) When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame corrodes the part of us that believes we can change and do better.<br><br>
+    (B) When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as powerful as shame, but its effect is often positive while shame often is destructive.<br><br>
+    (C) We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be. It's an uncomfortable feeling, but one that's helpful.
+  </div>
+  <div class="opts one-col" id="opts-4">
+    <button class="opt-btn" onclick="selectMCQ(4,0,this)"><span class="opt-n">①</span>(A) - (C) - (B)</button>
+    <button class="opt-btn" onclick="selectMCQ(4,1,this)"><span class="opt-n">②</span>(B) - (A) - (C)</button>
+    <button class="opt-btn" onclick="selectMCQ(4,2,this)"><span class="opt-n">③</span>(B) - (C) - (A)</button>
+    <button class="opt-btn" onclick="selectMCQ(4,3,this)"><span class="opt-n">④</span>(C) - (A) - (B)</button>
+    <button class="opt-btn" onclick="selectMCQ(4,4,this)"><span class="opt-n">⑤</span>(C) - (B) - (A)</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- ── Q6: 문22 어휘 부적절 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="5">
+  <div class="q-head">
+    <span class="q-num">문 22</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-5"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중, <strong>어휘의 쓰임이 적절하지 않은</strong> 것은?</div>
+  <div class="mini-passage">
+    Shame is about who we are, and guilt is about our behaviors. We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be. It's a ① <span class="ul bld">comfortable</span> feeling, but one that's helpful. When we apologize for something we've done, make ② <span class="ul bld">amends</span> to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as powerful as shame, but its effect is often positive while shame often is destructive. When we see people ③ <span class="ul bld">apologize</span>, make amends, or replace negative behaviors with more positive ones, guilt is often the ④ <span class="ul bld">motivator</span>, not shame. In fact, in my research, I found that shame corrodes the part of us that believes we can ⑤ <span class="ul bld">change</span> and do better.
+  </div>
+  <div class="opts" id="opts-5">
+    <button class="opt-btn" onclick="selectMCQ(5,0,this)"><span class="opt-n">①</span>comfortable</button>
+    <button class="opt-btn" onclick="selectMCQ(5,1,this)"><span class="opt-n">②</span>amends</button>
+    <button class="opt-btn" onclick="selectMCQ(5,2,this)"><span class="opt-n">③</span>apologize</button>
+    <button class="opt-btn" onclick="selectMCQ(5,3,this)"><span class="opt-n">④</span>motivator</button>
+    <button class="opt-btn" onclick="selectMCQ(5,4,this)"><span class="opt-n">⑤</span>change</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- ── Q7: 문26 어휘 적절 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="6">
+  <div class="q-head">
+    <span class="q-num">문 26</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-6"></span>
+  </div>
+  <div class="q-stem">다음 글에서 <strong>어휘의 쓰임이 적절한</strong> 것은?</div>
+  <div class="mini-passage">
+    When we (A) <span class="ul bld">[ praise / apologize ]</span> for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as powerful as shame, but its effect is often (B) <span class="ul bld">[ positive / negative ]</span> while shame often is destructive. When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame (C) <span class="ul bld">[ flourishes / corrodes ]</span> the part of us that believes we can change and do better.
+  </div>
+  <div class="opts one-col" id="opts-6">
+    <button class="opt-btn" onclick="selectMCQ(6,0,this)"><span class="opt-n">①</span>(A) praise &nbsp;·&nbsp; (B) positive &nbsp;·&nbsp; (C) flourishes</button>
+    <button class="opt-btn" onclick="selectMCQ(6,1,this)"><span class="opt-n">②</span>(A) apologize &nbsp;·&nbsp; (B) negative &nbsp;·&nbsp; (C) flourishes</button>
+    <button class="opt-btn" onclick="selectMCQ(6,2,this)"><span class="opt-n">③</span>(A) praise &nbsp;·&nbsp; (B) negative &nbsp;·&nbsp; (C) corrodes</button>
+    <button class="opt-btn" onclick="selectMCQ(6,3,this)"><span class="opt-n">④</span>(A) apologize &nbsp;·&nbsp; (B) positive &nbsp;·&nbsp; (C) corrodes</button>
+    <button class="opt-btn" onclick="selectMCQ(6,4,this)"><span class="opt-n">⑤</span>(A) praise &nbsp;·&nbsp; (B) positive &nbsp;·&nbsp; (C) corrodes</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- ── Q8: 문30 순서배열 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="7">
+  <div class="q-head">
+    <span class="q-num">문 30</span>
+    <span class="q-type-tag">순서배열</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-7"></span>
+  </div>
+  <div class="q-stem">다음 글에 이어질 알맞은 글의 순서는?</div>
+  <div class="boxi">
+    Shame is about who we are, and guilt is about our behaviors. We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be.
+  </div>
+  <div class="mini-passage">
+    (A) Guilt is just as powerful as shame, but its effect is often positive while shame often is destructive. When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame.<br><br>
+    (B) In fact, in my research, I found that shame corrodes the part of us that believes we can change and do better.<br><br>
+    (C) It's an uncomfortable feeling, but one that's helpful. When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator.
+  </div>
+  <div class="opts one-col" id="opts-7">
+    <button class="opt-btn" onclick="selectMCQ(7,0,this)"><span class="opt-n">①</span>(A) - (C) - (B)</button>
+    <button class="opt-btn" onclick="selectMCQ(7,1,this)"><span class="opt-n">②</span>(B) - (A) - (C)</button>
+    <button class="opt-btn" onclick="selectMCQ(7,2,this)"><span class="opt-n">③</span>(B) - (C) - (A)</button>
+    <button class="opt-btn" onclick="selectMCQ(7,3,this)"><span class="opt-n">④</span>(C) - (A) - (B)</button>
+    <button class="opt-btn" onclick="selectMCQ(7,4,this)"><span class="opt-n">⑤</span>(C) - (B) - (A)</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<!-- ── Q9: 문34 어휘 부적절 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="8">
+  <div class="q-head">
+    <span class="q-num">문 34</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-8"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중, <strong>문맥상 낱말의 쓰임이 적절하지 않은</strong> 것은?</div>
+  <div class="mini-passage">
+    Shame is about who we are, and guilt is about our ① <span class="ul bld">behaviors</span>. We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be. It's an uncomfortable feeling, but one that's ② <span class="ul bld">helpful</span>. When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the ③ <span class="ul bld">motivator</span>. Guilt is just as powerful as shame, but its effect is often positive while shame often is ④ <span class="ul bld">destructive</span>. When we see people apologize, make amends, or replace negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame ⑤ <span class="ul bld">strengthens</span> the part of us that believes we can change and do better.
+  </div>
+  <div class="opts" id="opts-8">
+    <button class="opt-btn" onclick="selectMCQ(8,0,this)"><span class="opt-n">①</span>behaviors</button>
+    <button class="opt-btn" onclick="selectMCQ(8,1,this)"><span class="opt-n">②</span>helpful</button>
+    <button class="opt-btn" onclick="selectMCQ(8,2,this)"><span class="opt-n">③</span>motivator</button>
+    <button class="opt-btn" onclick="selectMCQ(8,3,this)"><span class="opt-n">④</span>destructive</button>
+    <button class="opt-btn" onclick="selectMCQ(8,4,this)"><span class="opt-n">⑤</span>strengthens</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+</div>
+
+<!-- ── Q10: 문38 제목 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="9">
+  <div class="q-head">
+    <span class="q-num">문 38</span>
+    <span class="q-type-tag">제목</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-9"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>제목으로 가장 적절한</strong> 것은?</div>
+  <div class="opts one-col" id="opts-9">
+    <button class="opt-btn" onclick="selectMCQ(9,0,this)"><span class="opt-n">①</span>The Power of Belief in Personal Change</button>
+    <button class="opt-btn" onclick="selectMCQ(9,1,this)"><span class="opt-n">②</span>Mastering Our Inner Emotional Responses</button>
+    <button class="opt-btn" onclick="selectMCQ(9,2,this)"><span class="opt-n">③</span>Shame: Corroding Our Ability to Improve?</button>
+    <button class="opt-btn" onclick="selectMCQ(9,3,this)"><span class="opt-n">④</span>Guilt Drives Change, Shame Destroys Belief</button>
+    <button class="opt-btn" onclick="selectMCQ(9,4,this)"><span class="opt-n">⑤</span>Why Apologizing Is Key to Healthy Relationships</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+</div>
+
+<!-- ── Q11: 문42 어법 틀린 문장 (객관식, 하) ── -->
+<div class="q-card" data-diff="low" data-idx="10">
+  <div class="q-head">
+    <span class="q-num">문 42</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag low">하</span>
+    <span class="card-status" id="cs-10"></span>
+  </div>
+  <div class="q-stem">다음 중, <strong>어법상 틀린 부분을 포함하고 있는</strong> 것은?</div>
+  <div class="opts one-col" id="opts-10">
+    <button class="opt-btn" onclick="selectMCQ(10,0,this)"><span class="opt-n">①</span>We feel guilty when we hold up something we've done or failed to do against the kind of person we want to be.</button>
+    <button class="opt-btn" onclick="selectMCQ(10,1,this)"><span class="opt-n">②</span>It's an uncomfortable feeling, but one that's helpful.</button>
+    <button class="opt-btn" onclick="selectMCQ(10,2,this)"><span class="opt-n">③</span>When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good, guilt is most often the motivator.</button>
+    <button class="opt-btn" onclick="selectMCQ(10,3,this)"><span class="opt-n">④</span>Guilt is just as powerful as shame, but its effect is often positive while shame often is destructive.</button>
+    <button class="opt-btn" onclick="selectMCQ(10,4,this)"><span class="opt-n">⑤</span>I found that shame corrodes the part of us that believes we can change and do better.</button>
+  </div>
+  <div class="feedback" id="fb10"></div>
+</div>
+
+<!-- ── Q12: 문46 내용일치 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="11">
+  <div class="q-head">
+    <span class="q-num">문 46</span>
+    <span class="q-type-tag">내용일치</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-11"></span>
+  </div>
+  <div class="q-stem">본문의 내용과 <strong>일치하는</strong> 것을 고르시오.</div>
+  <div class="opts one-col" id="opts-11">
+    <button class="opt-btn" onclick="selectMCQ(11,0,this)"><span class="opt-n">①</span>우리는 우리가 되고자 하는 사람의 모습에 비추어 우리가 한 일이나 하지 못한 일을 평가할 때 수치심을 느낀다.</button>
+    <button class="opt-btn" onclick="selectMCQ(11,1,this)"><span class="opt-n">②</span>수치심은 불편하지만, 사과하거나 행동을 바꾸도록 동기를 부여하는 데 도움이 된다.</button>
+    <button class="opt-btn" onclick="selectMCQ(11,2,this)"><span class="opt-n">③</span>Shame은 guilt만큼 강력하지만, 그 효과는 종종 긍정적인 반면 guilt는 파괴적이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(11,3,this)"><span class="opt-n">④</span>사람들이 부정적인 행동을 긍정적인 행동으로 바꾸는 주된 동기는 shame이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(11,4,this)"><span class="opt-n">⑤</span>Shame은 우리가 변화하고 더 나아질 수 있다고 믿는 우리 자신의 일부를 약화시킨다.</button>
+  </div>
+  <div class="feedback" id="fb11"></div>
+</div>
+
+<!-- ── Q13: 문50 내용불일치 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="12">
+  <div class="q-head">
+    <span class="q-num">문 50</span>
+    <span class="q-type-tag">내용불일치</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-12"></span>
+  </div>
+  <div class="q-stem">본문의 내용과 <strong>일치하지 않는</strong> 것을 고르시오.</div>
+  <div class="opts one-col" id="opts-12">
+    <button class="opt-btn" onclick="selectMCQ(12,0,this)"><span class="opt-n">①</span>우리는 우리가 되고자 하는 사람의 모습에 비추어 우리가 한 일이나 하지 못한 일을 평가할 때 수치심을 느낀다.</button>
+    <button class="opt-btn" onclick="selectMCQ(12,1,this)"><span class="opt-n">②</span>죄책감은 불편하지만, 사과하거나 행동을 바꾸도록 동기를 부여하는 데 도움이 된다.</button>
+    <button class="opt-btn" onclick="selectMCQ(12,2,this)"><span class="opt-n">③</span>Guilt는 shame만큼 강력하지만, 그 효과는 종종 긍정적인 반면 shame은 파괴적이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(12,3,this)"><span class="opt-n">④</span>사람들이 부정적인 행동을 긍정적인 행동으로 바꾸는 동기는 shame이 아닌 guilt인 경우가 많다.</button>
+    <button class="opt-btn" onclick="selectMCQ(12,4,this)"><span class="opt-n">⑤</span>Shame은 우리가 변화하고 더 나아질 수 있다고 믿는 우리 자신의 일부를 약화시킨다.</button>
+  </div>
+  <div class="feedback" id="fb12"></div>
+</div>
+
+<!-- ── Q14: 문54 내용일치 (영어, 객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="13">
+  <div class="q-head">
+    <span class="q-num">문 54</span>
+    <span class="q-type-tag">내용일치 (영어)</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-13"></span>
+  </div>
+  <div class="q-stem">본문의 내용과 <strong>일치하는</strong> 것을 고르시오.</div>
+  <div class="opts one-col" id="opts-13">
+    <button class="opt-btn" onclick="selectMCQ(13,0,this)"><span class="opt-n">①</span>Shame is about a person's identity, while guilt is about their behaviors.</button>
+    <button class="opt-btn" onclick="selectMCQ(13,1,this)"><span class="opt-n">②</span>Shame is experienced when one's actions conflict with the person they aspire to be.</button>
+    <button class="opt-btn" onclick="selectMCQ(13,2,this)"><span class="opt-n">③</span>Shame is often the motivator for actions like apologizing, making amends, or changing behavior.</button>
+    <button class="opt-btn" onclick="selectMCQ(13,3,this)"><span class="opt-n">④</span>While shame often has a positive effect, guilt's effect is frequently destructive.</button>
+    <button class="opt-btn" onclick="selectMCQ(13,4,this)"><span class="opt-n">⑤</span>Guilt can erode the belief that one is capable of changing and doing better.</button>
+  </div>
+  <div class="feedback" id="fb13"></div>
+</div>
+
+<!-- ── Q15: 문58 어법 옳은 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="14">
+  <div class="q-head">
+    <span class="q-num">문 58</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-14"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 옳은</strong> 것은?</div>
+  <div class="mini-passage">
+    Shame is about who we are, and guilt is about our behaviors. We feel guilty when we ① <span class="ul bld">are held up</span> something we've done or ② <span class="ul bld">failing</span> to do against the kind of person we want to be. It's an uncomfortable feeling, but one ③ <span class="ul bld">that's</span> helpful. When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as ④ <span class="ul bld">powerfully</span> as shame, but its effect is often positive while shame often is destructive. In fact, in my research, I found that shame corrodes the part of us ⑤ <span class="ul bld">what</span> believes we can change and do better.
+  </div>
+  <div class="opts" id="opts-14">
+    <button class="opt-btn" onclick="selectMCQ(14,0,this)"><span class="opt-n">①</span>are held up</button>
+    <button class="opt-btn" onclick="selectMCQ(14,1,this)"><span class="opt-n">②</span>failing</button>
+    <button class="opt-btn" onclick="selectMCQ(14,2,this)"><span class="opt-n">③</span>that's</button>
+    <button class="opt-btn" onclick="selectMCQ(14,3,this)"><span class="opt-n">④</span>powerfully</button>
+    <button class="opt-btn" onclick="selectMCQ(14,4,this)"><span class="opt-n">⑤</span>what</button>
+  </div>
+  <div class="feedback" id="fb14"></div>
+</div>
+
+<!-- ── Q16: 문62 어법 옳은 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="15">
+  <div class="q-head">
+    <span class="q-num">문 62</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-15"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 옳은</strong> 것은?</div>
+  <div class="mini-passage">
+    Shame is about ① <span class="ul bld">who</span> we are, and guilt is about our behaviors. We feel guilty when we hold up something we've done or ② <span class="ul bld">failing</span> to do against the kind of person we want to be. It's an uncomfortable feeling, but one that's ③ <span class="ul bld">helpfully</span>. When we apologize for something we've done, make amends to others, or ④ <span class="ul bld">replacing</span> negative behaviors with more positive ones, guilt is often the motivator, not shame. In fact, in my research, I found that shame corrodes the part of us ⑤ <span class="ul bld">what</span> believes we can change and do better.
+  </div>
+  <div class="opts" id="opts-15">
+    <button class="opt-btn" onclick="selectMCQ(15,0,this)"><span class="opt-n">①</span>who</button>
+    <button class="opt-btn" onclick="selectMCQ(15,1,this)"><span class="opt-n">②</span>failing</button>
+    <button class="opt-btn" onclick="selectMCQ(15,2,this)"><span class="opt-n">③</span>helpfully</button>
+    <button class="opt-btn" onclick="selectMCQ(15,3,this)"><span class="opt-n">④</span>replacing</button>
+    <button class="opt-btn" onclick="selectMCQ(15,4,this)"><span class="opt-n">⑤</span>what</button>
+  </div>
+  <div class="feedback" id="fb15"></div>
+</div>
+
+<!-- ── Q17: 문66 어법 틀린 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="16">
+  <div class="q-head">
+    <span class="q-num">문 66</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-16"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 틀린</strong> 것은?</div>
+  <div class="mini-passage">
+    Shame is about who we are, and guilt is about our behaviors. We feel guilty when we ① <span class="ul bld">hold up</span> something we've done or failed to do ② <span class="ul bld">against</span> the kind of person we want to be. It's an uncomfortable feeling, but one that's ③ <span class="ul bld">helpful</span>. When we apologize for something we've done, make amends to others, or change a behavior that we don't feel good about, guilt is most often the motivator. Guilt is just as ④ <span class="ul bld">powerful</span> as shame, but its effect is often positive while shame often is destructive. In fact, in my research, I found that shame ⑤ <span class="ul bld">is corroding</span> the part of us that believes we can change and do better.
+  </div>
+  <div class="opts" id="opts-16">
+    <button class="opt-btn" onclick="selectMCQ(16,0,this)"><span class="opt-n">①</span>hold up</button>
+    <button class="opt-btn" onclick="selectMCQ(16,1,this)"><span class="opt-n">②</span>against</button>
+    <button class="opt-btn" onclick="selectMCQ(16,2,this)"><span class="opt-n">③</span>helpful</button>
+    <button class="opt-btn" onclick="selectMCQ(16,3,this)"><span class="opt-n">④</span>powerful</button>
+    <button class="opt-btn" onclick="selectMCQ(16,4,this)"><span class="opt-n">⑤</span>is corroding</button>
+  </div>
+  <div class="feedback" id="fb16"></div>
+</div>
+
+<!-- SCORE PANEL -->
+<div class="score-panel" id="scorePanel">
+  <div class="sp-ring" id="spRing">
+    <div class="sp-inner">
+      <div class="sp-num" id="spNum">0</div>
+      <div class="sp-denom" id="spDenom">/ 17</div>
+    </div>
+  </div>
+  <div class="sp-title" id="spTitle"></div>
+  <div class="sp-sub" id="spSub"></div>
+  <button class="sp-restart" onclick="restartAll()">다시 풀기 →</button>
+</div>
+
+</div><!-- /main -->
+
+<!-- Floating score -->
+<div class="float-score" id="floatScore" onclick="scrollToScore()">
+  <span id="floatTxt">0 / 17</span>
+  <span>점수 보기 →</span>
+</div>
+
+<script>
+// MCQ answers (0-based index)
+const MCQ = {
+  4:  { ans: 4, expl: '정답 ⑤ (C)-(B)-(A) — (C) 죄책감 정의 → (B) 죄책감의 역할·강력함 → (A) 수치심의 파괴성으로 마무리.' },
+  5:  { ans: 0, expl: '정답 ① comfortable → uncomfortable — 죄책감은 불편한 감정이지만 도움이 됩니다.' },
+  6:  { ans: 3, expl: '정답 ④ — (A) apologize: 죄책감은 사과의 동기. (B) positive: guilt의 효과는 긍정적. (C) corrodes: shame은 변화 믿음을 좀먹는다.' },
+  7:  { ans: 3, expl: '정답 ④ (C)-(A)-(B) — (C) 불편하지만 도움 → (A) 죄책감 vs 수치심 비교 → (B) 수치심이 변화 믿음을 부식.' },
+  8:  { ans: 4, expl: '정답 ⑤ strengthens → corrodes — 수치심은 변화할 수 있다는 믿음을 강화하는 것이 아니라 좀먹고(corrodes) 훼손합니다.' },
+  9:  { ans: 3, expl: '정답 ④ "Guilt Drives Change, Shame Destroys Belief" — 죄책감은 변화를 이끌고, 수치심은 믿음을 파괴한다는 핵심을 정확히 요약합니다.' },
+  10: { ans: 2, expl: '정답 ③ — "feel good" 뒤에 전치사 about이 필요합니다. 관계대명사 that이 이끄는 절에서 전치사 목적어가 비어야 선행사 a behavior를 수식합니다. feel good about → 필수.' },
+  11: { ans: 4, expl: '정답 ⑤ — "shame corrodes the part of us that believes we can change and do better"에서 수치심이 변화 가능성에 대한 믿음을 약화시킨다고 명시합니다.' },
+  12: { ans: 0, expl: '정답 ① — 본문은 "We feel guilty when ..."라고 합니다. 수치심(shame)이 아니라 죄책감(guilt)을 느끼는 상황입니다.' },
+  13: { ans: 0, expl: '정답 ① — "Shame is about who we are, and guilt is about our behaviors."에서 수치심은 정체성, 죄책감은 행동에 관한 것임을 명시합니다.' },
+  14: { ans: 2, expl: '정답 ③ that\'s — "one that\'s helpful"에서 that은 선행사 one을 수식하는 주격 관계대명사로 어법상 옳습니다.' },
+  15: { ans: 0, expl: '정답 ① who — 전치사 about의 목적어로 "who we are"(우리가 어떤 사람인지)는 명사절로 어법상 맞습니다.' },
+  16: { ans: 4, expl: '정답 ⑤ is corroding → corrodes — 수치심이 지속적으로 믿음을 훼손한다는 일반적 사실을 나타내므로 현재진행형(is corroding)이 아닌 단순현재(corrodes)가 맞습니다.' },
+};
+
+const TOTAL = 17;
+let results = new Array(TOTAL).fill(null);
+let saqDone = [false, false, false, false]; // idx 0~3
+let score = 0;
+let currentFilter = 'all';
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.q-card').forEach(card => {
+    const diff = card.dataset.diff;
+    card.classList.toggle('hidden', f !== 'all' && diff !== f);
+  });
+}
+
+function updateProgress() {
+  const done = results.filter(r => r !== null).length;
+  const pct = (done / TOTAL) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progText').textContent = done + ' / ' + TOTAL + ' 완료';
+  document.getElementById('floatTxt').textContent = score + ' / ' + TOTAL;
+  if (done === TOTAL) showScore();
+}
+
+function markCard(idx, type) {
+  const card = document.querySelector('[data-idx="' + idx + '"]');
+  card.classList.remove('done-correct','done-wrong','done-revealed');
+  card.classList.add('done-' + type);
+  const cs = document.getElementById('cs-' + idx);
+  cs.className = 'card-status';
+  if (type === 'correct') { cs.classList.add('ok'); cs.textContent = '✅ 정답'; }
+  else if (type === 'wrong') { cs.classList.add('bad'); cs.textContent = '❌ 오답'; }
+  else { cs.classList.add('rev'); cs.textContent = '✅ 확인'; }
+}
+
+function revealSAQ(idx) {
+  if (saqDone[idx]) return;
+  saqDone[idx] = true;
+  document.getElementById('ck' + idx).disabled = true;
+  document.getElementById('ar' + idx).classList.add('show');
+  results[idx] = 'revealed';
+  score++;
+  markCard(idx, 'revealed');
+  updateProgress();
+}
+
+function selectMCQ(cardIdx, chosen, btn) {
+  if (results[cardIdx] !== null) return;
+  const cfg = MCQ[cardIdx];
+  const allBtns = document.querySelectorAll('#opts-' + cardIdx + ' .opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+  const fb = document.getElementById('fb' + cardIdx);
+  if (chosen === cfg.ans) {
+    results[cardIdx] = true; score++;
+    btn.classList.add('correct');
+    fb.className = 'feedback correct-fb show';
+    fb.innerHTML = '✅ 정답! <span style="font-weight:500;font-size:12px">' + cfg.expl + '</span>';
+    markCard(cardIdx, 'correct');
+  } else {
+    results[cardIdx] = false;
+    btn.classList.add('wrong');
+    allBtns[cfg.ans].classList.add('reveal');
+    fb.className = 'feedback wrong-fb show';
+    fb.innerHTML = '❌ 오답 <span style="font-weight:500;font-size:12px">' + cfg.expl + '</span>';
+    markCard(cardIdx, 'wrong');
+  }
+  updateProgress();
+}
+
+function showScore() {
+  const panel = document.getElementById('scorePanel');
+  panel.classList.add('show');
+  const pct = score / TOTAL;
+  document.getElementById('spRing').style.setProperty('--fill', Math.round(pct*360)+'deg');
+  document.getElementById('spNum').textContent = score;
+  document.getElementById('spDenom').textContent = '/ ' + TOTAL;
+  let title, sub;
+  if (pct===1)       { title='완벽! 만점 🎉'; sub='17문항 모두 맞혔습니다. 훌륭해요!'; }
+  else if (pct>=.8)  { title='아주 잘했어요 👍'; sub='틀린 문제를 한 번 더 확인해봐요.'; }
+  else if (pct>=.6)  { title='잘하고 있어요 😊'; sub='틀린 유형을 복습해봐요.'; }
+  else               { title='다시 도전! 💪'; sub='지문을 다시 읽고 재도전해봐요.'; }
+  document.getElementById('spTitle').textContent = title;
+  document.getElementById('spSub').textContent = sub;
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToScore() {
+  if (document.getElementById('scorePanel').classList.contains('show')) {
+    document.getElementById('scorePanel').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    showScore();
+  }
+}
+
+function restartAll() {
+  score = 0;
+  results = new Array(TOTAL).fill(null);
+  saqDone = [false, false, false, false];
+  document.querySelectorAll('.opt-btn').forEach(b => { b.className='opt-btn'; b.disabled=false; });
+  document.querySelectorAll('.feedback').forEach(f => { f.className='feedback'; f.innerHTML=''; });
+  document.querySelectorAll('.ans-reveal').forEach(a => a.classList.remove('show'));
+  document.querySelectorAll('.saq-input').forEach(i => { i.value=''; i.disabled=false; });
+  document.querySelectorAll('.check-btn').forEach(b => b.disabled=false);
+  document.querySelectorAll('.card-status').forEach(c => { c.className='card-status'; c.textContent=''; });
+  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('done-correct','done-wrong','done-revealed'));
+  document.getElementById('scorePanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress();
+</script>
+</body>
+</html>

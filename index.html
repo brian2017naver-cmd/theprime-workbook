@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE PRIME | 북일여고 6월 고1 모의고사</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --gold: #c9a84c;
+    --steel: #3a5f8a;
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --border: #e2e6f0;
+    --muted: #6b7280;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 32px 24px 28px;
+    text-align: center;
+  }
+  .brand {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+  .gold-line {
+    width: 40px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 99px;
+    margin: 14px auto 0;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 28px 16px 48px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* PASSAGE CARDS */
+  .passage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .passage-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .passage-card:hover {
+    box-shadow: 0 6px 20px rgba(26,39,68,0.12);
+    transform: translateY(-2px);
+  }
+
+  .p-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p-info { flex: 1; }
+  .p-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .p-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .p-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 7px;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background: #eef2fb;
+    color: var(--steel);
+  }
+
+  .p-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* INFO BOX */
+  .info-box {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: rgba(255,255,255,0.75);
+    font-size: 12.5px;
+    line-height: 1.8;
+  }
+  .info-box strong {
+    color: var(--gold);
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .info-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .info-row span:first-child { flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">The Prime Academy</div>
+  <h1>북일여고 6월 고1 모의고사<br>인터랙티브 워크북</h1>
+  <p>2025학년도 · 고등학교 1학년</p>
+  <div class="gold-line"></div>
+</header>
+
+<main>
+
+  <div class="section-label">📚 지문 선택</div>
+
+  <div class="passage-list">
+
+    <!-- Passage 1 -->
+    <a class="passage-card" href="passage1.html">
+      <div class="p-num">1</div>
+      <div class="p-info">
+        <div class="p-title">Passage 1 · 행동심리학</div>
+        <div class="p-desc">Behavioral Psychology — 행동과 보상의 원리</div>
+        <div class="p-tags">
+          <span class="tag">어법</span>
+          <span class="tag">빈칸</span>
+          <span class="tag">순서배열</span>
+          <span class="tag">내용일치</span>
+        </div>
+      </div>
+      <div class="p-arrow">›</div>
+    </a>
+
+    <!-- Passage 2 -->
+    <a class="passage-card" href="passage2.html">
+      <div class="p-num">2</div>
+      <div class="p-info">
+        <div class="p-title">Passage 2 · 삼림벌채</div>
+        <div class="p-desc">Deforestation — 환경과 생태계의 위기</div>
+        <div class="p-tags">
+          <span class="tag">어법</span>
+          <span class="tag">빈칸</span>
+          <span class="tag">문장삽입</span>
+          <span class="tag">주제</span>
+        </div>
+      </div>
+      <div class="p-arrow">›</div>
+    </a>
+
+    <!-- Passage 3 -->
+    <a class="passage-card" href="passage3.html">
+      <div class="p-num">3</div>
+      <div class="p-info">
+        <div class="p-title">Passage 3 · 창의성</div>
+        <div class="p-desc">Creativity — Eureka Moments &amp; Breadth of Experience</div>
+        <div class="p-tags">
+          <span class="tag">어법</span>
+          <span class="tag">빈칸</span>
+          <span class="tag">문장삽입</span>
+          <span class="tag">순서배열</span>
+          <span class="tag">주제</span>
+        </div>
+      </div>
+      <div class="p-arrow">›</div>
+    </a>
+
+  </div>
+
+  <div class="section-label">📌 워크북 안내</div>
+  <div class="info-box">
+    <strong>학습 방법</strong>
+    <div class="info-row"><span>①</span><span>각 지문을 클릭해 문제를 풀어보세요.</span></div>
+    <div class="info-row"><span>②</span><span>Step 1(하) → Step 2(중) → Step 3(상) 순으로 난이도가 올라갑니다.</span></div>
+    <div class="info-row"><span>③</span><span>상단 필터(하·중·상)로 원하는 난이도만 볼 수 있습니다.</span></div>
+    <div class="info-row"><span>④</span><span>즉시 채점 후 해설이 표시됩니다.</span></div>
+  </div>
+
+</main>
+
+<footer>THE PRIME Academy · 북일여고 6월 고1 모의고사</footer>
+
+</body>
+</html>

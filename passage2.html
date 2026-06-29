@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지문2 삼림벌채 | 북일여고 6월 모의고사</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243358;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --blue-steel: #3a5f8a;
+    --bg: #f5f6fa;
+    --card-bg: #ffffff;
+    --text: #1e2533;
+    --text-sub: #5a6580;
+    --border: #dde3ef;
+    --correct: #1a7a4a;
+    --correct-bg: #e6f7ee;
+    --wrong: #c0392b;
+    --wrong-bg: #fdecea;
+    --tag-bg: #eef1f8;
+    --passage-bg: #f0f4ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--blue-steel) 100%);
+    color: white;
+    padding: 28px 24px 22px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,39,68,0.18);
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; }
+  .header-meta {
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  header h1 span { color: var(--gold); }
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 5px;
+  }
+
+  /* ── PASSAGE BLOCK ── */
+  .passage-wrap {
+    max-width: 860px;
+    margin: 22px auto 0;
+    padding: 0 16px;
+  }
+  .passage-box {
+    background: var(--passage-bg);
+    border: 1.5px solid #c8d4f0;
+    border-left: 5px solid var(--gold);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .passage-box h2 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue-steel);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .passage-box h2::before {
+    content: '📖';
+    font-size: 14px;
+  }
+  .passage-text {
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--text);
+    font-family: 'Georgia', serif;
+  }
+  .passage-text .ko {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-wrap {
+    max-width: 860px;
+    margin: 18px auto 0;
+    padding: 0 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-label { font-size: 12px; color: var(--text-sub); margin-right: 4px; }
+  .filter-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .18s;
+    color: var(--text-sub);
+    font-weight: 500;
+  }
+  .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .filter-btn.active {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+  }
+
+  /* ── SCORE SUMMARY ── */
+  .score-bar {
+    max-width: 860px;
+    margin: 14px auto 0;
+    padding: 0 16px;
+  }
+  .score-inner {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .score-inner span { font-size: 13px; color: var(--text-sub); }
+  .score-inner strong { color: var(--navy); font-size: 15px; }
+  #progressBar {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 80px;
+  }
+  #progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--blue-steel));
+    border-radius: 4px;
+    transition: width .4s ease;
+    width: 0%;
+  }
+
+  /* ── QUESTION CARDS ── */
+  .questions-wrap {
+    max-width: 860px;
+    margin: 18px auto 40px;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .q-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .q-card:hover { box-shadow: 0 4px 18px rgba(26,39,68,0.09); }
+  .q-card.hidden { display: none; }
+  .q-card.answered-correct { border-color: var(--correct); }
+  .q-card.answered-wrong { border-color: var(--wrong); }
+
+  .q-header {
+    padding: 12px 18px;
+    background: var(--tag-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .q-num {
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+  }
+  .q-type {
+    font-size: 11px;
+    color: var(--blue-steel);
+    background: rgba(58,95,138,0.1);
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .q-diff {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+  .diff-하 { background: #e8f5e9; color: #2e7d32; }
+  .diff-중 { background: #fff8e1; color: #f57f17; }
+  .diff-상 { background: #fce4ec; color: #c62828; }
+
+  .q-body { padding: 18px 20px; }
+  .q-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  /* passage excerpt */
+  .q-passage {
+    background: #f8f9ff;
+    border: 1px solid #dde3ef;
+    border-left: 4px solid var(--blue-steel);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #2a3550;
+    margin-bottom: 14px;
+    font-family: 'Georgia', serif;
+  }
+  .q-passage .underline { text-decoration: underline; text-decoration-color: var(--gold); }
+  .q-passage .numbered { 
+    display: inline-block;
+    font-style: normal;
+    color: var(--blue-steel);
+    font-weight: 600;
+  }
+
+  /* 주관식 table */
+  .correction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+  .correction-table th {
+    background: var(--navy);
+    color: white;
+    padding: 8px 14px;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+  }
+  .correction-table td {
+    border: 1px solid var(--border);
+    padding: 9px 14px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .correction-table .arrow { color: var(--gold); font-size: 16px; font-weight: 700; }
+  .answer-input {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    width: 130px;
+    transition: border-color .2s;
+    outline: none;
+    text-align: center;
+  }
+  .answer-input:focus { border-color: var(--gold); }
+  .answer-input.correct-input { border-color: var(--correct); background: var(--correct-bg); }
+  .answer-input.wrong-input { border-color: var(--wrong); background: var(--wrong-bg); }
+
+  /* 객관식 choices */
+  .choices { list-style: none; margin-bottom: 14px; }
+  .choices li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all .15s;
+    font-size: 14px;
+  }
+  .choices li:hover { background: var(--tag-bg); border-color: var(--border); }
+  .choice-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--border);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all .15s;
+  }
+  .choices li:hover .choice-num { background: var(--navy); color: white; }
+  .choices li.selected { border-color: var(--navy); background: #f0f4ff; }
+  .choices li.selected .choice-num { background: var(--navy); color: white; }
+  .choices li.correct-choice { border-color: var(--correct); background: var(--correct-bg); }
+  .choices li.correct-choice .choice-num { background: var(--correct); color: white; }
+  .choices li.wrong-choice { border-color: var(--wrong); background: var(--wrong-bg); }
+  .choices li.wrong-choice .choice-num { background: var(--wrong); color: white; }
+
+  /* 2-col choices (A/B table) */
+  .choices-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+  }
+  .choices-table th {
+    background: var(--tag-bg);
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-sub);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .choices-table td {
+    border: 1px solid var(--border);
+    padding: 7px 12px;
+    text-align: center;
+  }
+  .choices-table tr { cursor: pointer; transition: background .15s; }
+  .choices-table tr:hover td { background: var(--tag-bg); }
+  .choices-table tr.selected td { background: #f0f4ff; }
+  .choices-table tr.correct-choice td { background: var(--correct-bg); }
+  .choices-table tr.wrong-choice td { background: var(--wrong-bg); }
+
+  /* summary fill-in */
+  .summary-box {
+    background: #f8f9ff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .blank-input {
+    border: none;
+    border-bottom: 2px solid var(--gold);
+    background: transparent;
+    font-size: 14px;
+    width: 90px;
+    text-align: center;
+    outline: none;
+    color: var(--navy);
+    font-weight: 600;
+    padding: 0 4px;
+  }
+
+  /* submit button */
+  .q-footer { padding: 0 20px 18px; }
+  .submit-btn {
+    padding: 9px 22px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .18s;
+  }
+  .submit-btn:hover { background: var(--blue-steel); }
+  .submit-btn:disabled { background: var(--border); color: var(--text-sub); cursor: default; }
+
+  /* feedback */
+  .feedback {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .feedback.correct { background: var(--correct-bg); color: var(--correct); border: 1px solid #a8e6c0; display: block; }
+  .feedback.wrong { background: var(--wrong-bg); color: var(--wrong); border: 1px solid #f5b7b1; display: block; }
+  .feedback strong { font-weight: 700; }
+
+  /* 완료 패널 */
+  #doneBanner {
+    display: none;
+    max-width: 860px;
+    margin: 0 auto 32px;
+    padding: 0 16px;
+  }
+  .done-inner {
+    background: linear-gradient(135deg, var(--navy), var(--blue-steel));
+    color: white;
+    border-radius: 14px;
+    padding: 28px 28px;
+    text-align: center;
+  }
+  .done-inner h2 { font-size: 22px; margin-bottom: 8px; }
+  .done-inner .score-big { font-size: 48px; font-weight: 800; color: var(--gold); line-height: 1; }
+  .done-inner p { font-size: 14px; color: rgba(255,255,255,0.75); margin-top: 8px; }
+
+  /* 반응형 */
+  @media (max-width: 600px) {
+    header h1 { font-size: 17px; }
+    .passage-text { font-size: 13px; }
+    .q-body { padding: 14px 14px; }
+    .answer-input { width: 110px; }
+    .correction-table td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-meta">THE PRIME · 2026 북일여고 6월 고1 모의고사</div>
+    <h1>지문 2 · <span>삼림벌채와 지구온난화</span></h1>
+    <div class="header-sub">Deforestation &amp; Global Warming · 총 16문항</div>
+  </div>
+</header>
+
+<!-- 지문 원문 -->
+<div class="passage-wrap">
+  <div class="passage-box">
+    <h2>원문 지문 (Passage 2)</h2>
+    <div class="passage-text">
+      Approximately 15–20% of global greenhouse gas emissions are caused by degradation and deforestation. Trees play a huge role in the carbon cycle. They convert the CO₂ in the air to oxygen through the process of photosynthesis, and consequently, they are viewed as a natural regulator of carbon dioxide. The existence of a larger amount of trees will no doubt lead to the reduced presence of carbon dioxide in the atmosphere and the increased existence of oxygen. Unfortunately, deforestation is preventing this process from being fully accomplished. And with half of the Earth's forests gone, the amount of carbon dioxide is progressively rising. With more carbon dioxide in the atmosphere, more of the sun's radiation is being reflected back to Earth instead of being released into space, and this is causing the planet's average temperature to rise. Accordingly, deforestation is a major issue when it comes to global warming.
+      <div class="ko">
+        전 세계 온실가스 배출량의 약 15~20%가 삼림 황폐화와 벌채로 인해 발생한다. 나무는 탄소 순환에서 중요한 역할을 하며, 광합성을 통해 공기 중 이산화탄소를 산소로 전환하여 이산화탄소의 자연 조절자 역할을 한다. 그러나 삼림 벌채로 인해 이 과정이 방해받아 대기 중 이산화탄소가 점진적으로 증가하고, 태양 복사열이 우주로 방출되지 않고 지구로 반사되어 지구 평균 온도가 상승하고 있다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 필터 -->
+<div class="filter-wrap">
+  <span class="filter-label">난이도</span>
+  <button class="filter-btn active" data-filter="전체">전체</button>
+  <button class="filter-btn" data-filter="하">하</button>
+  <button class="filter-btn" data-filter="중">중</button>
+</div>
+
+<!-- 진행도 -->
+<div class="score-bar">
+  <div class="score-inner">
+    <span>진행 <strong id="doneCount">0</strong> / <strong id="totalCount">16</strong></span>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <span>정답 <strong id="correctCount" style="color:var(--correct)">0</strong></span>
+    <span>오답 <strong id="wrongCount" style="color:var(--wrong)">0</strong></span>
+  </div>
+</div>
+
+<!-- 문제 카드들 -->
+<div class="questions-wrap" id="qWrap">
+
+  <!-- ▣ Q1: 문7 어법 교정 (주관식·하) -->
+  <div class="q-card" data-diff="하" id="q1">
+    <div class="q-header">
+      <span class="q-num">Q1 · 문7</span>
+      <span class="q-type">어법 교정</span>
+      <span class="q-diff diff-하">하</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분을 어법상 적절하게 고치시오.</div>
+      <div class="q-passage">
+        ... Trees play a huge role in the carbon cycle. They <span class="underline">are converted</span> the CO₂ in the air to oxygen through the process of photosynthesis, and consequently, they <span class="underline">are viewing</span> as a natural regulator of carbon dioxide. The existence of a larger amount of trees will no doubt lead to the reduced presence of carbon dioxide in the atmosphere and the increased <span class="underline">existing</span> of oxygen. ...
+      </div>
+      <table class="correction-table">
+        <thead><tr><th>어색한 표현</th><th></th><th>올바른 표현</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>are converted</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q1a1" placeholder="입력" autocomplete="off"></td>
+          </tr>
+          <tr>
+            <td>are viewing</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q1a2" placeholder="입력" autocomplete="off"></td>
+          </tr>
+          <tr>
+            <td>existing</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q1a3" placeholder="입력" autocomplete="off"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" onclick="checkQ1()">확인</button>
+      <div class="feedback" id="q1fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q2: 문10 어법 교정 (주관식·중) -->
+  <div class="q-card" data-diff="중" id="q2">
+    <div class="q-header">
+      <span class="q-num">Q2 · 문10</span>
+      <span class="q-type">어법 교정</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분을 어법상 적절하게 고치시오.</div>
+      <div class="q-passage">
+        ... Unfortunately, deforestation is preventing this process from <span class="underline">to be</span> fully accomplished. And with half of the Earth's forests <span class="underline">to go</span>, the amount of carbon dioxide is <span class="underline">progressive</span> rising. ...
+      </div>
+      <table class="correction-table">
+        <thead><tr><th>어색한 표현</th><th></th><th>올바른 표현</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>to be</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q2a1" placeholder="입력" autocomplete="off"></td>
+          </tr>
+          <tr>
+            <td>to go</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q2a2" placeholder="입력" autocomplete="off"></td>
+          </tr>
+          <tr>
+            <td>progressive</td>
+            <td class="arrow">→</td>
+            <td><input class="answer-input" id="q2a3" placeholder="입력" autocomplete="off"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" onclick="checkQ2()">확인</button>
+      <div class="feedback" id="q2fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q3: 문13 요약문 완성 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q3">
+    <div class="q-header">
+      <span class="q-num">Q3 · 문13</span>
+      <span class="q-type">요약문 완성</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?</div>
+      <div class="summary-box">
+        Deforestation significantly disrupts the carbon cycle by reducing trees that naturally <strong>(A) __________</strong> carbon dioxide, leading to increased atmospheric CO₂ levels that <strong>(B) __________</strong> global warming.
+      </div>
+      <table class="choices-table" id="q3table">
+        <thead><tr><th></th><th>(A)</th><th>(B)</th></tr></thead>
+        <tbody>
+          <tr onclick="selectRow(this,'q3',3)" data-val="3"><td>③</td><td>absorb</td><td>accelerate</td></tr>
+          <tr onclick="selectRow(this,'q3',1)" data-val="1"><td>①</td><td>absorb</td><td>prevent</td></tr>
+          <tr onclick="selectRow(this,'q3',2)" data-val="2"><td>②</td><td>release</td><td>accelerate</td></tr>
+          <tr onclick="selectRow(this,'q3',4)" data-val="4"><td>④</td><td>release</td><td>prevent</td></tr>
+          <tr onclick="selectRow(this,'q3',5)" data-val="5"><td>⑤</td><td>emit</td><td>accelerate</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q3btn" onclick="checkMC('q3',3)">확인</button>
+      <div class="feedback" id="q3fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q4: 문16 어법 틀린 것 (객관식·하) -->
+  <div class="q-card" data-diff="하" id="q4">
+    <div class="q-header">
+      <span class="q-num">Q4 · 문16</span>
+      <span class="q-type">어법 — 틀린 것</span>
+      <span class="q-diff diff-하">하</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?</div>
+      <div class="q-passage">
+        ... consequently, they are ① <span class="underline">viewing</span> as a natural regulator of carbon dioxide. The existence of a larger amount of trees will no doubt lead to the ② <span class="underline">reduced</span> presence of carbon dioxide ... deforestation is preventing this process from ③ <span class="underline">being</span> fully accomplished. ... instead of ④ <span class="underline">being</span> released into space, and this is causing the planet's average temperature ⑤ <span class="underline">to rise</span>.
+      </div>
+      <ul class="choices" id="q4choices">
+        <li onclick="selectChoice(this,'q4',1)"><span class="choice-num">①</span> viewing</li>
+        <li onclick="selectChoice(this,'q4',2)"><span class="choice-num">②</span> reduced</li>
+        <li onclick="selectChoice(this,'q4',3)"><span class="choice-num">③</span> being</li>
+        <li onclick="selectChoice(this,'q4',4)"><span class="choice-num">④</span> being</li>
+        <li onclick="selectChoice(this,'q4',5)"><span class="choice-num">⑤</span> to rise</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q4btn" onclick="checkMC('q4',1)">확인</button>
+      <div class="feedback" id="q4fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q5: 문20 어휘 적절한 것 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q5">
+    <div class="q-header">
+      <span class="q-num">Q5 · 문20</span>
+      <span class="q-type">어휘 — 적절한 것</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분 중 문맥상 낱말의 쓰임이 적절한 것은?</div>
+      <div class="q-passage">
+        ... Trees play a ① <span class="underline">huge</span> role in the carbon cycle. They ② <span class="underline">revert</span> the CO₂ in the air to oxygen ... they are viewed as a ③ <span class="underline">artificial</span> regulator of carbon dioxide. ... more of the sun's radiation is being reflected back to Earth instead of being ④ <span class="underline">confined</span> into space, and this is causing the planet's average temperature to ⑤ <span class="underline">fall</span>.
+      </div>
+      <ul class="choices" id="q5choices">
+        <li onclick="selectChoice(this,'q5',1)"><span class="choice-num">①</span> huge</li>
+        <li onclick="selectChoice(this,'q5',2)"><span class="choice-num">②</span> revert</li>
+        <li onclick="selectChoice(this,'q5',3)"><span class="choice-num">③</span> artificial</li>
+        <li onclick="selectChoice(this,'q5',4)"><span class="choice-num">④</span> confined</li>
+        <li onclick="selectChoice(this,'q5',5)"><span class="choice-num">⑤</span> fall</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q5btn" onclick="checkMC('q5',1)">확인</button>
+      <div class="feedback" id="q5fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q6: 문24 어법 옳은 것 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q6">
+    <div class="q-header">
+      <span class="q-num">Q6 · 문24</span>
+      <span class="q-type">어법 — 옳은 것</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분 중 어법상 옳은 것은?</div>
+      <div class="q-passage">
+        ... the increased ① <span class="underline">existing</span> of oxygen. ... with half of the Earth's forests ② <span class="underline">to go</span>, the amount of carbon dioxide is progressively ③ <span class="underline">rising</span>. ... more of the sun's radiation is being ④ <span class="underline">reflecting</span> back to Earth instead of ⑤ <span class="underline">to be</span> released into space ...
+      </div>
+      <ul class="choices" id="q6choices">
+        <li onclick="selectChoice(this,'q6',1)"><span class="choice-num">①</span> existing</li>
+        <li onclick="selectChoice(this,'q6',2)"><span class="choice-num">②</span> to go</li>
+        <li onclick="selectChoice(this,'q6',3)"><span class="choice-num">③</span> rising</li>
+        <li onclick="selectChoice(this,'q6',4)"><span class="choice-num">④</span> reflecting</li>
+        <li onclick="selectChoice(this,'q6',5)"><span class="choice-num">⑤</span> to be</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q6btn" onclick="checkMC('q6',3)">확인</button>
+      <div class="feedback" id="q6fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q7: 문28 요지 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q7">
+    <div class="q-header">
+      <span class="q-num">Q7 · 문28</span>
+      <span class="q-type">요지</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 요지로 가장 적절한 것은?</div>
+      <ul class="choices" id="q7choices">
+        <li onclick="selectChoice(this,'q7',1)"><span class="choice-num">①</span> Planting more trees can completely reverse climate change.</li>
+        <li onclick="selectChoice(this,'q7',2)"><span class="choice-num">②</span> Trees are the primary source of oxygen on Earth.</li>
+        <li onclick="selectChoice(this,'q7',3)"><span class="choice-num">③</span> The carbon cycle is a complex and delicate process.</li>
+        <li onclick="selectChoice(this,'q7',4)"><span class="choice-num">④</span> Deforestation is a major cause of global warming.</li>
+        <li onclick="selectChoice(this,'q7',5)"><span class="choice-num">⑤</span> Rising global temperatures are causing widespread deforestation.</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q7btn" onclick="checkMC('q7',4)">확인</button>
+      <div class="feedback" id="q7fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q8: 문32 어휘 쓰임 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q8">
+    <div class="q-header">
+      <span class="q-num">Q8 · 문32</span>
+      <span class="q-type">어휘 — 적절한 것</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분 중 문맥상 낱말의 쓰임이 적절한 것은?</div>
+      <div class="q-passage">
+        ... are caused by ① <span class="underline">degradation</span> and deforestation. ... the increased ② <span class="underline">depletion</span> of oxygen. ... process from being fully ③ <span class="underline">thwarted</span>. ... the amount of carbon dioxide is ④ <span class="underline">regressively</span> rising. ... deforestation is a ⑤ <span class="underline">minor</span> issue when it comes to global warming.
+      </div>
+      <ul class="choices" id="q8choices">
+        <li onclick="selectChoice(this,'q8',1)"><span class="choice-num">①</span> degradation</li>
+        <li onclick="selectChoice(this,'q8',2)"><span class="choice-num">②</span> depletion</li>
+        <li onclick="selectChoice(this,'q8',3)"><span class="choice-num">③</span> thwarted</li>
+        <li onclick="selectChoice(this,'q8',4)"><span class="choice-num">④</span> regressively</li>
+        <li onclick="selectChoice(this,'q8',5)"><span class="choice-num">⑤</span> minor</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q8btn" onclick="checkMC('q8',1)">확인</button>
+      <div class="feedback" id="q8fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q9: 문36 목적 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q9">
+    <div class="q-header">
+      <span class="q-num">Q9 · 문36</span>
+      <span class="q-type">목적</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 목적으로 가장 적절한 것은?</div>
+      <ul class="choices" id="q9choices">
+        <li onclick="selectChoice(this,'q9',1)"><span class="choice-num">①</span> To compare various causes of greenhouse gas emissions.</li>
+        <li onclick="selectChoice(this,'q9',2)"><span class="choice-num">②</span> To show the link between deforestation and global warming.</li>
+        <li onclick="selectChoice(this,'q9',3)"><span class="choice-num">③</span> To explain the process of photosynthesis in trees.</li>
+        <li onclick="selectChoice(this,'q9',4)"><span class="choice-num">④</span> To emphasize the importance of oxygen for the planet.</li>
+        <li onclick="selectChoice(this,'q9',5)"><span class="choice-num">⑤</span> To propose solutions for global deforestation.</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q9btn" onclick="checkMC('q9',2)">확인</button>
+      <div class="feedback" id="q9fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q10: 문40 주제 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q10">
+    <div class="q-header">
+      <span class="q-num">Q10 · 문40</span>
+      <span class="q-type">주제</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 주제로 가장 적절한 것은?</div>
+      <ul class="choices" id="q10choices">
+        <li onclick="selectChoice(this,'q10',1)"><span class="choice-num">①</span> The link between deforestation and the increase in global warming</li>
+        <li onclick="selectChoice(this,'q10',2)"><span class="choice-num">②</span> The various effects of rising global temperatures</li>
+        <li onclick="selectChoice(this,'q10',3)"><span class="choice-num">③</span> Effective strategies for global reforestation</li>
+        <li onclick="selectChoice(this,'q10',4)"><span class="choice-num">④</span> The general role of the carbon cycle in nature</li>
+        <li onclick="selectChoice(this,'q10',5)"><span class="choice-num">⑤</span> The process of photosynthesis in trees</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q10btn" onclick="checkMC('q10',1)">확인</button>
+      <div class="feedback" id="q10fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q11: 문44 요지 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q11">
+    <div class="q-header">
+      <span class="q-num">Q11 · 문44</span>
+      <span class="q-type">요지</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 요지로 가장 적절한 것은?</div>
+      <ul class="choices" id="q11choices">
+        <li onclick="selectChoice(this,'q11',1)"><span class="choice-num">①</span> Industrial pollution is the only cause of global warming.</li>
+        <li onclick="selectChoice(this,'q11',2)"><span class="choice-num">②</span> Global warming is the primary cause of deforestation.</li>
+        <li onclick="selectChoice(this,'q11',3)"><span class="choice-num">③</span> Trees release large amounts of carbon dioxide.</li>
+        <li onclick="selectChoice(this,'q11',4)"><span class="choice-num">④</span> The main effect of deforestation is loss of oxygen.</li>
+        <li onclick="selectChoice(this,'q11',5)"><span class="choice-num">⑤</span> Deforestation disrupts the carbon cycle, causing global warming.</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q11btn" onclick="checkMC('q11',5)">확인</button>
+      <div class="feedback" id="q11fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q12: 문48 제목 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q12">
+    <div class="q-header">
+      <span class="q-num">Q12 · 문48</span>
+      <span class="q-type">제목</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 제목으로 가장 적절한 것은?</div>
+      <ul class="choices" id="q12choices">
+        <li onclick="selectChoice(this,'q12',1)"><span class="choice-num">①</span> How Global Warming Negatively Impacts Forests</li>
+        <li onclick="selectChoice(this,'q12',2)"><span class="choice-num">②</span> Deforestation: A Major Contributor to Global Warming</li>
+        <li onclick="selectChoice(this,'q12',3)"><span class="choice-num">③</span> Effective Strategies to Combat Global Warming</li>
+        <li onclick="selectChoice(this,'q12',4)"><span class="choice-num">④</span> The Process of Photosynthesis in Trees</li>
+        <li onclick="selectChoice(this,'q12',5)"><span class="choice-num">⑤</span> The Consequences of Rising Carbon Dioxide</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q12btn" onclick="checkMC('q12',2)">확인</button>
+      <div class="feedback" id="q12fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q13: 문52 주제 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q13">
+    <div class="q-header">
+      <span class="q-num">Q13 · 문52</span>
+      <span class="q-type">주제</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 주제로 가장 적절한 것은?</div>
+      <ul class="choices" id="q13choices">
+        <li onclick="selectChoice(this,'q13',1)"><span class="choice-num">①</span> The impact of global warming on the world's forests</li>
+        <li onclick="selectChoice(this,'q13',2)"><span class="choice-num">②</span> The various causes of large-scale deforestation</li>
+        <li onclick="selectChoice(this,'q13',3)"><span class="choice-num">③</span> Potential solutions for reducing greenhouse gas emissions</li>
+        <li onclick="selectChoice(this,'q13',4)"><span class="choice-num">④</span> The role of trees in the global carbon cycle</li>
+        <li onclick="selectChoice(this,'q13',5)"><span class="choice-num">⑤</span> The impact of deforestation on rising global temperatures</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q13btn" onclick="checkMC('q13',5)">확인</button>
+      <div class="feedback" id="q13fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q14: 문56 제목 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q14">
+    <div class="q-header">
+      <span class="q-num">Q14 · 문56</span>
+      <span class="q-type">제목</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 제목으로 가장 적절한 것은?</div>
+      <ul class="choices" id="q14choices">
+        <li onclick="selectChoice(this,'q14',1)"><span class="choice-num">①</span> The Primary Causes of Greenhouse Gas Emissions</li>
+        <li onclick="selectChoice(this,'q14',2)"><span class="choice-num">②</span> The Impact of Deforestation on Carbon and Global Warming</li>
+        <li onclick="selectChoice(this,'q14',3)"><span class="choice-num">③</span> Reforestation as a Solution to Climate Change</li>
+        <li onclick="selectChoice(this,'q14',4)"><span class="choice-num">④</span> How Trees Convert Carbon Dioxide to Oxygen</li>
+        <li onclick="selectChoice(this,'q14',5)"><span class="choice-num">⑤</span> The Effects of Global Warming on Forests</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q14btn" onclick="checkMC('q14',2)">확인</button>
+      <div class="feedback" id="q14fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q15: 문60 내용일치 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q15">
+    <div class="q-header">
+      <span class="q-num">Q15 · 문60</span>
+      <span class="q-type">내용일치</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">본문의 내용과 일치하는 것을 고르시오.</div>
+      <ul class="choices" id="q15choices">
+        <li onclick="selectChoice(this,'q15',1)"><span class="choice-num">①</span> Degradation and deforestation account for approximately 15–20% of global greenhouse gas emissions.</li>
+        <li onclick="selectChoice(this,'q15',2)"><span class="choice-num">②</span> Trees serve as a natural regulator of carbon dioxide by converting oxygen into CO₂ through photosynthesis.</li>
+        <li onclick="selectChoice(this,'q15',3)"><span class="choice-num">③</span> The disappearance of half of the Earth's forests has resulted in a progressive rise in oxygen levels.</li>
+        <li onclick="selectChoice(this,'q15',4)"><span class="choice-num">④</span> An increase in atmospheric oxygen leads to a rise in the planet's average temperature.</li>
+        <li onclick="selectChoice(this,'q15',5)"><span class="choice-num">⑤</span> Global warming is identified as a major factor contributing to deforestation.</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q15btn" onclick="checkMC('q15',1)">확인</button>
+      <div class="feedback" id="q15fb"></div>
+    </div>
+  </div>
+
+  <!-- ▣ Q16: 문64 어휘 부적절 (객관식·중) -->
+  <div class="q-card" data-diff="중" id="q16">
+    <div class="q-header">
+      <span class="q-num">Q16 · 문64</span>
+      <span class="q-type">어휘 — 부적절한 것</span>
+      <span class="q-diff diff-중">중</span>
+    </div>
+    <div class="q-body">
+      <div class="q-title">다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?</div>
+      <div class="q-passage">
+        ... they are viewed as a ① <span class="underline">natural</span> regulator of carbon dioxide. The existence of a ② <span class="underline">larger</span> amount of trees will no doubt lead to the reduced presence of carbon dioxide ... the ③ <span class="underline">decreased</span> existence of oxygen. ... process from being fully ④ <span class="underline">accomplished</span>. ... the amount of carbon dioxide is progressively ⑤ <span class="underline">rising</span>.
+      </div>
+      <ul class="choices" id="q16choices">
+        <li onclick="selectChoice(this,'q16',1)"><span class="choice-num">①</span> natural</li>
+        <li onclick="selectChoice(this,'q16',2)"><span class="choice-num">②</span> larger</li>
+        <li onclick="selectChoice(this,'q16',3)"><span class="choice-num">③</span> decreased</li>
+        <li onclick="selectChoice(this,'q16',4)"><span class="choice-num">④</span> accomplished</li>
+        <li onclick="selectChoice(this,'q16',5)"><span class="choice-num">⑤</span> rising</li>
+      </ul>
+    </div>
+    <div class="q-footer">
+      <button class="submit-btn" id="q16btn" onclick="checkMC('q16',3)">확인</button>
+      <div class="feedback" id="q16fb"></div>
+    </div>
+  </div>
+
+</div><!-- /questions-wrap -->
+
+<!-- 완료 배너 -->
+<div id="doneBanner">
+  <div class="done-inner">
+    <h2>🎉 지문2 완료!</h2>
+    <div class="score-big" id="finalScore">–</div>
+    <p id="finalMsg">수고하셨습니다!</p>
+  </div>
+</div>
+
+<script>
+// ── 상태 관리 ──────────────────────────────
+const state = {
+  done: 0, correct: 0, wrong: 0,
+  total: 16,
+  answered: {} // qId → true/false
+};
+
+function updateScore() {
+  document.getElementById('doneCount').textContent = state.done;
+  document.getElementById('correctCount').textContent = state.correct;
+  document.getElementById('wrongCount').textContent = state.wrong;
+  const pct = Math.round((state.done / state.total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  if (state.done === state.total) showDone();
+}
+
+function markAnswered(qId, isCorrect) {
+  if (state.answered[qId]) return;
+  state.answered[qId] = true;
+  state.done++;
+  if (isCorrect) state.correct++; else state.wrong++;
+  updateScore();
+  const card = document.getElementById(qId);
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+}
+
+function showDone() {
+  const pct = Math.round((state.correct / state.total) * 100);
+  document.getElementById('finalScore').textContent = state.correct + ' / ' + state.total;
+  let msg = pct >= 90 ? '🏆 완벽합니다! 만점에 도전하세요.' :
+            pct >= 70 ? '👍 잘했어요! 틀린 문제를 다시 확인해 보세요.' :
+            '📚 더 연습이 필요해요. 지문을 다시 읽어보세요.';
+  document.getElementById('finalMsg').textContent = msg;
+  document.getElementById('doneBanner').style.display = 'block';
+}
+
+// ── 필터 ───────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let visible = 0;
+    document.querySelectorAll('.q-card').forEach(card => {
+      const show = f === '전체' || card.dataset.diff === f;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    document.getElementById('totalCount').textContent = f === '전체' ? state.total : visible;
+  });
+});
+
+// ── 객관식 단일 선택 ───────────────────────
+function selectChoice(li, qId, val) {
+  if (state.answered[qId]) return;
+  const ul = document.getElementById(qId + 'choices');
+  ul.querySelectorAll('li').forEach(l => l.classList.remove('selected'));
+  li.classList.add('selected');
+  li.dataset.selected = val;
+}
+
+function checkMC(qId, answer) {
+  if (state.answered[qId]) return;
+  const ul = document.getElementById(qId + 'choices');
+  const selected = ul ? ul.querySelector('li.selected') : null;
+  if (ul && !selected) { alert('선택지를 고르세요.'); return; }
+
+  const val = ul ? parseInt(selected.dataset.selected) : null;
+  const isCorrect = (val === answer);
+
+  if (ul) {
+    ul.querySelectorAll('li').forEach(li => {
+      const v = parseInt(li.dataset.selected || li.onclick?.toString().match(/\d+\)$/)?.[0]);
+    });
+    // 정답/오답 표시
+    ul.querySelectorAll('li').forEach((li, i) => {
+      const liVal = i + 1;
+      if (liVal === answer) li.classList.add('correct-choice');
+      else if (li.classList.contains('selected') && liVal !== answer) li.classList.add('wrong-choice');
+    });
+  }
+
+  // row table (q3)
+  const tbl = document.getElementById(qId + 'table');
+  if (tbl) {
+    const selRow = tbl.querySelector('tr.selected');
+    if (!selRow) { alert('선택지를 고르세요.'); return; }
+    const rowVal = parseInt(selRow.dataset.val);
+    const isC = (rowVal === answer);
+    tbl.querySelectorAll('tbody tr').forEach(r => {
+      if (parseInt(r.dataset.val) === answer) r.classList.add('correct-choice');
+      else if (r.classList.contains('selected')) r.classList.add('wrong-choice');
+    });
+    markAnswered(qId, isC);
+    const fb = document.getElementById(qId + 'fb');
+    fb.className = 'feedback ' + (isC ? 'correct' : 'wrong');
+    fb.innerHTML = isC ? '✅ <strong>정답입니다!</strong>' :
+      '❌ <strong>오답.</strong> 정답은 <strong>③ absorb / accelerate</strong>입니다. 나무는 CO₂를 흡수(absorb)하며, 삼림 벌채는 온난화를 가속(accelerate)시킵니다.';
+    document.getElementById(qId + 'btn').disabled = true;
+    return;
+  }
+
+  markAnswered(qId, isCorrect);
+  const fb = document.getElementById(qId + 'fb');
+  fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+
+  const explanations = {
+    q4: '❌ 정답은 <strong>① viewing → viewed</strong>. "are viewed as"가 올바른 수동태입니다.',
+    q5: '✅ <strong>① huge</strong>가 정답. 나무는 탄소 순환에서 "막대한" 역할을 합니다. ②revert→convert, ③artificial→natural, ④confined→released, ⑤fall→rise',
+    q6: '✅ <strong>③ rising</strong>이 정답. is와 함께 현재진행형(능동). ①existing→existence, ②to go→gone(분사구문), ④reflecting→reflected, ⑤to be→being',
+    q7: '✅ <strong>④</strong>가 정답. 삼림벌채가 지구온난화의 주요 원인임을 설명하는 글입니다.',
+    q8: '✅ <strong>① degradation</strong>이 정답. "산림 황폐화"는 온실가스 배출 원인으로 맞습니다. ②depletion→existence/production, ③thwarted→accomplished, ④regressively→progressively, ⑤minor→major',
+    q9: '✅ <strong>②</strong>가 정답. 삼림벌채와 지구온난화의 연관성을 보여주는 글입니다.',
+    q10: '✅ <strong>①</strong>이 정답. 삼림벌채와 지구온난화 증가의 연관성이 주제입니다.',
+    q11: '✅ <strong>⑤</strong>가 정답. 삼림벌채가 탄소순환을 방해하여 지구온난화를 유발한다는 요지입니다.',
+    q12: '✅ <strong>②</strong>가 정답. "삼림벌채: 지구온난화의 주요 원인"이 제목으로 적절합니다.',
+    q13: '✅ <strong>⑤</strong>가 정답. 삼림벌채가 지구 온도 상승에 미치는 영향이 주제입니다.',
+    q14: '✅ <strong>②</strong>가 정답. 삼림벌채가 탄소와 지구온난화에 미치는 영향이 제목입니다.',
+    q15: '✅ <strong>①</strong>이 정답. 황폐화와 벌채가 온실가스 배출량의 15~20%를 차지한다는 내용과 일치합니다.',
+    q16: '✅ <strong>③ decreased</strong>가 부적절. 더 많은 나무→산소 "증가"이므로 increased가 맞습니다.'
+  };
+
+  if (isCorrect) {
+    fb.innerHTML = explanations[qId] || '✅ <strong>정답입니다!</strong>';
+  } else {
+    fb.innerHTML = explanations[qId] || '❌ <strong>오답입니다.</strong> 다시 확인해보세요.';
+  }
+  document.getElementById(qId + 'btn').disabled = true;
+}
+
+// row table 선택
+function selectRow(tr, qId, val) {
+  if (state.answered[qId]) return;
+  const tbl = document.getElementById(qId + 'table');
+  tbl.querySelectorAll('tbody tr').forEach(r => r.classList.remove('selected'));
+  tr.classList.add('selected');
+}
+
+// ── Q1 주관식 (3개 입력) ──────────────────
+function checkQ1() {
+  if (state.answered['q1']) return;
+  const answers = ['convert', 'viewed', 'existence'];
+  const ids = ['q1a1','q1a2','q1a3'];
+  let allFilled = true, allCorrect = true;
+  ids.forEach((id,i) => {
+    const val = document.getElementById(id).value.trim().toLowerCase();
+    if (!val) { allFilled = false; return; }
+    const correct = val === answers[i].toLowerCase();
+    document.getElementById(id).className = 'answer-input ' + (correct ? 'correct-input' : 'wrong-input');
+    if (!correct) allCorrect = false;
+  });
+  if (!allFilled) { alert('모든 칸을 입력하세요.'); return; }
+
+  ids.forEach(id => document.getElementById(id).disabled = true);
+  markAnswered('q1', allCorrect);
+  const fb = document.getElementById('q1fb');
+  fb.className = 'feedback ' + (allCorrect ? 'correct' : 'wrong');
+  fb.innerHTML = allCorrect
+    ? '✅ <strong>모두 정답!</strong>'
+    : `❌ 정답: <strong>① convert</strong> (능동태), <strong>② viewed</strong> (수동태 are viewed as), <strong>③ existence</strong> (형용사의 수식을 받는 명사).`;
+  document.querySelector('#q1 .submit-btn').disabled = true;
+}
+
+// ── Q2 주관식 (3개 입력) ──────────────────
+function checkQ2() {
+  if (state.answered['q2']) return;
+  const answers = ['being', 'gone', 'progressively'];
+  const ids = ['q2a1','q2a2','q2a3'];
+  let allFilled = true, allCorrect = true;
+  ids.forEach((id,i) => {
+    const val = document.getElementById(id).value.trim().toLowerCase();
+    if (!val) { allFilled = false; return; }
+    const correct = val === answers[i].toLowerCase();
+    document.getElementById(id).className = 'answer-input ' + (correct ? 'correct-input' : 'wrong-input');
+    if (!correct) allCorrect = false;
+  });
+  if (!allFilled) { alert('모든 칸을 입력하세요.'); return; }
+
+  ids.forEach(id => document.getElementById(id).disabled = true);
+  markAnswered('q2', allCorrect);
+  const fb = document.getElementById('q2fb');
+  fb.className = 'feedback ' + (allCorrect ? 'correct' : 'wrong');
+  fb.innerHTML = allCorrect
+    ? '✅ <strong>모두 정답!</strong>'
+    : `❌ 정답: <strong>① being</strong> (prevent A from -ing), <strong>② gone</strong> (with+명사+분사, 수동), <strong>③ progressively</strong> (동사 rising을 수식하는 부사).`;
+  document.querySelector('#q2 .submit-btn').disabled = true;
+}
+
+// 초기 카운트
+document.getElementById('totalCount').textContent = state.total;
+</script>
+</body>
+</html>

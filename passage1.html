@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지문1 · 행동심리 | 더 프라임</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB;
+  --card: #FFFFFF;
+  --card2: #F0F4FF;
+  --primary: #3B6FD4;
+  --primary-lt: #EEF3FF;
+  --accent: #E8632A;
+  --accent-lt: #FFF1EB;
+  --correct: #1A9E6B;
+  --correct-lt: #E8FBF3;
+  --wrong: #D63B4A;
+  --wrong-lt: #FFF0F1;
+  --neutral: #7B8DB8;
+  --text: #1A2238;
+  --subtext: #5A6A8A;
+  --border: #DDE3F0;
+  --tag-low: #E8FBF3; --tag-low-c: #1A9E6B;
+  --tag-mid: #FFF8E8; --tag-mid-c: #C47A00;
+  --tag-high: #FFF0F1; --tag-high-c: #D63B4A;
+}
+html, body { min-height: 100vh; font-family: 'Nunito','Noto Sans KR',sans-serif; background: var(--bg); color: var(--text); }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.07);
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-logo {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+}
+.brand-name { font-size: 13px; font-weight: 800; color: var(--neutral); }
+.back-btn {
+  font-size: 13px; font-weight: 700; color: var(--primary);
+  text-decoration: none; display: flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--border);
+  transition: all 0.15s;
+}
+.back-btn:hover { background: var(--primary-lt); border-color: var(--primary); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 32px 32px 24px;
+}
+.hero-inner { max-width: 860px; margin: 0 auto; }
+.hero-tag {
+  display: inline-block; background: var(--primary-lt);
+  color: var(--primary); font-size: 10px; font-weight: 800;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 99px;
+  border: 1px solid rgba(59,111,212,0.18); margin-bottom: 10px;
+}
+.hero-title { font-size: 26px; font-weight: 900; margin-bottom: 6px; }
+.hero-title span { color: var(--primary); }
+.hero-sub { font-size: 14px; color: var(--subtext); font-family: 'Noto Sans KR',sans-serif; line-height: 1.7; margin-bottom: 20px; }
+
+/* passage box in hero */
+.passage-box {
+  background: var(--card2); border-left: 3px solid var(--primary);
+  border-radius: 0 12px 12px 0; padding: 16px 20px;
+  font-size: 13.5px; line-height: 1.95; color: var(--text);
+  font-family: 'Noto Sans KR','Nunito',sans-serif;
+  margin-bottom: 20px;
+}
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.filter-label { font-size: 12px; font-weight: 700; color: var(--neutral); }
+.filter-btn {
+  padding: 6px 16px; border-radius: 99px;
+  border: 1.5px solid var(--border); background: #fff;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  font-family: 'Nunito',sans-serif; transition: all 0.15s; color: var(--subtext);
+}
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.filter-btn.low.active  { background: var(--correct); border-color: var(--correct); }
+.filter-btn.mid.active  { background: #C47A00; border-color: #C47A00; }
+.filter-btn.high.active { background: var(--wrong); border-color: var(--wrong); }
+
+/* progress */
+.progress-strip {
+  max-width: 860px; margin: 0 auto; margin-top: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #6B8FF7); border-radius: 99px; transition: width 0.4s; }
+.progress-text { font-size: 12px; font-weight: 700; color: var(--neutral); white-space: nowrap; }
+
+/* ── MAIN ── */
+.main { max-width: 860px; margin: 32px auto; padding: 0 16px; }
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 28px 32px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.06);
+  transition: box-shadow 0.2s;
+}
+.q-card:hover { box-shadow: 0 4px 20px rgba(59,111,212,0.10); }
+.q-card.hidden { display: none; }
+.q-card.done-correct { border-color: rgba(26,158,107,0.35); }
+.q-card.done-wrong   { border-color: rgba(214,59,74,0.3); }
+.q-card.done-revealed { border-color: rgba(59,111,212,0.35); }
+
+.q-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.q-num {
+  font-size: 11px; font-weight: 800; color: var(--primary);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.q-type-tag {
+  font-size: 10px; font-weight: 700; color: var(--subtext);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 2px 9px; border-radius: 99px;
+  font-family: 'Noto Sans KR',sans-serif;
+}
+.diff-tag {
+  font-size: 10px; font-weight: 800; padding: 2px 9px; border-radius: 99px;
+  margin-left: auto;
+}
+.diff-tag.low  { background: var(--tag-low);  color: var(--tag-low-c); }
+.diff-tag.mid  { background: var(--tag-mid);  color: var(--tag-mid-c); }
+.diff-tag.high { background: var(--tag-high); color: var(--tag-high-c); }
+
+.q-stem {
+  font-size: 14.5px; font-weight: 700; color: var(--subtext);
+  font-family: 'Noto Sans KR',sans-serif; margin-bottom: 14px; line-height: 1.65;
+}
+.q-stem strong { color: var(--text); }
+
+/* mini passage inside card */
+.mini-passage {
+  background: var(--card2); border-left: 3px solid var(--primary);
+  border-radius: 0 10px 10px 0; padding: 13px 16px;
+  font-size: 13px; line-height: 1.9; color: var(--text);
+  font-family: 'Noto Sans KR','Nunito',sans-serif; margin-bottom: 14px;
+}
+.ul { text-decoration: underline; text-decoration-color: var(--accent); }
+.bld { font-weight: 700; }
+
+/* MCQ */
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.opt-btn {
+  background: #FAFBFF; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--text);
+  cursor: pointer; display: flex; align-items: flex-start; gap: 9px;
+  transition: all 0.15s; font-family: 'Noto Sans KR','Nunito',sans-serif;
+  text-align: left; line-height: 1.5;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-lt); transform: translateY(-1px); }
+.opt-n {
+  width: 20px; height: 20px; flex-shrink: 0; border-radius: 6px;
+  background: var(--border); display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--neutral); transition: all 0.15s; margin-top: 1px;
+}
+.opt-btn.correct { background: var(--correct-lt); border-color: var(--correct); color: #0F6B47; animation: pop .3s; }
+.opt-btn.correct .opt-n { background: var(--correct); color: #fff; }
+.opt-btn.wrong   { background: var(--wrong-lt); border-color: var(--wrong); color: #8B1A24; }
+.opt-btn.wrong   .opt-n { background: var(--wrong); color: #fff; }
+.opt-btn.reveal  { background: var(--correct-lt); border-color: var(--correct); }
+.opt-btn.reveal  .opt-n { background: var(--correct); color: #fff; }
+@keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.03)} 100%{transform:scale(1)} }
+
+/* SAQ */
+.saq-wrap { margin-bottom: 14px; }
+.saq-row { margin-bottom: 10px; }
+.saq-label { font-size: 11px; font-weight: 800; color: var(--neutral); letter-spacing: 0.07em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+.saq-input {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; font-size: 13.5px;
+  font-family: 'Noto Sans KR','Nunito',sans-serif;
+  color: var(--text); background: #FAFBFF; resize: none;
+  transition: border-color 0.18s; line-height: 1.6;
+}
+.saq-input:focus { outline: none; border-color: var(--primary); background: var(--primary-lt); }
+.check-btn {
+  background: var(--text); color: #fff; border: none; border-radius: 9px;
+  padding: 9px 22px; font-size: 12px; font-weight: 800; cursor: pointer;
+  font-family: 'Nunito',sans-serif; margin-top: 6px; transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { background: var(--primary); }
+.check-btn:disabled { opacity: 0.38; cursor: default; }
+
+/* feedback */
+.feedback {
+  border-radius: 10px; font-size: 12.5px; font-weight: 700;
+  display: flex; align-items: flex-start; gap: 7px;
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: all 0.28s ease; font-family: 'Noto Sans KR',sans-serif;
+}
+.feedback.show { opacity: 1; max-height: 200px; padding: 10px 14px; margin-bottom: 14px; }
+.feedback.correct-fb { background: var(--correct-lt); color: var(--correct); }
+.feedback.wrong-fb   { background: var(--wrong-lt); color: var(--wrong); }
+
+/* answer reveal for SAQ */
+.ans-reveal {
+  display: none; margin-top: 8px;
+  background: var(--correct-lt); border: 1px solid rgba(26,158,107,0.25);
+  border-radius: 10px; padding: 12px 15px;
+  font-size: 12.5px; font-family: 'Noto Sans KR',sans-serif;
+  color: #0F6B47; line-height: 1.75;
+}
+.ans-reveal.show { display: block; }
+.ans-reveal .al { font-weight: 800; margin-bottom: 4px; display: block; }
+
+/* score badge on card */
+.card-status {
+  display: none; font-size: 11px; font-weight: 800;
+  padding: 3px 10px; border-radius: 99px; margin-left: auto;
+}
+.card-status.ok  { display: inline-block; background: var(--correct-lt); color: var(--correct); }
+.card-status.bad { display: inline-block; background: var(--wrong-lt);   color: var(--wrong); }
+.card-status.rev { display: inline-block; background: var(--primary-lt); color: var(--primary); }
+
+/* ── SCORE PANEL ── */
+.score-panel {
+  display: none; background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 36px; text-align: center;
+  margin-bottom: 32px; box-shadow: 0 4px 24px rgba(59,111,212,0.10);
+}
+.score-panel.show { display: block; }
+.sp-ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: conic-gradient(var(--primary) var(--fill, 0deg), var(--border) 0);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; position: relative;
+}
+.sp-ring::before { content:''; position:absolute; inset:12px; border-radius:50%; background:var(--card); }
+.sp-inner { position:relative; z-index:1; }
+.sp-num { font-size: 34px; font-weight: 900; color: var(--primary); line-height: 1; }
+.sp-denom { font-size: 12px; color: var(--neutral); font-weight: 700; }
+.sp-title { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+.sp-sub { font-size: 13px; color: var(--subtext); font-family:'Noto Sans KR',sans-serif; margin-bottom: 24px; line-height: 1.7; }
+.sp-restart {
+  background: var(--primary); color: #fff; border: none; border-radius: 12px;
+  padding: 12px 36px; font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: 'Nunito',sans-serif; transition: all 0.18s;
+  box-shadow: 0 4px 16px rgba(59,111,212,0.25);
+}
+.sp-restart:hover { background: #2F5BBF; transform: translateY(-2px); }
+
+/* floating score */
+.float-score {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--primary); color: #fff;
+  border-radius: 99px; padding: 10px 20px;
+  font-size: 13px; font-weight: 800;
+  box-shadow: 0 4px 20px rgba(59,111,212,0.3);
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; transition: all 0.2s; z-index: 200;
+}
+.float-score:hover { background: #2F5BBF; transform: translateY(-2px); }
+
+@media (max-width: 560px) {
+  .opts { grid-template-columns: 1fr; }
+  .q-card { padding: 20px 16px; }
+  .hero { padding: 20px 16px 18px; }
+  .site-header { padding: 12px 16px; }
+}
+@media print {
+  .site-header, .float-score, .filter-bar, .progress-strip { display: none; }
+  .q-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <div class="brand-logo">P</div>
+    <span class="brand-name">THE PRIME</span>
+  </a>
+  <a href="index.html" class="back-btn">← 목록으로</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">지문 1 · 행동심리</div>
+    <div class="hero-title">인간은 결과에 따라 <span>행동을 바꾼다</span></div>
+    <div class="hero-sub">2026년 북일여고 6월 고1 모의고사 | 총 17문항 | 어법·어휘·목적·요지·주제·내용일치</div>
+    <div class="passage-box">
+      A particularly powerful way in which human beings adapt and adjust to their circumstances is by changing behaviors in light of the consequences that they yield. For instance, a child who gets praised by her teacher for doing an exercise correctly is likely to continue doing the exercise in that way. A dancer who feels that a particular conditioning exercise is not giving any results is likely to give that exercise up in favor of another one that seems more promising. In general, we tend to do things that bring us some kind of benefit or act in ways that help us avoid some kind of problem, discomfort, or disadvantage. We also tend to do fewer things (or stop doing things) that lead to problems, discomfort, or disadvantages, and we tend to avoid acting in ways that do not bring any benefit or reward.
+    </div>
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <span class="filter-label">난이도</span>
+      <button class="filter-btn active" onclick="setFilter('all',this)">전체</button>
+      <button class="filter-btn low"  onclick="setFilter('low',this)">하</button>
+      <button class="filter-btn mid"  onclick="setFilter('mid',this)">중</button>
+      <button class="filter-btn high" onclick="setFilter('high',this)">상</button>
+    </div>
+    <div class="progress-strip">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progFill" style="width:0%"></div></div>
+      <span class="progress-text" id="progText">0 / 17 완료</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="mainArea">
+
+<!-- ── Q1: 문1 어법교정 (주관식, 하) ── -->
+<div class="q-card" data-diff="low" data-idx="0">
+  <div class="q-head">
+    <span class="q-num">문 1</span>
+    <span class="q-type-tag">어법 교정</span>
+    <span class="diff-tag low">하</span>
+    <span class="card-status" id="cs-0"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분을 <strong>어법상 적절하게 고치시오.</strong></div>
+  <div class="mini-passage">
+    A child who gets praised by her teacher for doing an exercise correctly is likely to <span class="ul bld">have continued</span> doing the exercise in that way. A dancer <span class="ul bld">whom</span> feels that a particular conditioning exercise is not <span class="ul bld">to give</span> any results is likely to give that exercise up.
+  </div>
+  <div class="saq-wrap">
+    <div class="saq-row"><span class="saq-label">① have continued →</span><input class="saq-input" id="s0a" placeholder="올바른 표현 입력"></div>
+    <div class="saq-row"><span class="saq-label">② whom →</span><input class="saq-input" id="s0b" placeholder="올바른 표현 입력"></div>
+    <div class="saq-row"><span class="saq-label">③ to give →</span><input class="saq-input" id="s0c" placeholder="올바른 표현 입력"></div>
+    <button class="check-btn" id="ck0" onclick="checkSAQ(0)">정답 확인</button>
+    <div class="ans-reveal" id="ar0">
+      <span class="al">✅ 정답 및 해설</span>
+      ① <strong>have continued → continue</strong> — be likely to + 동사원형<br>
+      ② <strong>whom → who</strong> — 관계절 주어 자리 → 주격 관계대명사<br>
+      ③ <strong>to give → giving</strong> — 'is not giving' 현재진행으로 상태 표현
+    </div>
+  </div>
+  <div class="feedback" id="fb0"></div>
+</div>
+
+<!-- ── Q2: 문8 어휘 부적절 (객관식, 하) ── -->
+<div class="q-card" data-diff="low" data-idx="1">
+  <div class="q-head">
+    <span class="q-num">문 8</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag low">하</span>
+    <span class="card-status" id="cs-1"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 문맥상 <strong>낱말의 쓰임이 적절하지 않은</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings adapt and ① <span class="ul bld">maladjust</span> to their circumstances is by ② <span class="ul bld">changing</span> behaviors in light of the consequences that they yield. For instance, a child who gets ③ <span class="ul bld">praised</span> by her teacher for doing an exercise correctly is likely to continue doing the exercise in that way. A dancer who feels that a particular conditioning exercise is not giving any results is likely to ④ <span class="ul bld">give that exercise up</span> in favor of another one that seems more promising. In general, we tend to do ⑤ <span class="ul bld">fewer</span> things (or stop doing things) that lead to problems.
+  </div>
+  <div class="opts" id="opts-1">
+    <button class="opt-btn" onclick="selectMCQ(1,0,this)"><span class="opt-n">①</span>maladjust</button>
+    <button class="opt-btn" onclick="selectMCQ(1,1,this)"><span class="opt-n">②</span>changing</button>
+    <button class="opt-btn" onclick="selectMCQ(1,2,this)"><span class="opt-n">③</span>praised</button>
+    <button class="opt-btn" onclick="selectMCQ(1,3,this)"><span class="opt-n">④</span>give that exercise up</button>
+    <button class="opt-btn" onclick="selectMCQ(1,4,this)"><span class="opt-n">⑤</span>fewer</button>
+  </div>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- ── Q3: 문11 목적 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="2">
+  <div class="q-head">
+    <span class="q-num">문 11</span>
+    <span class="q-type-tag">목적</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-2"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>목적</strong>으로 가장 적절한 것은?</div>
+  <div class="opts" id="opts-2">
+    <button class="opt-btn" onclick="selectMCQ(2,0,this)"><span class="opt-n">①</span>To argue that behavior is primarily driven by instinct.</button>
+    <button class="opt-btn" onclick="selectMCQ(2,1,this)"><span class="opt-n">②</span>To explain effective teaching methods for children.</button>
+    <button class="opt-btn" onclick="selectMCQ(2,2,this)"><span class="opt-n">③</span>To describe how outcomes of actions modify behavior.</button>
+    <button class="opt-btn" onclick="selectMCQ(2,3,this)"><span class="opt-n">④</span>To provide advice on physical conditioning for dancers.</button>
+    <button class="opt-btn" onclick="selectMCQ(2,4,this)"><span class="opt-n">⑤</span>To encourage readers to avoid all discomfort.</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- ── Q4: 문14 요지 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="3">
+  <div class="q-head">
+    <span class="q-num">문 14</span>
+    <span class="q-type-tag">요지</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-3"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>요지</strong>로 가장 적절한 것은?</div>
+  <div class="opts" id="opts-3">
+    <button class="opt-btn" onclick="selectMCQ(3,0,this)"><span class="opt-n">①</span>행동은 그 긍정적·부정적 결과에 따라 조절된다.</button>
+    <button class="opt-btn" onclick="selectMCQ(3,1,this)"><span class="opt-n">②</span>불편함을 피하는 것이 인간의 가장 강력한 동기이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(3,2,this)"><span class="opt-n">③</span>사회적 압력이 행동 변화의 주요 동인이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(3,3,this)"><span class="opt-n">④</span>아이들은 어른보다 새로운 행동을 더 쉽게 배운다.</button>
+    <button class="opt-btn" onclick="selectMCQ(3,4,this)"><span class="opt-n">⑤</span>명확한 목표 설정은 행동 변화에 필수적이다.</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- ── Q5: 문17 요지 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="4">
+  <div class="q-head">
+    <span class="q-num">문 17</span>
+    <span class="q-type-tag">요지</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-4"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>요지</strong>로 가장 적절한 것은?</div>
+  <div class="opts" id="opts-4">
+    <button class="opt-btn" onclick="selectMCQ(4,0,this)"><span class="opt-n">①</span>행동은 주로 신체적 불편함을 피함으로써 형성된다.</button>
+    <button class="opt-btn" onclick="selectMCQ(4,1,this)"><span class="opt-n">②</span>칭찬은 학습을 장려하는 가장 효과적인 방법이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(4,2,this)"><span class="opt-n">③</span>사람들은 유익한 행동을 반복하고 보상 없는 행동을 피함으로써 적응한다.</button>
+    <button class="opt-btn" onclick="selectMCQ(4,3,this)"><span class="opt-n">④</span>적응은 대부분의 인간에게 어려운 과정이다.</button>
+    <button class="opt-btn" onclick="selectMCQ(4,4,this)"><span class="opt-n">⑤</span>사람들은 어떤 행동이 가장 이로운지 본능적으로 안다.</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- ── Q6: 문21 요지 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="5">
+  <div class="q-head">
+    <span class="q-num">문 21</span>
+    <span class="q-type-tag">요지</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-5"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>요지</strong>로 가장 적절한 것은?</div>
+  <div class="opts" id="opts-5">
+    <button class="opt-btn" onclick="selectMCQ(5,0,this)"><span class="opt-n">①</span>Humans change behavior based on its consequences.</button>
+    <button class="opt-btn" onclick="selectMCQ(5,1,this)"><span class="opt-n">②</span>Human behavior is primarily driven by instinct.</button>
+    <button class="opt-btn" onclick="selectMCQ(5,2,this)"><span class="opt-n">③</span>Adaptation is a slow and gradual process.</button>
+    <button class="opt-btn" onclick="selectMCQ(5,3,this)"><span class="opt-n">④</span>Praise is the most effective form of motivation.</button>
+    <button class="opt-btn" onclick="selectMCQ(5,4,this)"><span class="opt-n">⑤</span>People only act in ways that avoid problems.</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- ── Q7: 문25 주제 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="6">
+  <div class="q-head">
+    <span class="q-num">문 25</span>
+    <span class="q-type-tag">주제</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-6"></span>
+  </div>
+  <div class="q-stem">다음 글의 <strong>주제</strong>로 가장 적절한 것은?</div>
+  <div class="opts" id="opts-6">
+    <button class="opt-btn" onclick="selectMCQ(6,0,this)"><span class="opt-n">①</span>The psychological process of habit formation</button>
+    <button class="opt-btn" onclick="selectMCQ(6,1,this)"><span class="opt-n">②</span>The human tendency to maintain consistent behaviors</button>
+    <button class="opt-btn" onclick="selectMCQ(6,2,this)"><span class="opt-n">③</span>Strategies for avoiding discomfort and disadvantages</button>
+    <button class="opt-btn" onclick="selectMCQ(6,3,this)"><span class="opt-n">④</span>The influence of consequences on behavioral adjustments</button>
+    <button class="opt-btn" onclick="selectMCQ(6,4,this)"><span class="opt-n">⑤</span>Effective teaching methods for young children</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- ── Q8: 문29 내용일치 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="7">
+  <div class="q-head">
+    <span class="q-num">문 29</span>
+    <span class="q-type-tag">내용일치</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-7"></span>
+  </div>
+  <div class="q-stem">본문의 내용과 <strong>일치하는</strong> 것을 고르시오.</div>
+  <div class="opts" id="opts-7">
+    <button class="opt-btn" onclick="selectMCQ(7,0,this)"><span class="opt-n">①</span>아이는 칭찬을 받지 못하더라도 연습을 올바르게 하는 행동을 계속할 가능성이 있다.</button>
+    <button class="opt-btn" onclick="selectMCQ(7,1,this)"><span class="opt-n">②</span>무용수는 특정 운동이 효과가 없다고 느끼더라도 그것을 계속한다.</button>
+    <button class="opt-btn" onclick="selectMCQ(7,2,this)"><span class="opt-n">③</span>사람들은 자신에게 불편함을 초래하는 행동을 지속하는 경향이 있다.</button>
+    <button class="opt-btn" onclick="selectMCQ(7,3,this)"><span class="opt-n">④</span>사람들은 이익이나 보상이 없는 행동은 즉시 중단하는 경향이 있다.</button>
+    <button class="opt-btn" onclick="selectMCQ(7,4,this)"><span class="opt-n">⑤</span>사람들은 아무런 이익이나 보상을 가져다주지 않는 행동을 피하는 경향이 있다.</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<!-- ── Q9: 문33 내용일치 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="8">
+  <div class="q-head">
+    <span class="q-num">문 33</span>
+    <span class="q-type-tag">내용일치</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-8"></span>
+  </div>
+  <div class="q-stem">본문의 내용과 <strong>일치하는</strong> 것을 고르시오.</div>
+  <div class="opts" id="opts-8">
+    <button class="opt-btn" onclick="selectMCQ(8,0,this)"><span class="opt-n">①</span>Humans adapt by changing behavior based on consequences.</button>
+    <button class="opt-btn" onclick="selectMCQ(8,1,this)"><span class="opt-n">②</span>A child who is praised for correctly doing an exercise is likely to give that exercise up.</button>
+    <button class="opt-btn" onclick="selectMCQ(8,2,this)"><span class="opt-n">③</span>A dancer is likely to continue a conditioning exercise that produces no results.</button>
+    <button class="opt-btn" onclick="selectMCQ(8,3,this)"><span class="opt-n">④</span>People tend to engage in actions that provide a disadvantage or help them avoid a benefit.</button>
+    <button class="opt-btn" onclick="selectMCQ(8,4,this)"><span class="opt-n">⑤</span>People tend to stop doing things that avoid problems or do not offer any benefit.</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+</div>
+
+<!-- ── Q10: 문37 어법 옳은 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="9">
+  <div class="q-head">
+    <span class="q-num">문 37</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-9"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 옳은</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings ① <span class="ul bld">adapting</span> and adjust to their circumstances is by changing behaviors. A dancer ② <span class="ul bld">who</span> feels that a particular conditioning exercise is not giving any results is likely to ③ <span class="ul bld">giving</span> that exercise up in favor of another one that seems more promising. In general, we tend to do things that bring us some kind of benefit or act in ways ④ <span class="ul bld">what</span> help us avoid some kind of problem. We also tend to do fewer things ⑤ <span class="ul bld">what</span> lead to problems.
+  </div>
+  <div class="opts" id="opts-9">
+    <button class="opt-btn" onclick="selectMCQ(9,0,this)"><span class="opt-n">①</span>adapting</button>
+    <button class="opt-btn" onclick="selectMCQ(9,1,this)"><span class="opt-n">②</span>who</button>
+    <button class="opt-btn" onclick="selectMCQ(9,2,this)"><span class="opt-n">③</span>giving</button>
+    <button class="opt-btn" onclick="selectMCQ(9,3,this)"><span class="opt-n">④</span>what (ways 수식)</button>
+    <button class="opt-btn" onclick="selectMCQ(9,4,this)"><span class="opt-n">⑤</span>what (things 수식)</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+</div>
+
+<!-- ── Q11: 문41 어법 틀린 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="10">
+  <div class="q-head">
+    <span class="q-num">문 41</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-10"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 틀린</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings adapt and adjust to their circumstances is by changing behaviors in light of the consequences that they ① <span class="ul bld">yield</span>. A child ② <span class="ul bld">who</span> gets praised by her teacher for doing an exercise ③ <span class="ul bld">correctly</span> is likely to continue doing the exercise. A dancer who feels that a conditioning exercise is not giving any results is likely to ④ <span class="ul bld">giving</span> that exercise up in favor of another one ⑤ <span class="ul bld">that</span> seems more promising.
+  </div>
+  <div class="opts" id="opts-10">
+    <button class="opt-btn" onclick="selectMCQ(10,0,this)"><span class="opt-n">①</span>yield</button>
+    <button class="opt-btn" onclick="selectMCQ(10,1,this)"><span class="opt-n">②</span>who</button>
+    <button class="opt-btn" onclick="selectMCQ(10,2,this)"><span class="opt-n">③</span>correctly</button>
+    <button class="opt-btn" onclick="selectMCQ(10,3,this)"><span class="opt-n">④</span>giving</button>
+    <button class="opt-btn" onclick="selectMCQ(10,4,this)"><span class="opt-n">⑤</span>that</button>
+  </div>
+  <div class="feedback" id="fb10"></div>
+</div>
+
+<!-- ── Q12: 문45 어법 틀린 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="11">
+  <div class="q-head">
+    <span class="q-num">문 45</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-11"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 틀린</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way ① <span class="ul bld">in which</span> human beings adapt and ② <span class="ul bld">adjust</span> to their circumstances ③ <span class="ul bld">is</span> by changing behaviors. A child who gets praised by her teacher for doing an exercise correctly ④ <span class="ul bld">is</span> likely to continue doing the exercise. A dancer who feels that a conditioning exercise is not ⑤ <span class="ul bld">to give</span> any results is likely to give that exercise up.
+  </div>
+  <div class="opts" id="opts-11">
+    <button class="opt-btn" onclick="selectMCQ(11,0,this)"><span class="opt-n">①</span>in which</button>
+    <button class="opt-btn" onclick="selectMCQ(11,1,this)"><span class="opt-n">②</span>adjust</button>
+    <button class="opt-btn" onclick="selectMCQ(11,2,this)"><span class="opt-n">③</span>is</button>
+    <button class="opt-btn" onclick="selectMCQ(11,3,this)"><span class="opt-n">④</span>is</button>
+    <button class="opt-btn" onclick="selectMCQ(11,4,this)"><span class="opt-n">⑤</span>to give</button>
+  </div>
+  <div class="feedback" id="fb11"></div>
+</div>
+
+<!-- ── Q13: 문49 어법 틀린 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="12">
+  <div class="q-head">
+    <span class="q-num">문 49</span>
+    <span class="q-type-tag">어법</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-12"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 <strong>어법상 틀린</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way ① <span class="ul bld">in which</span> human beings adapt and ② <span class="ul bld">adjusting</span> to their circumstances is by changing behaviors in light of the consequences ③ <span class="ul bld">that</span> they yield. A child who gets praised by her teacher is likely to ④ <span class="ul bld">continue</span> doing the exercise in that way. A dancer who feels results is likely to give that exercise up in favor of another one ⑤ <span class="ul bld">that</span> seems more promising.
+  </div>
+  <div class="opts" id="opts-12">
+    <button class="opt-btn" onclick="selectMCQ(12,0,this)"><span class="opt-n">①</span>in which</button>
+    <button class="opt-btn" onclick="selectMCQ(12,1,this)"><span class="opt-n">②</span>adjusting</button>
+    <button class="opt-btn" onclick="selectMCQ(12,2,this)"><span class="opt-n">③</span>that</button>
+    <button class="opt-btn" onclick="selectMCQ(12,3,this)"><span class="opt-n">④</span>continue</button>
+    <button class="opt-btn" onclick="selectMCQ(12,4,this)"><span class="opt-n">⑤</span>that</button>
+  </div>
+  <div class="feedback" id="fb12"></div>
+</div>
+
+<!-- ── Q14: 문57 어휘 적절한 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="13">
+  <div class="q-head">
+    <span class="q-num">문 57</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-13"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 문맥상 낱말의 <strong>쓰임이 적절한</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings adapt and adjust to their circumstances is by ① <span class="ul bld">changing</span> behaviors in light of the ② <span class="ul bld">antecedents</span> that they yield. For instance, a child who gets ③ <span class="ul bld">reprimanded</span> by her teacher for doing an exercise correctly is likely to continue doing the exercise in that way. A dancer who feels that a conditioning exercise is not giving any results is likely to give that exercise up in favor of another one that seems more ④ <span class="ul bld">unpromising</span>. In general, we tend to do things that bring us some kind of benefit or act in ways that help us ⑤ <span class="ul bld">incur</span> some kind of problem.
+  </div>
+  <div class="opts" id="opts-13">
+    <button class="opt-btn" onclick="selectMCQ(13,0,this)"><span class="opt-n">①</span>changing</button>
+    <button class="opt-btn" onclick="selectMCQ(13,1,this)"><span class="opt-n">②</span>antecedents</button>
+    <button class="opt-btn" onclick="selectMCQ(13,2,this)"><span class="opt-n">③</span>reprimanded</button>
+    <button class="opt-btn" onclick="selectMCQ(13,3,this)"><span class="opt-n">④</span>unpromising</button>
+    <button class="opt-btn" onclick="selectMCQ(13,4,this)"><span class="opt-n">⑤</span>incur</button>
+  </div>
+  <div class="feedback" id="fb13"></div>
+</div>
+
+<!-- ── Q15: 문61 어휘 적절한 것 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="14">
+  <div class="q-head">
+    <span class="q-num">문 61</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-14"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 문맥상 낱말의 <strong>쓰임이 적절한</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly ① <span class="ul bld">ineffectual</span> way in which human beings adapt and ② <span class="ul bld">maladjust</span> to their circumstances is by changing behaviors in light of the consequences that they ③ <span class="ul bld">withhold</span>. A child who gets praised by her teacher for doing an exercise correctly is likely to ④ <span class="ul bld">discontinue</span> doing the exercise in that way. A dancer who feels that a ⑤ <span class="ul bld">particular</span> conditioning exercise is not giving any results is likely to give that exercise up.
+  </div>
+  <div class="opts" id="opts-14">
+    <button class="opt-btn" onclick="selectMCQ(14,0,this)"><span class="opt-n">①</span>ineffectual</button>
+    <button class="opt-btn" onclick="selectMCQ(14,1,this)"><span class="opt-n">②</span>maladjust</button>
+    <button class="opt-btn" onclick="selectMCQ(14,2,this)"><span class="opt-n">③</span>withhold</button>
+    <button class="opt-btn" onclick="selectMCQ(14,3,this)"><span class="opt-n">④</span>discontinue</button>
+    <button class="opt-btn" onclick="selectMCQ(14,4,this)"><span class="opt-n">⑤</span>particular</button>
+  </div>
+  <div class="feedback" id="fb14"></div>
+</div>
+
+<!-- ── Q16: 문65 어휘 부적절 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="15">
+  <div class="q-head">
+    <span class="q-num">문 65</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-15"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 문맥상 낱말의 <strong>쓰임이 적절하지 않은</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings adapt and adjust to their circumstances is by changing behaviors in light of the consequences that they ① <span class="ul bld">yield</span>. A child who gets praised by her teacher is likely to ② <span class="ul bld">continue</span> doing the exercise in that way. A dancer who feels that a conditioning exercise is not ③ <span class="ul bld">withholding</span> any results is likely to ④ <span class="ul bld">give</span> that exercise up in favor of another one that seems more promising. We tend to ⑤ <span class="ul bld">avoid</span> acting in ways that do not bring any benefit or reward.
+  </div>
+  <div class="opts" id="opts-15">
+    <button class="opt-btn" onclick="selectMCQ(15,0,this)"><span class="opt-n">①</span>yield</button>
+    <button class="opt-btn" onclick="selectMCQ(15,1,this)"><span class="opt-n">②</span>continue</button>
+    <button class="opt-btn" onclick="selectMCQ(15,2,this)"><span class="opt-n">③</span>withholding</button>
+    <button class="opt-btn" onclick="selectMCQ(15,3,this)"><span class="opt-n">④</span>give</button>
+    <button class="opt-btn" onclick="selectMCQ(15,4,this)"><span class="opt-n">⑤</span>avoid</button>
+  </div>
+  <div class="feedback" id="fb15"></div>
+</div>
+
+<!-- ── Q17: 문69 어휘 부적절 (객관식, 중) ── -->
+<div class="q-card" data-diff="mid" data-idx="16">
+  <div class="q-head">
+    <span class="q-num">문 69</span>
+    <span class="q-type-tag">어휘 쓰임</span>
+    <span class="diff-tag mid">중</span>
+    <span class="card-status" id="cs-16"></span>
+  </div>
+  <div class="q-stem">다음 글의 밑줄 친 부분 중 문맥상 낱말의 <strong>쓰임이 적절하지 않은</strong> 것은?</div>
+  <div class="mini-passage">
+    A particularly powerful way in which human beings adapt and adjust to their circumstances is by changing behaviors in light of the ① <span class="ul bld">consequences</span> that they yield. A child who gets praised by her teacher for doing an exercise ② <span class="ul bld">correctly</span> is likely to continue doing the exercise in that way. A dancer who feels that a conditioning exercise is not ③ <span class="ul bld">giving</span> any results is likely to give that exercise up in favor of another one that seems more promising. In general, we tend to do things that bring us some kind of benefit or act in ways that help us avoid some kind of problem, discomfort, or ④ <span class="ul bld">disadvantage</span>. We also tend to ⑤ <span class="ul bld">pursue</span> acting in ways that do not bring any benefit or reward.
+  </div>
+  <div class="opts" id="opts-16">
+    <button class="opt-btn" onclick="selectMCQ(16,0,this)"><span class="opt-n">①</span>consequences</button>
+    <button class="opt-btn" onclick="selectMCQ(16,1,this)"><span class="opt-n">②</span>correctly</button>
+    <button class="opt-btn" onclick="selectMCQ(16,2,this)"><span class="opt-n">③</span>giving</button>
+    <button class="opt-btn" onclick="selectMCQ(16,3,this)"><span class="opt-n">④</span>disadvantage</button>
+    <button class="opt-btn" onclick="selectMCQ(16,4,this)"><span class="opt-n">⑤</span>pursue</button>
+  </div>
+  <div class="feedback" id="fb16"></div>
+</div>
+
+<!-- SCORE PANEL -->
+<div class="score-panel" id="scorePanel">
+  <div class="sp-ring" id="spRing">
+    <div class="sp-inner">
+      <div class="sp-num" id="spNum">0</div>
+      <div class="sp-denom" id="spDenom">/ 17</div>
+    </div>
+  </div>
+  <div class="sp-title" id="spTitle"></div>
+  <div class="sp-sub" id="spSub"></div>
+  <button class="sp-restart" onclick="restartAll()">다시 풀기 →</button>
+</div>
+
+</div><!-- /main -->
+
+<!-- Floating score -->
+<div class="float-score" id="floatScore" onclick="scrollToScore()">
+  <span id="floatTxt">0 / 17</span>
+  <span>점수 보기 →</span>
+</div>
+
+<script>
+// MCQ answers (0-based index)
+// Q문8:①, Q문11:③, Q문14:①, Q문17:③, Q문21:①, Q문25:④, Q문29:⑤, Q문33:①, Q문37:②, Q문41:④, Q문45:⑤, Q문49:②, Q문57:①, Q문61:⑤, Q문65:③, Q문69:⑤
+const MCQ = {
+  1: { ans: 0, expl: '정답 ① — maladjust(부적응하다)는 문맥상 맞지 않습니다. adjust(적응하다)가 올바릅니다.' },
+  2: { ans: 2, expl: '정답 ③ — 행동의 결과에 따라 행동이 수정됨을 설명하는 글입니다.' },
+  3: { ans: 0, expl: '정답 ① — 행동은 긍정적·부정적 결과에 따라 조절됩니다.' },
+  4: { ans: 2, expl: '정답 ③ — 사람들은 유익한 행동을 반복하고 보상 없는 행동을 피합니다.' },
+  5: { ans: 0, expl: '정답 ① — Humans change behavior based on its consequences.' },
+  6: { ans: 3, expl: '정답 ④ — The influence of consequences on behavioral adjustments.' },
+  7: { ans: 4, expl: '정답 ⑤ — "avoid acting in ways that do not bring any benefit or reward"' },
+  8: { ans: 0, expl: '정답 ① — 결과에 따라 행동을 변화시킴으로써 환경에 적응한다는 내용입니다.' },
+  9: { ans: 1, expl: '정답 ② — 선행사 A dancer가 사람이므로 주격 관계대명사 who가 맞습니다.' },
+  10: { ans: 3, expl: '정답 ④ — "be likely to + 동사원형"이므로 giving → give로 고쳐야 합니다.' },
+  11: { ans: 4, expl: '정답 ⑤ — "be likely to + 동사원형"이므로 to give → giving으로 고쳐야 합니다. (not giving any results)' },
+  12: { ans: 1, expl: '정답 ② — adapt와 병렬 구조이므로 adjusting → adjust로 고쳐야 합니다.' },
+  13: { ans: 0, expl: '정답 ① — changing behaviors(행동을 바꾸다)는 문맥상 적절합니다.' },
+  14: { ans: 4, expl: '정답 ⑤ — particular(특정한)은 문맥상 적절합니다.' },
+  15: { ans: 2, expl: '정답 ③ — withholding(보류하다) → giving이 맞습니다. 운동이 결과를 "주지 않는다"는 의미여야 합니다.' },
+  16: { ans: 4, expl: '정답 ⑤ — pursue(추구하다) → avoid(피하다)가 맞습니다. 이익이 없는 행동은 피하는 경향이 있습니다.' },
+};
+
+const TOTAL = 17;
+let results = new Array(TOTAL).fill(null);
+let score = 0;
+let saqDone = false;
+let currentFilter = 'all';
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.q-card').forEach(card => {
+    const diff = card.dataset.diff;
+    card.classList.toggle('hidden', f !== 'all' && diff !== f);
+  });
+}
+
+function updateProgress() {
+  const done = results.filter(r => r !== null).length;
+  const pct = (done / TOTAL) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progText').textContent = done + ' / ' + TOTAL + ' 완료';
+  document.getElementById('floatTxt').textContent = score + ' / ' + TOTAL;
+  if (done === TOTAL) showScore();
+}
+
+function markCard(idx, type) {
+  const card = document.querySelector('[data-idx="' + idx + '"]');
+  card.classList.remove('done-correct','done-wrong','done-revealed');
+  card.classList.add('done-' + type);
+  const cs = document.getElementById('cs-' + idx);
+  cs.className = 'card-status';
+  if (type === 'correct') { cs.classList.add('ok'); cs.textContent = '✅ 정답'; }
+  else if (type === 'wrong') { cs.classList.add('bad'); cs.textContent = '❌ 오답'; }
+  else { cs.classList.add('rev'); cs.textContent = '✅ 확인'; }
+}
+
+function checkSAQ(idx) {
+  if (saqDone) return;
+  saqDone = true;
+  document.getElementById('ck0').disabled = true;
+  document.getElementById('ar0').classList.add('show');
+  results[idx] = 'revealed';
+  score++;
+  markCard(idx, 'revealed');
+  updateProgress();
+}
+
+function selectMCQ(cardIdx, chosen, btn) {
+  const idx = cardIdx; // data-idx matches card order
+  if (results[idx] !== null) return;
+  const cfg = MCQ[cardIdx];
+  const allBtns = document.querySelectorAll('#opts-' + cardIdx + ' .opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+  const fb = document.getElementById('fb' + cardIdx);
+  if (chosen === cfg.ans) {
+    results[idx] = true; score++;
+    btn.classList.add('correct');
+    fb.className = 'feedback correct-fb show';
+    fb.innerHTML = '✅ 정답! <span style="font-weight:500;font-size:12px">' + cfg.expl + '</span>';
+    markCard(idx, 'correct');
+  } else {
+    results[idx] = false;
+    btn.classList.add('wrong');
+    allBtns[cfg.ans].classList.add('reveal');
+    fb.className = 'feedback wrong-fb show';
+    fb.innerHTML = '❌ 오답 <span style="font-weight:500;font-size:12px">' + cfg.expl + '</span>';
+    markCard(idx, 'wrong');
+  }
+  updateProgress();
+}
+
+function showScore() {
+  const panel = document.getElementById('scorePanel');
+  panel.classList.add('show');
+  const pct = score / TOTAL;
+  document.getElementById('spRing').style.setProperty('--fill', Math.round(pct*360)+'deg');
+  document.getElementById('spNum').textContent = score;
+  document.getElementById('spDenom').textContent = '/ ' + TOTAL;
+  let title, sub;
+  if (pct===1)       { title='완벽! 만점 🎉'; sub='17문항 모두 맞혔습니다. 훌륭해요!'; }
+  else if (pct>=.8)  { title='아주 잘했어요 👍'; sub='틀린 문제를 한 번 더 확인해봐요.'; }
+  else if (pct>=.6)  { title='잘하고 있어요 😊'; sub='틀린 유형을 복습해봐요.'; }
+  else               { title='다시 도전! 💪'; sub='지문을 다시 읽고 재도전해봐요.'; }
+  document.getElementById('spTitle').textContent = title;
+  document.getElementById('spSub').textContent = sub;
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToScore() {
+  if (document.getElementById('scorePanel').classList.contains('show')) {
+    document.getElementById('scorePanel').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    showScore();
+  }
+}
+
+function restartAll() {
+  score = 0; results = new Array(TOTAL).fill(null); saqDone = false;
+  document.querySelectorAll('.opt-btn').forEach(b => { b.className='opt-btn'; b.disabled=false; });
+  document.querySelectorAll('.feedback').forEach(f => { f.className='feedback'; f.innerHTML=''; });
+  document.querySelectorAll('.ans-reveal').forEach(a => a.classList.remove('show'));
+  document.querySelectorAll('.saq-input').forEach(i => { i.value=''; i.disabled=false; });
+  document.querySelectorAll('.check-btn').forEach(b => b.disabled=false);
+  document.querySelectorAll('.card-status').forEach(c => { c.className='card-status'; c.textContent=''; });
+  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('done-correct','done-wrong','done-revealed'));
+  document.getElementById('scorePanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress();
+</script>
+</body>
+</html>

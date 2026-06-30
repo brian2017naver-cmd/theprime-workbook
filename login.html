@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인 | 더 프라임 워크북</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB; --card: #fff;
+  --primary: #3B6FD4; --primary-lt: #EEF3FF;
+  --correct: #1A9E6B; --wrong: #D63B4A;
+  --text: #1A2238; --subtext: #5A6A8A; --border: #DDE3F0;
+}
+body { min-height: 100vh; background: var(--bg); display: flex; align-items: center; justify-content: center; font-family: "Nunito","Noto Sans KR",sans-serif; }
+
+.login-wrap { width: 100%; max-width: 400px; padding: 20px; }
+
+.logo-area { text-align: center; margin-bottom: 32px; }
+.logo-circle {
+  width: 60px; height: 60px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 12px;
+}
+.logo-name { font-size: 20px; font-weight: 900; color: var(--text); }
+.logo-sub  { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 28px 24px;
+  box-shadow: 0 4px 24px rgba(59,111,212,0.08);
+}
+
+.tab-row { display: flex; gap: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
+.tab-btn {
+  flex: 1; padding: 10px; background: #fff; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 700; color: var(--subtext);
+  font-family: "Nunito",sans-serif; transition: all 0.15s;
+}
+.tab-btn.active { background: var(--primary); color: #fff; }
+
+.form-group { margin-bottom: 14px; }
+label { display: block; font-size: 12px; font-weight: 700; color: var(--subtext); margin-bottom: 5px; }
+.form-input {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 14px; color: var(--text); outline: none; transition: border-color 0.15s;
+  background: #fafbfe; font-family: "Nunito",sans-serif;
+}
+.form-input:focus { border-color: var(--primary); background: #fff; }
+
+.submit-btn {
+  width: 100%; padding: 12px; background: var(--primary); color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 800;
+  cursor: pointer; font-family: "Nunito",sans-serif; transition: opacity 0.15s; margin-top: 4px;
+}
+.submit-btn:hover { opacity: 0.9; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.divider { text-align: center; font-size: 11px; color: var(--subtext); margin: 14px 0; position: relative; }
+.divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 42%; height: 1px; background: var(--border); }
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.toggle-link { text-align: center; font-size: 12px; color: var(--subtext); }
+.toggle-link button { background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; font-size: 12px; font-family: "Nunito",sans-serif; }
+
+.msg { font-size: 12px; padding: 10px 12px; border-radius: 7px; margin-top: 12px; display: none; }
+.msg.ok { background: #e8fbf3; color: #1A9E6B; border: 1px solid #86efac; display: block; }
+.msg.ng { background: #fff0f1; color: #D63B4A; border: 1px solid #fca5a5; display: block; }
+
+/* SIGNUP extra fields */
+.signup-extra { display: none; }
+.signup-extra.show { display: block; }
+.role-select {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 14px; background: #fafbfe; outline: none; cursor: pointer; font-family: "Nunito",sans-serif;
+}
+</style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="logo-area">
+    <div class="logo-circle">P</div>
+    <div class="logo-name">THE PRIME</div>
+    <div class="logo-sub">북일여고 영어 워크북</div>
+  </div>
+
+  <div class="card">
+    <div class="tab-row">
+      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">로그인</button>
+      <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">계정 만들기</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label>이메일</label>
+        <input class="form-input" type="email" id="l-email" placeholder="example@email.com" required />
+      </div>
+      <div class="form-group">
+        <label>비밀번호</label>
+        <input class="form-input" type="password" id="l-pw" placeholder="••••••••" required />
+      </div>
+      <button class="submit-btn" type="submit" id="loginBtn">로그인</button>
+      <div class="msg" id="loginMsg"></div>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" style="display:none" onsubmit="doSignup(event)">
+      <div class="form-group">
+        <label>이름</label>
+        <input class="form-input" type="text" id="s-name" placeholder="홍길동" required />
+      </div>
+      <div class="form-group">
+        <label>역할</label>
+        <select class="role-select" id="s-role">
+          <option value="student">학생</option>
+          <option value="teacher">교사</option>
+        </select>
+      </div>
+      <div class="form-group signup-extra" id="class-extra">
+        <label>반 (학생만)</label>
+        <input class="form-input" type="text" id="s-class" placeholder="예: 1-3반" />
+      </div>
+      <div class="form-group">
+        <label>이메일</label>
+        <input class="form-input" type="email" id="s-email" placeholder="example@email.com" required />
+      </div>
+      <div class="form-group">
+        <label>비밀번호 (6자 이상)</label>
+        <input class="form-input" type="password" id="s-pw" placeholder="••••••••" required minlength="6" />
+      </div>
+      <button class="submit-btn" type="submit" id="signupBtn">계정 만들기</button>
+      <div class="msg" id="signupMsg"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+// =============================================
+// ▼▼▼ Supabase 프로젝트 정보 입력 ▼▼▼
+const SUPABASE_URL  = 'https://fqluoiryrahunnjatrsv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxbHVvaXJ5cmFodW5uamF0cnN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDA4MTMsImV4cCI6MjA5ODM3NjgxM30.2q2xjdhJXCGEuGNDkFEVx3E6HwV1Jxg3uaxhfCsBgK4';
+// ▲▲▲ 위 두 값을 교체하세요 ▲▲▲
+// =============================================
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// 이미 로그인된 경우 대시보드로
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) redirectByRole(session.user);
+})();
+
+async function redirectByRole(user) {
+  const { data } = await sb.from('profiles').select('role').eq('id', user.id).single();
+  if (data?.role === 'teacher') window.location.href = 'dashboard-teacher.html';
+  else window.location.href = 'dashboard-student.html';
+}
+
+function switchTab(tab) {
+  document.getElementById('loginForm').style.display  = tab === 'login'  ? '' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? '' : 'none';
+  document.getElementById('tab-login').classList.toggle('active',  tab === 'login');
+  document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+}
+
+document.getElementById('s-role').addEventListener('change', function() {
+  document.getElementById('class-extra').classList.toggle('show', this.value === 'student');
+});
+
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const msg = document.getElementById('loginMsg');
+  btn.disabled = true; btn.textContent = '로그인 중…';
+  msg.className = 'msg';
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: document.getElementById('l-email').value.trim(),
+    password: document.getElementById('l-pw').value
+  });
+
+  if (error) {
+    msg.className = 'msg ng';
+    msg.textContent = '로그인 실패: ' + (error.message === 'Invalid login credentials' ? '이메일 또는 비밀번호가 틀립니다.' : error.message);
+    btn.disabled = false; btn.textContent = '로그인';
+  } else {
+    msg.className = 'msg ok';
+    msg.textContent = '로그인 성공! 이동 중…';
+    await redirectByRole(data.user);
+  }
+}
+
+async function doSignup(e) {
+  e.preventDefault();
+  const btn = document.getElementById('signupBtn');
+  const msg = document.getElementById('signupMsg');
+  btn.disabled = true; btn.textContent = '가입 중…';
+  msg.className = 'msg';
+
+  const role      = document.getElementById('s-role').value;
+  const fullName  = document.getElementById('s-name').value.trim();
+  const className = document.getElementById('s-class').value.trim();
+  const email     = document.getElementById('s-email').value.trim();
+  const password  = document.getElementById('s-pw').value;
+
+  const { data, error } = await sb.auth.signUp({
+    email, password,
+    options: { data: { role, full_name: fullName, class_name: className } }
+  });
+
+  if (error) {
+    msg.className = 'msg ng';
+    msg.textContent = '가입 실패: ' + error.message;
+    btn.disabled = false; btn.textContent = '계정 만들기';
+  } else {
+    msg.className = 'msg ok';
+    msg.textContent = '가입 완료! 이메일 인증 후 로그인하세요.';
+    btn.disabled = false; btn.textContent = '계정 만들기';
+  }
+}
+</script>
+</body>
+</html>

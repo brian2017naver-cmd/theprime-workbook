@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교사 대시보드 | 더 프라임</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB; --card: #fff;
+  --primary: #3B6FD4; --primary-lt: #EEF3FF;
+  --correct: #1A9E6B; --correct-lt: #E8FBF3;
+  --wrong: #D63B4A; --wrong-lt: #FFF0F1;
+  --accent: #d97706; --accent-lt: #fef3e2;
+  --text: #1A2238; --subtext: #5A6A8A; --neutral: #7B8DB8; --border: #DDE3F0;
+}
+body { min-height: 100vh; background: var(--bg); font-family: "Nunito","Noto Sans KR",sans-serif; color: var(--text); }
+
+/* HEADER */
+.site-header {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.07);
+}
+.brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-logo {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+}
+.brand-name { font-size: 13px; font-weight: 800; color: var(--neutral); }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.user-badge { font-size: 12px; font-weight: 700; color: var(--subtext); }
+.logout-btn {
+  font-size: 12px; font-weight: 700; color: var(--wrong);
+  background: var(--wrong-lt); border: 1px solid #fca5a5; padding: 6px 14px;
+  border-radius: 7px; cursor: pointer; font-family: "Nunito",sans-serif;
+}
+
+main { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+
+/* STAT CARDS */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; display: flex; flex-direction: column; gap: 4px;
+}
+.stat-label { font-size: 11px; font-weight: 700; color: var(--neutral); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-val { font-size: 28px; font-weight: 900; color: var(--primary); }
+.stat-sub { font-size: 11px; color: var(--subtext); }
+
+/* SECTION */
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-title { font-size: 14px; font-weight: 800; color: var(--text); }
+.section-add {
+  font-size: 12px; font-weight: 700; color: var(--primary);
+  background: var(--primary-lt); border: 1px solid rgba(59,111,212,0.2);
+  padding: 6px 14px; border-radius: 7px; cursor: pointer; font-family: "Nunito",sans-serif;
+}
+
+/* STUDENT TABLE */
+.table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: #fafbfe; }
+th { padding: 11px 14px; text-align: left; font-size: 11px; font-weight: 800; color: var(--neutral); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafbfe; }
+
+.pct-bar-wrap { width: 80px; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 6px; }
+.pct-bar-fill { height: 100%; background: var(--correct); border-radius: 99px; }
+.pct-text { font-size: 11px; font-weight: 700; color: var(--subtext); }
+
+.action-btn {
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 5px;
+  border: 1px solid var(--border); background: #fff; cursor: pointer; font-family: "Nunito",sans-serif;
+  color: var(--subtext); transition: all 0.15s;
+}
+.action-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center; z-index: 200; display: none;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--card); border-radius: 14px; padding: 24px 24px 20px;
+  width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+.modal-title { font-size: 15px; font-weight: 800; margin-bottom: 16px; color: var(--primary); }
+.modal-group { margin-bottom: 12px; }
+.modal-label { font-size: 11px; font-weight: 700; color: var(--neutral); margin-bottom: 4px; display: block; }
+.modal-input, .modal-textarea, .modal-select {
+  width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 7px;
+  font-size: 13px; font-family: "Noto Sans KR","Nunito",sans-serif; color: var(--text); outline: none;
+}
+.modal-textarea { min-height: 70px; resize: vertical; }
+.modal-input:focus, .modal-textarea:focus { border-color: var(--primary); }
+.modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.btn-cancel { padding: 8px 16px; border: 1px solid var(--border); border-radius: 7px; background: #fff; font-size: 12px; font-weight: 700; cursor: pointer; font-family: "Nunito",sans-serif; color: var(--subtext); }
+.btn-save { padding: 8px 18px; background: var(--primary); color: #fff; border: none; border-radius: 7px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: "Nunito",sans-serif; }
+
+/* CONSULT LIST */
+.consult-list { display: flex; flex-direction: column; gap: 8px; }
+.consult-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+  padding: 13px 14px; display: flex; align-items: center; gap: 12px;
+}
+.consult-date { font-size: 12px; font-weight: 800; color: var(--primary); width: 80px; flex-shrink: 0; }
+.consult-info { flex: 1; }
+.consult-student { font-size: 13px; font-weight: 700; }
+.consult-topic { font-size: 11px; color: var(--subtext); margin-top: 2px; }
+.status-badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 99px; flex-shrink: 0; }
+.status-scheduled { background: var(--primary-lt); color: var(--primary); }
+.status-done { background: var(--correct-lt); color: var(--correct); }
+.status-cancelled { background: var(--wrong-lt); color: var(--wrong); }
+
+.loading { text-align: center; color: var(--subtext); font-size: 13px; padding: 20px; }
+.empty { text-align: center; color: var(--subtext); font-size: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="brand-link">
+    <div class="brand-logo">P</div>
+    <span class="brand-name">THE PRIME · 교사</span>
+  </a>
+  <div class="header-right">
+    <span class="user-badge" id="teacherName">로딩 중…</span>
+    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+  </div>
+</header>
+
+<main>
+  <!-- STAT CARDS -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">전체 학생</div>
+      <div class="stat-val" id="statTotal">—</div>
+      <div class="stat-sub">등록된 학생 수</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">평균 정답률</div>
+      <div class="stat-val" id="statAvg">—</div>
+      <div class="stat-sub">전체 평균</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">이번 주 상담</div>
+      <div class="stat-val" id="statConsult">—</div>
+      <div class="stat-sub">예정 건수</div>
+    </div>
+  </div>
+
+  <!-- STUDENT LIST -->
+  <div class="section-head">
+    <div class="section-title">학생 목록</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>반</th>
+          <th>교재</th>
+          <th>진도</th>
+          <th>정답률</th>
+          <th>메모/상담</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable">
+        <tr><td colspan="6" class="loading">학생 정보를 불러오는 중…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- UPCOMING CONSULTATIONS -->
+  <div class="section-head">
+    <div class="section-title">상담 일정</div>
+    <button class="section-add" onclick="openConsultModal()">+ 새 상담 등록</button>
+  </div>
+  <div class="consult-list" id="consultList">
+    <div class="loading">상담 일정을 불러오는 중…</div>
+  </div>
+</main>
+
+<!-- STUDENT NOTE MODAL -->
+<div class="modal-overlay" id="noteModal">
+  <div class="modal">
+    <div class="modal-title" id="noteModalTitle">학생 메모</div>
+    <input type="hidden" id="noteStudentId" />
+    <div class="modal-group">
+      <label class="modal-label">이름</label>
+      <input class="modal-input" id="noteStudentName" readonly />
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">교재</label>
+      <input class="modal-input" id="noteTextbook" placeholder="사용 교재명" />
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">진도</label>
+      <input class="modal-input" id="noteCurriculum" placeholder="예: Unit 5까지 완료" />
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">잘하는 점</label>
+      <textarea class="modal-textarea" id="noteStrengths" placeholder="이 학생이 잘하는 점…"></textarea>
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">개선할 점</label>
+      <textarea class="modal-textarea" id="noteImprovements" placeholder="개선이 필요한 부분…"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('noteModal')">취소</button>
+      <button class="btn-save" onclick="saveNote()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONSULT MODAL -->
+<div class="modal-overlay" id="consultModal">
+  <div class="modal">
+    <div class="modal-title">상담 일정 등록</div>
+    <div class="modal-group">
+      <label class="modal-label">학생 선택</label>
+      <select class="modal-select" id="consultStudentSel"></select>
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">상담 일시</label>
+      <input class="modal-input" type="datetime-local" id="consultDate" />
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">상담 주제</label>
+      <input class="modal-input" id="consultTopic" placeholder="예: 어법 집중 훈련" />
+    </div>
+    <div class="modal-group">
+      <label class="modal-label">메모</label>
+      <textarea class="modal-textarea" id="consultMemo" placeholder="준비 사항, 참고 사항…"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('consultModal')">취소</button>
+      <button class="btn-save" onclick="saveConsult()">저장</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// =============================================
+const SUPABASE_URL  = 'https://fqluoiryrahunnjatrsv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxbHVvaXJ5cmFodW5uamF0cnN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDA4MTMsImV4cCI6MjA5ODM3NjgxM30.2q2xjdhJXCGEuGNDkFEVx3E6HwV1Jxg3uaxhfCsBgK4';
+// =============================================
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+let teacherId = null;
+let students = [];
+
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  if (!profile || profile.role !== 'teacher') { window.location.href = 'login.html'; return; }
+
+  teacherId = profile.id;
+  document.getElementById('teacherName').textContent = profile.full_name + ' 선생님';
+
+  await loadStudents();
+  await loadConsultations();
+})();
+
+async function loadStudents() {
+  const { data: sts } = await sb.from('profiles').select('*').eq('role', 'student').order('class_name');
+  if (!sts || sts.length === 0) {
+    document.getElementById('studentTable').innerHTML = '<tr><td colspan="6" class="empty">등록된 학생이 없습니다.</td></tr>';
+    document.getElementById('statTotal').textContent = '0';
+    document.getElementById('statAvg').textContent = '—';
+    return;
+  }
+
+  students = sts;
+  document.getElementById('statTotal').textContent = sts.length;
+
+  // Load notes
+  const { data: notes } = await sb.from('student_notes').select('*');
+  const noteMap = {};
+  (notes || []).forEach(n => noteMap[n.student_id] = n);
+
+  // Load progress for each student
+  const { data: progAll } = await sb.from('progress').select('student_id, is_correct');
+  const progMap = {};
+  (progAll || []).forEach(p => {
+    if (!progMap[p.student_id]) progMap[p.student_id] = { correct: 0, total: 0 };
+    progMap[p.student_id].total++;
+    if (p.is_correct) progMap[p.student_id].correct++;
+  });
+
+  let totalPct = 0, pctCount = 0;
+  const tbody = document.getElementById('studentTable');
+  tbody.innerHTML = '';
+
+  // Populate consult student select
+  const sel = document.getElementById('consultStudentSel');
+  sel.innerHTML = '';
+
+  sts.forEach(s => {
+    const note = noteMap[s.id] || {};
+    const prog = progMap[s.id];
+    const pct = prog && prog.total > 0 ? Math.round(prog.correct / prog.total * 100) : null;
+    if (pct !== null) { totalPct += pct; pctCount++; }
+
+    const pctHtml = pct !== null
+      ? `<div style="display:flex;align-items:center;gap:4px"><div class="pct-bar-wrap"><div class="pct-bar-fill" style="width:${pct}%"></div></div><span class="pct-text">${pct}%</span></div>`
+      : '<span class="pct-text">기록 없음</span>';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${s.full_name}</strong></td>
+      <td>${s.class_name || '—'}</td>
+      <td>${note.textbook || '—'}</td>
+      <td>${note.curriculum || '—'}</td>
+      <td>${pctHtml}</td>
+      <td>
+        <button class="action-btn" onclick="openNoteModal('${s.id}','${s.full_name}')">메모</button>
+      </td>`;
+    tbody.appendChild(tr);
+
+    const opt = document.createElement('option');
+    opt.value = s.id; opt.textContent = s.full_name + (s.class_name ? ' (' + s.class_name + ')' : '');
+    sel.appendChild(opt);
+  });
+
+  document.getElementById('statAvg').textContent = pctCount > 0 ? Math.round(totalPct / pctCount) + '%' : '—';
+}
+
+async function loadConsultations() {
+  const now = new Date().toISOString();
+  const weekLater = new Date(Date.now() + 7 * 86400000).toISOString();
+
+  const { data: all } = await sb.from('consultations')
+    .select('*, profiles!consultations_student_id_fkey(full_name, class_name)')
+    .order('scheduled_at');
+
+  const upcoming = (all || []).filter(c => c.status === 'scheduled' && c.scheduled_at >= now && c.scheduled_at <= weekLater);
+  document.getElementById('statConsult').textContent = upcoming.length;
+
+  const list = document.getElementById('consultList');
+  if (!all || all.length === 0) {
+    list.innerHTML = '<div class="empty">등록된 상담 일정이 없습니다.</div>';
+    return;
+  }
+
+  list.innerHTML = all.slice(0, 10).map(c => {
+    const d = new Date(c.scheduled_at);
+    const dateStr = `${d.getMonth()+1}/${d.getDate()} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+    const student = c.profiles?.full_name || '알 수 없음';
+    const cls = c.profiles?.class_name ? ' · ' + c.profiles.class_name : '';
+    return `<div class="consult-card">
+      <div class="consult-date">${dateStr}</div>
+      <div class="consult-info">
+        <div class="consult-student">${student}${cls}</div>
+        <div class="consult-topic">${c.topic || ''}</div>
+      </div>
+      <span class="status-badge status-${c.status}">${c.status === 'scheduled' ? '예정' : c.status === 'done' ? '완료' : '취소'}</span>
+    </div>`;
+  }).join('');
+}
+
+async function openNoteModal(studentId, studentName) {
+  document.getElementById('noteStudentId').value = studentId;
+  document.getElementById('noteStudentName').value = studentName;
+  document.getElementById('noteModalTitle').textContent = studentName + ' 학생 메모';
+
+  const { data } = await sb.from('student_notes').select('*').eq('student_id', studentId).single();
+  document.getElementById('noteTextbook').value    = data?.textbook    || '';
+  document.getElementById('noteCurriculum').value  = data?.curriculum  || '';
+  document.getElementById('noteStrengths').value   = data?.strengths   || '';
+  document.getElementById('noteImprovements').value= data?.improvements|| '';
+
+  document.getElementById('noteModal').classList.add('show');
+}
+
+async function saveNote() {
+  const studentId   = document.getElementById('noteStudentId').value;
+  const textbook    = document.getElementById('noteTextbook').value.trim();
+  const curriculum  = document.getElementById('noteCurriculum').value.trim();
+  const strengths   = document.getElementById('noteStrengths').value.trim();
+  const improvements= document.getElementById('noteImprovements').value.trim();
+
+  const { error } = await sb.from('student_notes').upsert({
+    student_id: studentId, teacher_id: teacherId,
+    textbook, curriculum, strengths, improvements,
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'student_id' });
+
+  if (!error) { closeModal('noteModal'); loadStudents(); }
+  else alert('저장 실패: ' + error.message);
+}
+
+function openConsultModal() {
+  document.getElementById('consultDate').value = '';
+  document.getElementById('consultTopic').value = '';
+  document.getElementById('consultMemo').value = '';
+  document.getElementById('consultModal').classList.add('show');
+}
+
+async function saveConsult() {
+  const studentId    = document.getElementById('consultStudentSel').value;
+  const scheduledAt  = document.getElementById('consultDate').value;
+  const topic        = document.getElementById('consultTopic').value.trim();
+  const memo         = document.getElementById('consultMemo').value.trim();
+
+  if (!scheduledAt) { alert('일시를 선택하세요.'); return; }
+
+  const { error } = await sb.from('consultations').insert({
+    student_id: studentId, teacher_id: teacherId,
+    scheduled_at: new Date(scheduledAt).toISOString(),
+    topic, memo, status: 'scheduled'
+  });
+
+  if (!error) { closeModal('consultModal'); loadConsultations(); }
+  else alert('저장 실패: ' + error.message);
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+async function doLogout() {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>

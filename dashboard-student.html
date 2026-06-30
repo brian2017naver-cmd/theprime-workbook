@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 학습 현황 | 더 프라임</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB; --card: #fff;
+  --primary: #3B6FD4; --primary-lt: #EEF3FF;
+  --correct: #1A9E6B; --correct-lt: #E8FBF3;
+  --wrong: #D63B4A; --wrong-lt: #FFF0F1;
+  --accent: #d97706; --accent-lt: #fef3e2;
+  --text: #1A2238; --subtext: #5A6A8A; --neutral: #7B8DB8; --border: #DDE3F0;
+}
+body { min-height: 100vh; background: var(--bg); font-family: "Nunito","Noto Sans KR",sans-serif; color: var(--text); }
+
+.site-header {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.07);
+}
+.brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-logo {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+}
+.brand-name { font-size: 13px; font-weight: 800; color: var(--neutral); }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.user-badge { font-size: 12px; font-weight: 700; color: var(--subtext); }
+.logout-btn {
+  font-size: 12px; font-weight: 700; color: var(--wrong);
+  background: var(--wrong-lt); border: 1px solid #fca5a5; padding: 6px 14px;
+  border-radius: 7px; cursor: pointer; font-family: "Nunito",sans-serif;
+}
+
+main { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+
+/* STAT CARDS */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px;
+}
+.stat-label { font-size: 10px; font-weight: 800; color: var(--neutral); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.stat-val { font-size: 24px; font-weight: 900; color: var(--primary); }
+.stat-sub { font-size: 10px; color: var(--subtext); margin-top: 2px; }
+
+/* PASSAGE CARDS */
+.section-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+.passage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.passage-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px; text-decoration: none; color: var(--text); transition: box-shadow 0.2s;
+  display: block;
+}
+.passage-card:hover { box-shadow: 0 4px 16px rgba(59,111,212,0.10); border-color: var(--primary); }
+.passage-num { font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.passage-name { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+.passage-bar-wrap { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+.passage-bar-fill { height: 100%; border-radius: 99px; background: var(--correct); }
+.passage-pct { font-size: 11px; font-weight: 700; color: var(--subtext); }
+
+/* INFO CARDS */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.info-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.info-title { font-size: 11px; font-weight: 800; color: var(--neutral); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.info-body { font-size: 13px; line-height: 1.7; color: var(--text); font-family: "Noto Sans KR",sans-serif; }
+.info-body.empty { color: var(--subtext); font-size: 12px; font-style: italic; }
+.tag-good { display: inline-block; background: var(--correct-lt); color: var(--correct); padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; margin: 2px 2px 2px 0; }
+.tag-improve { display: inline-block; background: var(--accent-lt); color: var(--accent); padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; margin: 2px 2px 2px 0; }
+
+/* CONSULT */
+.consult-item {
+  background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+  padding: 13px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+}
+.consult-date { font-size: 12px; font-weight: 800; color: var(--primary); width: 80px; flex-shrink: 0; }
+.consult-topic { font-size: 13px; font-weight: 600; }
+.consult-memo { font-size: 11px; color: var(--subtext); margin-top: 2px; }
+.status-badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 99px; }
+.status-scheduled { background: var(--primary-lt); color: var(--primary); }
+.status-done { background: var(--correct-lt); color: var(--correct); }
+
+.empty { text-align: center; color: var(--subtext); font-size: 12px; padding: 16px; }
+
+@media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="brand-link">
+    <div class="brand-logo">P</div>
+    <span class="brand-name">THE PRIME · 내 학습</span>
+  </a>
+  <div class="header-right">
+    <span class="user-badge" id="studentName">로딩 중…</span>
+    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+  </div>
+</header>
+
+<main>
+  <!-- STAT -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">전체 정답률</div>
+      <div class="stat-val" id="statPct">—</div>
+      <div class="stat-sub">풀이 기준</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">총 풀이 수</div>
+      <div class="stat-val" id="statTotal">—</div>
+      <div class="stat-sub">문항</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">교재</div>
+      <div class="stat-val" style="font-size:15px;margin-top:3px" id="statBook">—</div>
+      <div class="stat-sub" id="statCurriculum">진도 정보 없음</div>
+    </div>
+  </div>
+
+  <!-- PASSAGE PROGRESS -->
+  <div class="section-title">지문별 진도</div>
+  <div class="passage-grid" id="passageGrid">
+    <div class="empty">데이터를 불러오는 중…</div>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-title">👍 잘하는 점</div>
+      <div class="info-body empty" id="infoStrengths">선생님이 아직 작성하지 않으셨어요.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-title">📌 개선할 점</div>
+      <div class="info-body empty" id="infoImprovements">선생님이 아직 작성하지 않으셨어요.</div>
+    </div>
+  </div>
+
+  <!-- CONSULTATIONS -->
+  <div class="section-title">상담 일정</div>
+  <div id="consultList"><div class="empty">상담 일정을 불러오는 중…</div></div>
+</main>
+
+<script>
+// =============================================
+const SUPABASE_URL  = 'https://fqluoiryrahunnjatrsv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxbHVvaXJ5cmFodW5uamF0cnN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDA4MTMsImV4cCI6MjA5ODM3NjgxM30.2q2xjdhJXCGEuGNDkFEVx3E6HwV1Jxg3uaxhfCsBgK4';
+// =============================================
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const PASSAGES = [
+  { id: 'passage1', name: '삼림벌채와 기후' },
+  { id: 'passage2', name: '삼림벌채와 지구온난화' },
+  { id: 'passage3', name: '창의성과 유레카 순간' },
+  { id: 'passage4', name: '수치심과 죄책감' }
+];
+
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+  if (!profile || profile.role !== 'student') { window.location.href = 'login.html'; return; }
+
+  document.getElementById('studentName').textContent = profile.full_name;
+
+  // Load progress
+  const { data: prog } = await sb.from('progress').select('*').eq('student_id', profile.id);
+  const entries = prog || [];
+
+  const total = entries.length;
+  const correct = entries.filter(e => e.is_correct).length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statPct').textContent = total > 0 ? Math.round(correct/total*100) + '%' : '—';
+
+  // Passage grid
+  const grid = document.getElementById('passageGrid');
+  grid.innerHTML = PASSAGES.map(p => {
+    const pEntries = entries.filter(e => e.passage === p.id);
+    const pTotal = pEntries.length;
+    const pCorrect = pEntries.filter(e => e.is_correct).length;
+    const pct = pTotal > 0 ? Math.round(pCorrect/pTotal*100) : 0;
+    const href = 'english/bukil-hs/' + p.id + '.html';
+    return `<a class="passage-card" href="${href}">
+      <div class="passage-num">${p.id.replace('passage','지문 ')}</div>
+      <div class="passage-name">${p.name}</div>
+      <div class="passage-bar-wrap"><div class="passage-bar-fill" style="width:${pct}%"></div></div>
+      <div class="passage-pct">${pTotal > 0 ? pct + '% 정답 (' + pTotal + '문항)' : '아직 풀지 않음'}</div>
+    </a>`;
+  }).join('');
+
+  // Load notes
+  const { data: note } = await sb.from('student_notes').select('*').eq('student_id', profile.id).single();
+  if (note) {
+    if (note.textbook)    { document.getElementById('statBook').textContent = note.textbook; }
+    if (note.curriculum)  { document.getElementById('statCurriculum').textContent = note.curriculum; }
+    if (note.strengths) {
+      const el = document.getElementById('infoStrengths');
+      el.className = 'info-body';
+      el.innerHTML = note.strengths.split('\n').filter(Boolean).map(s => `<span class="tag-good">${s}</span>`).join('') || note.strengths;
+    }
+    if (note.improvements) {
+      const el = document.getElementById('infoImprovements');
+      el.className = 'info-body';
+      el.innerHTML = note.improvements.split('\n').filter(Boolean).map(s => `<span class="tag-improve">${s}</span>`).join('') || note.improvements;
+    }
+  }
+
+  // Load consultations
+  const { data: consults } = await sb.from('consultations').select('*').eq('student_id', profile.id).order('scheduled_at');
+  const cList = document.getElementById('consultList');
+  if (!consults || consults.length === 0) {
+    cList.innerHTML = '<div class="empty">예정된 상담이 없습니다.</div>';
+  } else {
+    cList.innerHTML = consults.map(c => {
+      const d = new Date(c.scheduled_at);
+      const dateStr = `${d.getMonth()+1}월 ${d.getDate()}일 ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+      return `<div class="consult-item">
+        <div class="consult-date">${dateStr}</div>
+        <div style="flex:1">
+          <div class="consult-topic">${c.topic || '상담'}</div>
+          <div class="consult-memo">${c.memo || ''}</div>
+        </div>
+        <span class="status-badge status-${c.status}">${c.status === 'scheduled' ? '예정' : '완료'}</span>
+      </div>`;
+    }).join('');
+  }
+})();
+
+async function doLogout() {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>

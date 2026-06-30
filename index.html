@@ -3,280 +3,472 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE PRIME | 북일여고 6월 고1 모의고사</title>
+<title>THE PRIME | Academy Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #1a2744;
     --gold: #c9a84c;
     --steel: #3a5f8a;
-    --bg: #f5f6fa;
-    --card: #ffffff;
-    --border: #e2e6f0;
-    --muted: #6b7280;
+    --bg: #ffffff;
+    --panel: #fafbfc;
+    --border: #e7e9ee;
+    --text: #14171f;
+    --muted: #767c8c;
+    --muted-2: #9ca1ae;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Segoe UI', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    font-family: 'Manrope', 'Noto Sans KR', -apple-system, sans-serif;
     background: var(--bg);
-    color: var(--navy);
-    min-height: 100vh;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* HEADER */
-  header {
-    background: var(--navy);
-    padding: 32px 24px 28px;
-    text-align: center;
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* ═══ TOP BAR ═══ */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
   }
-  .brand {
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .crumb {
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .crumb strong { color: var(--text); font-weight: 700; }
+  .crumb .sep { color: var(--muted-2); }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 14px;
+    background: var(--panel);
+    flex: 1;
+    max-width: 360px;
+  }
+  .search-box svg { flex-shrink: 0; color: var(--muted-2); }
+  .search-box input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 13.5px;
+    width: 100%;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .search-box input::placeholder { color: var(--muted-2); }
+
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    padding: 40px 0 8px;
+  }
+  .hero-eyebrow {
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.2em;
-    color: var(--gold);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    color: var(--gold);
     margin-bottom: 10px;
   }
-  header h1 {
-    font-size: 22px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.4;
-    margin-bottom: 8px;
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
-  header p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-  }
-  .gold-line {
-    width: 40px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 99px;
-    margin: 14px auto 0;
+  .hero p {
+    font-size: 14.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
-  /* MAIN */
-  main {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 28px 16px 48px;
+  /* ═══ SUBJECTS ROW ═══ */
+  .subjects-section { padding: 28px 0 8px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
   }
-
   .section-label {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  /* PASSAGE CARDS */
-  .passage-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 36px;
-  }
-
-  .passage-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    background: var(--card);
+    gap: 8px;
+  }
+  .hide-toggle {
+    font-size: 12.5px;
+    color: var(--muted);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .subject-card {
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     text-decoration: none;
     color: inherit;
-    transition: box-shadow 0.2s, transform 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+    background: var(--bg);
+  }
+  .subject-card:hover {
+    border-color: var(--steel);
+    box-shadow: 0 4px 16px rgba(26,39,68,0.06);
+  }
+  .subject-card.disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
+  .subject-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 17px;
+  }
+  .subject-icon.eng { background: #eaf1fb; color: var(--steel); }
+  .subject-icon.math { background: #fbf3e3; color: #b8862f; }
+  .subject-icon.soon { background: #f1f2f5; color: var(--muted-2); }
+
+  .subject-name { font-size: 14.5px; font-weight: 700; color: var(--text); }
+  .subject-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ═══ WORKBOOK GRID ═══ */
+  .workbook-section { padding: 34px 0 60px; }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .sort-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 600;
     cursor: pointer;
   }
-  .passage-card:hover {
-    box-shadow: 0 6px 20px rgba(26,39,68,0.12);
+  .view-toggle {
+    display: flex;
+    gap: 4px;
+  }
+  .view-btn {
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--muted);
+  }
+  .view-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .wb-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    cursor: pointer;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .wb-card:hover {
+    border-color: var(--steel);
+    box-shadow: 0 8px 24px rgba(26,39,68,0.08);
     transform: translateY(-2px);
   }
 
-  .p-num {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: var(--navy);
-    color: var(--gold);
-    font-size: 18px;
-    font-weight: 900;
+  .wb-preview {
+    aspect-ratio: 1.15 / 1;
+    background: var(--panel);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    position: relative;
+    border-bottom: 1px solid var(--border);
   }
-
-  .p-info { flex: 1; }
-  .p-title {
-    font-size: 15px;
+  .wb-preview-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .wb-tag {
+    position: absolute;
+    top: 12px; left: 12px;
+    font-size: 9.5px;
     font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .wb-tag.done { background: #e9f6ee; color: #1f8a4c; }
+  .wb-tag.new { background: #fdf1e3; color: var(--gold); }
+
+  .wb-body {
+    padding: 14px 16px 16px;
+  }
+  .wb-title {
+    font-size: 13.5px;
+    font-weight: 700;
     color: var(--navy);
     margin-bottom: 3px;
+    line-height: 1.4;
   }
-  .p-desc {
-    font-size: 12px;
+  .wb-meta {
+    font-size: 11.5px;
     color: var(--muted);
-    line-height: 1.5;
   }
 
-  .p-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 7px;
-  }
-  .tag {
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 99px;
-    background: #eef2fb;
-    color: var(--steel);
-  }
+  /* preview palettes per card */
+  .pv-1 { background: linear-gradient(135deg, #eef3fb, #e3ebf8); }
+  .pv-1 .wb-preview-icon { background: var(--navy); color: var(--gold); }
+  .pv-2 { background: linear-gradient(135deg, #f3f7ee, #e9f1e1); }
+  .pv-2 .wb-preview-icon { background: #5a7a4f; color: #fff; }
+  .pv-3 { background: linear-gradient(135deg, #fbf3e7, #f6e8d3); }
+  .pv-3 .wb-preview-icon { background: var(--gold); color: var(--navy); }
+  .pv-4 { background: linear-gradient(135deg, #f0eef9, #e6e2f4); }
+  .pv-4 .wb-preview-icon { background: #6b5ca0; color: #fff; }
 
-  .p-arrow {
-    font-size: 18px;
-    color: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* INFO BOX */
-  .info-box {
-    background: var(--navy);
-    border-radius: 12px;
-    padding: 18px 20px;
-    color: rgba(255,255,255,0.75);
-    font-size: 12.5px;
-    line-height: 1.8;
-  }
-  .info-box strong {
-    color: var(--gold);
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .info-row {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    margin-bottom: 4px;
-  }
-  .info-row span:first-child { flex-shrink: 0; }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    font-size: 11px;
-    color: var(--muted);
+  /* ═══ EMPTY STATE (math placeholder) ═══ */
+  .empty-note {
+    margin-top: 18px;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
     padding: 20px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted-2);
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--muted-2);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 880px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .subject-grid { grid-template-columns: 1fr; }
+    .topbar-inner { flex-wrap: wrap; }
+    .search-box { order: 3; max-width: 100%; }
+    .hero h1 { font-size: 24px; }
+    .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">The Prime Academy</div>
-  <h1>북일여고 6월 고1 모의고사<br>인터랙티브 워크북</h1>
-  <p>2025학년도 · 고등학교 1학년</p>
-  <div class="gold-line"></div>
-</header>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="crumb">Workbook <span class="sep">/</span> <strong>전체 과목</strong></div>
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="워크북 검색...">
+    </div>
+    <div class="avatar">P</div>
+  </div>
+</div>
 
-<main>
+<main class="wrap">
 
-  <div class="section-label">📚 지문 선택</div>
-
-  <div class="passage-list">
-
-    <!-- Passage 1 -->
-    <a class="passage-card" href="passage1.html">
-      <div class="p-num">1</div>
-      <div class="p-info">
-        <div class="p-title">Passage 1 · 행동심리학</div>
-        <div class="p-desc">Behavioral Psychology — 행동과 보상의 원리</div>
-        <div class="p-tags">
-          <span class="tag">어법</span>
-          <span class="tag">빈칸</span>
-          <span class="tag">순서배열</span>
-          <span class="tag">내용일치</span>
-        </div>
-      </div>
-      <div class="p-arrow">›</div>
-    </a>
-
-    <!-- Passage 2 -->
-    <a class="passage-card" href="passage2.html">
-      <div class="p-num">2</div>
-      <div class="p-info">
-        <div class="p-title">Passage 2 · 삼림벌채</div>
-        <div class="p-desc">Deforestation — 환경과 생태계의 위기</div>
-        <div class="p-tags">
-          <span class="tag">어법</span>
-          <span class="tag">빈칸</span>
-          <span class="tag">문장삽입</span>
-          <span class="tag">주제</span>
-        </div>
-      </div>
-      <div class="p-arrow">›</div>
-    </a>
-
-    <!-- Passage 3 -->
-    <a class="passage-card" href="passage3.html">
-      <div class="p-num">3</div>
-      <div class="p-info">
-        <div class="p-title">Passage 3 · 창의성</div>
-        <div class="p-desc">Creativity — Eureka Moments &amp; Breadth of Experience</div>
-        <div class="p-tags">
-          <span class="tag">어법</span>
-          <span class="tag">빈칸</span>
-          <span class="tag">문장삽입</span>
-          <span class="tag">순서배열</span>
-          <span class="tag">주제</span>
-        </div>
-      </div>
-      <div class="p-arrow">›</div>
-    </a>
-
-    <!-- Passage 4 -->
-    <a class="passage-card" href="passage4.html">
-      <div class="p-num">4</div>
-      <div class="p-info">
-        <div class="p-title">Passage 4 · 수치심과 죄책감</div>
-        <div class="p-desc">Shame &amp; Guilt — 감정이 변화를 이끄는 방식</div>
-        <div class="p-tags">
-          <span class="tag">영작</span>
-          <span class="tag">어법</span>
-          <span class="tag">어휘</span>
-          <span class="tag">순서배열</span>
-          <span class="tag">제목</span>
-          <span class="tag">내용일치</span>
-        </div>
-      </div>
-      <div class="p-arrow">›</div>
-    </a>
-
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">The Prime Academy</div>
+    <h1>Academy Workbook</h1>
+    <p>학교별 · 과목별 인터랙티브 모의고사 워크북</p>
   </div>
 
-  <div class="section-label">📌 워크북 안내</div>
-  <div class="info-box">
-    <strong>학습 방법</strong>
-    <div class="info-row"><span>①</span><span>각 지문을 클릭해 문제를 풀어보세요.</span></div>
-    <div class="info-row"><span>②</span><span>Step 1(하) → Step 2(중) → Step 3(상) 순으로 난이도가 올라갑니다.</span></div>
-    <div class="info-row"><span>③</span><span>상단 필터(하·중·상)로 원하는 난이도만 볼 수 있습니다.</span></div>
-    <div class="info-row"><span>④</span><span>즉시 채점 후 해설이 표시됩니다.</span></div>
+  <!-- SUBJECTS -->
+  <div class="subjects-section">
+    <div class="section-head">
+      <div class="section-label">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        과목
+      </div>
+      <span class="hide-toggle">숨기기</span>
+    </div>
+    <div class="subject-grid">
+      <div class="subject-card" onclick="filterSubject('eng')">
+        <div class="subject-icon eng">🇬🇧</div>
+        <div>
+          <div class="subject-name">영어</div>
+          <div class="subject-meta">1개교 · 4개 지문</div>
+        </div>
+      </div>
+      <div class="subject-card disabled">
+        <div class="subject-icon math">∑</div>
+        <div>
+          <div class="subject-name">수학</div>
+          <div class="subject-meta">준비 중</div>
+        </div>
+      </div>
+      <div class="subject-card disabled">
+        <div class="subject-icon soon">+</div>
+        <div>
+          <div class="subject-name">과목 추가 예정</div>
+          <div class="subject-meta">확장 예정</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKBOOK GRID -->
+  <div class="workbook-section">
+    <div class="section-head">
+      <div class="section-label">영어 · 북일여고 6월 고1 모의고사</div>
+    </div>
+    <div class="toolbar">
+      <div class="sort-control">
+        정렬: 지문 순서
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="view-toggle">
+        <div class="view-btn active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="view-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid" id="cardGrid">
+
+      <a class="wb-card" href="english/bukil-hs/passage1.html" data-name="passage1 행동심리학 behavioral psychology">
+        <div class="wb-preview pv-1">
+          <span class="wb-tag done">완료</span>
+          <div class="wb-preview-icon">🧠</div>
+        </div>
+        <div class="wb-body">
+          <div class="wb-title">Passage 1 · 행동심리학</div>
+          <div class="wb-meta">Behavioral Psychology · 11문항</div>
+        </div>
+      </a>
+
+      <a class="wb-card" href="english/bukil-hs/passage2.html" data-name="passage2 삼림벌채 deforestation">
+        <div class="wb-preview pv-2">
+          <span class="wb-tag done">완료</span>
+          <div class="wb-preview-icon">🌳</div>
+        </div>
+        <div class="wb-body">
+          <div class="wb-title">Passage 2 · 삼림벌채</div>
+          <div class="wb-meta">Deforestation · 11문항</div>
+        </div>
+      </a>
+
+      <a class="wb-card" href="english/bukil-hs/passage3.html" data-name="passage3 창의성 creativity">
+        <div class="wb-preview pv-3">
+          <span class="wb-tag done">완료</span>
+          <div class="wb-preview-icon">💡</div>
+        </div>
+        <div class="wb-body">
+          <div class="wb-title">Passage 3 · 창의성</div>
+          <div class="wb-meta">Creativity · 11문항</div>
+        </div>
+      </a>
+
+      <a class="wb-card" href="english/bukil-hs/passage4.html" data-name="passage4 수치심 죄책감 shame guilt">
+        <div class="wb-preview pv-4">
+          <span class="wb-tag new">신규</span>
+          <div class="wb-preview-icon">⚖️</div>
+        </div>
+        <div class="wb-body">
+          <div class="wb-title">Passage 4 · 수치심과 죄책감</div>
+          <div class="wb-meta">Shame vs. Guilt · 17문항</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="empty-note">📐 수학 워크북은 준비 중입니다. 곧 추가될 예정이에요.</div>
   </div>
 
 </main>
 
-<footer>THE PRIME Academy · 북일여고 6월 고1 모의고사</footer>
+<footer>THE PRIME Academy · Academy Workbook</footer>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const cards = document.querySelectorAll('.wb-card');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    cards.forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+      card.style.display = (q === '' || name.includes(q)) ? '' : 'none';
+    });
+  });
+
+  function filterSubject(subject) {
+    document.getElementById('cardGrid').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
 
 </body>
 </html>

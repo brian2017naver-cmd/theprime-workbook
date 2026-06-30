@@ -226,6 +226,7 @@ async function doSignup(e) {
 
 // 전각 문자 → ASCII 자동 변환 (한글 IME 오입력 방지)
 function normalizeAscii(e) {
+  if (e.isComposing) return;
   const val = e.target.value;
   const fixed = val
     .replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))

@@ -254,6 +254,9 @@ main { padding: 16px; max-width: 860px; margin: 0 auto; }
 
 @media (max-width: 480px) { main { padding: 10px; } .score-big { font-size: 32px; } }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window._PID = 'passage3';</script>
+<script src="auth.js"></script>
 </head>
 <body>
 
@@ -882,6 +885,7 @@ function checkAB(qId, answers, fbId) {
     fb.className = "feedback show ng";
     fb.innerHTML = "<strong>❌ 오답 포함 (" + wrongBlanks.join(", ") + ")</strong><span class=\"expl\">정답(초록)을 확인하세요.</span>";
   }
+  saveProgress(fbId, allCorrect);
   updateProgress();
 }
 
@@ -904,6 +908,7 @@ function selectMC(btn, mcId, isCorrect) {
     state.mc[mcId] = false;
     showMCFeedback(mcId, false);
   }
+  saveProgress('mc-' + mcId, isCorrect);
   updateProgress();
 }
 
@@ -938,6 +943,7 @@ function checkKeyword(inputId, keywords, fbId, explanation) {
     input.classList.add("wrong");
     state.kw[inputId] = false;
   }
+  saveProgress(fbId, correct);
   updateProgress();
 }
 
@@ -1019,6 +1025,7 @@ function checkOrder(listId, correctOrder, fbId) {
     fb.innerHTML = "<strong>❌ 오답</strong><span class=\"expl\">정답 순서: " + correctOrder.join(" → ") + "</span>";
     state.ord[listId] = false;
   }
+  saveProgress(fbId, allOk);
   updateProgress();
 }
 

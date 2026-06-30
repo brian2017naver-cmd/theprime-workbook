@@ -104,6 +104,16 @@ html, body { min-height: 100vh; font-family: 'Nunito','Noto Sans KR',sans-serif;
 .progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #6B8FF7); border-radius: 99px; transition: width 0.4s; }
 .progress-text { font-size: 12px; font-weight: 700; color: var(--neutral); white-space: nowrap; }
+.progress-stats {
+  max-width: 860px; margin: 6px auto 0;
+  display: flex; gap: 8px; align-items: center;
+}
+.stat-chip {
+  font-size: 11px; font-weight: 800; padding: 3px 11px; border-radius: 99px;
+}
+.stat-chip.c { background: var(--correct-lt); color: var(--correct); }
+.stat-chip.w { background: var(--wrong-lt); color: var(--wrong); }
+.stat-chip.p { background: var(--primary-lt); color: var(--primary); }
 
 /* ── MAIN ── */
 .main { max-width: 860px; margin: 32px auto; padding: 0 16px; }
@@ -282,6 +292,9 @@ html, body { min-height: 100vh; font-family: 'Nunito','Noto Sans KR',sans-serif;
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window._PID = 'passage1';</script>
+<script src="auth.js"></script>
 </head>
 <body>
 
@@ -314,6 +327,11 @@ html, body { min-height: 100vh; font-family: 'Nunito','Noto Sans KR',sans-serif;
     <div class="progress-strip">
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progFill" style="width:0%"></div></div>
       <span class="progress-text" id="progText">0 / 17 완료</span>
+    </div>
+    <div class="progress-stats">
+      <span class="stat-chip c" id="statCorrect">정답 0</span>
+      <span class="stat-chip w" id="statWrong">오답 0</span>
+      <span class="stat-chip p" id="statPct">0%</span>
     </div>
   </div>
 </div>
@@ -740,10 +758,18 @@ function setFilter(f, btn) {
 
 function updateProgress() {
   const done = results.filter(r => r !== null).length;
+  const correct = results.filter(r => r === true).length;
+  const revealed = results.filter(r => r === 'revealed').length;
+  const wrong = results.filter(r => r === false).length;
+  const totalScore = correct + revealed;
   const pct = (done / TOTAL) * 100;
+  const accPct = done > 0 ? Math.round((totalScore / done) * 100) : 0;
   document.getElementById('progFill').style.width = pct + '%';
   document.getElementById('progText').textContent = done + ' / ' + TOTAL + ' 완료';
-  document.getElementById('floatTxt').textContent = score + ' / ' + TOTAL;
+  document.getElementById('statCorrect').textContent = '정답 ' + totalScore;
+  document.getElementById('statWrong').textContent = '오답 ' + wrong;
+  document.getElementById('statPct').textContent = accPct + '%';
+  document.getElementById('floatTxt').textContent = totalScore + ' / ' + TOTAL;
   if (done === TOTAL) showScore();
 }
 
@@ -767,6 +793,7 @@ function checkSAQ(idx) {
   score++;
   markCard(idx, 'revealed');
   updateProgress();
+  saveProgress('saq' + idx, true);
 }
 
 function selectMCQ(cardIdx, chosen, btn) {
@@ -791,6 +818,7 @@ function selectMCQ(cardIdx, chosen, btn) {
     markCard(idx, 'wrong');
   }
   updateProgress();
+  saveProgress('q' + cardIdx, chosen === cfg.ans);
 }
 
 function showScore() {

@@ -322,11 +322,28 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-(async () => {
-  const _sb = supabase.createClient('https://fqluoiryrahunnjatrsv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxbHVvaXJ5cmFodW5uamF0cnN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDA4MTMsImV4cCI6MjA5ODM3NjgxM30.2q2xjdhJXCGEuGNDkFEVx3E6HwV1Jxg3uaxhfCsBgK4');
-  const { data: { session } } = await _sb.auth.getSession();
-  if (!session) window.location.href = 'login.html';
-})();
+const _sb = supabase.createClient(
+  'https://fqluoiryrahunnjatrsv.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxbHVvaXJ5cmFodW5uamF0cnN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MDA4MTMsImV4cCI6MjA5ODM3NjgxM30.2q2xjdhJXCGEuGNDkFEVx3E6HwV1Jxg3uaxhfCsBgK4'
+);
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.style.visibility = 'hidden';
+});
+_sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'INITIAL_SESSION') {
+    if (!session) {
+      window.location.href = 'login.html';
+    } else {
+      document.body.style.visibility = 'visible';
+    }
+  } else if (event === 'SIGNED_OUT') {
+    window.location.href = 'login.html';
+  }
+});
+async function doLogout() {
+  await _sb.auth.signOut();
+  window.location.href = 'login.html';
+}
 </script>
 </head>
 <body>
@@ -339,7 +356,7 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" id="searchInput" placeholder="워크북 검색...">
     </div>
-    <div class="avatar">P</div>
+    <div class="avatar" onclick="doLogout()" title="로그아웃" style="cursor:pointer">P</div>
   </div>
 </div>
 

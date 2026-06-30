@@ -3,1082 +3,832 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE PRIME | 북일여고 6월 고1 | Passage 3 · Creativity</title>
+<title>지문3 · 창의성 | 더 프라임</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #1a2744;
-    --gold: #c9a84c;
-    --steel: #3a5f8a;
-    --bg: #f5f6fa;
-    --card: #ffffff;
-    --text: #1e2235;
-    --muted: #6b7280;
-    --border: #e2e6f0;
-    --green: #16a34a;
-    --red: #dc2626;
-    --amber: #d97706;
-    --step1: #e8f4fd;
-    --step1b: #3a5f8a;
-    --step2: #fef3e2;
-    --step2b: #d97706;
-    --step3: #f0fdf4;
-    --step3b: #16a34a;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F4F6FB; --card: #FFFFFF; --card2: #F0F4FF;
+  --primary: #3B6FD4; --primary-lt: #EEF3FF;
+  --accent: #E8632A;
+  --correct: #1A9E6B; --correct-lt: #E8FBF3;
+  --wrong: #D63B4A; --wrong-lt: #FFF0F1;
+  --neutral: #7B8DB8; --text: #1A2238; --subtext: #5A6A8A;
+  --border: #DDE3F0;
+  /* step colors */
+  --step1: #e8f4fd; --step1b: #3a5f8a;
+  --step2: #fef3e2; --step2b: #d97706;
+  --step3: #f0fdf4; --step3b: #16a34a;
+}
+html, body { min-height: 100vh; font-family: "Nunito","Noto Sans KR",sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* HEADER */
+.site-header {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(59,111,212,0.07);
+}
+.brand-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-logo {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), #5B8FEF);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900; color: #fff;
+}
+.brand-name { font-size: 13px; font-weight: 800; color: var(--neutral); }
+.back-btn {
+  font-size: 13px; font-weight: 700; color: var(--primary);
+  text-decoration: none; display: flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--border); transition: all 0.15s;
+}
+.back-btn:hover { background: var(--primary-lt); border-color: var(--primary); }
 
-  body {
-    font-family: 'Segoe UI', 'Apple SD Gothic Neo', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.6;
-  }
+/* HERO STRIP */
+.hero-strip { background: var(--card); border-bottom: 1px solid var(--border); padding: 20px 32px 18px; }
+.hero-inner { max-width: 860px; margin: 0 auto; }
+.hero-tag {
+  display: inline-block; background: var(--primary-lt); color: var(--primary);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(59,111,212,0.18); margin-bottom: 8px;
+}
+.hero-title { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+.hero-title span { color: var(--primary); }
 
-  /* ── STICKY HEADER ── */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--navy);
-    color: #fff;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  }
-  .header-left { display: flex; align-items: center; gap: 10px; }
-  .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: var(--gold); }
-  .passage-label { font-size: 11px; color: rgba(255,255,255,0.7); }
-  .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+/* FILTER */
+.filter-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-label { font-size: 12px; font-weight: 700; color: var(--neutral); }
+.filter-btn {
+  padding: 6px 16px; border-radius: 99px; border: 1.5px solid var(--border);
+  background: #fff; font-size: 12px; font-weight: 700; cursor: pointer;
+  font-family: inherit; transition: all 0.15s; color: var(--subtext);
+}
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-  /* ── PROGRESS ── */
-  .progress-wrap { flex: 1; min-width: 80px; max-width: 160px; }
-  .progress-bar-track {
-    background: rgba(255,255,255,0.2);
-    border-radius: 99px;
-    height: 6px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--gold);
-    border-radius: 99px;
-    transition: width 0.4s;
-    width: 0%;
-  }
-  .progress-label { font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 3px; text-align: right; }
+/* PROGRESS */
+.progress-strip { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #6B8FF7); border-radius: 99px; transition: width 0.4s; width: 0%; }
+.progress-label { font-size: 12px; font-weight: 700; color: var(--neutral); white-space: nowrap; }
+.progress-stats { display: flex; gap: 8px; margin-top: 6px; }
+.stat-chip { font-size: 11px; font-weight: 800; padding: 3px 11px; border-radius: 99px; }
+.stat-chip.c { background: var(--correct-lt); color: var(--correct); }
+.stat-chip.w { background: var(--wrong-lt); color: var(--wrong); }
+.stat-chip.p { background: var(--primary-lt); color: var(--primary); }
 
-  /* ── FILTER BUTTONS ── */
-  .filter-group { display: flex; gap: 4px; }
-  .filter-btn {
-    border: none;
-    border-radius: 5px;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: #fff;
-    opacity: 0.55;
-  }
-  .filter-btn.active { opacity: 1; transform: scale(1.05); }
-  .filter-btn[data-level="전체"] { background: var(--steel); }
-  .filter-btn[data-level="하"] { background: var(--step1b); }
-  .filter-btn[data-level="중"] { background: var(--step2b); }
-  .filter-btn[data-level="상"] { background: var(--step3b); }
+/* MAIN */
+main { padding: 16px; max-width: 860px; margin: 0 auto; }
 
-  /* ── MAIN LAYOUT ── */
-  main { padding: 16px; max-width: 760px; margin: 0 auto; }
+/* PASSAGE BOX */
+.passage-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 10px 10px 0; padding: 18px 20px; margin-bottom: 20px;
+}
+.passage-box h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 800; margin-bottom: 10px; }
+.passage-text { font-size: 14px; line-height: 1.9; color: var(--text); font-family: "Noto Sans KR",sans-serif; }
+.passage-text mark { background: #fef9c3; border-radius: 2px; font-style: normal; padding: 0 2px; }
 
-  /* ── PASSAGE BOX ── */
-  .passage-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--navy);
-    border-radius: 8px;
-    padding: 18px 20px;
-    margin-bottom: 20px;
-  }
-  .passage-box h2 {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--navy);
-    font-weight: 800;
-    margin-bottom: 10px;
-  }
-  .passage-text {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--text);
-    font-style: italic;
-  }
-  .passage-text mark {
-    background: #fef9c3;
-    border-radius: 2px;
-    font-style: normal;
-    padding: 0 2px;
-  }
+/* SECTION DIVIDER */
+.section-title {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--neutral); margin: 24px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── QUESTION CARD ── */
-  .q-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
-  }
-  .q-card:hover { box-shadow: 0 4px 16px rgba(26,39,68,0.1); }
-  .q-card.hidden { display: none; }
+/* Q CARD */
+.q-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.2s;
+}
+.q-card:hover { box-shadow: 0 4px 16px rgba(59,111,212,0.10); }
+.q-card.hidden { display: none; }
+.q-header {
+  display: flex; align-items: center; gap: 10px; padding: 13px 16px;
+  border-bottom: 1px solid var(--border); background: #fafbfe;
+}
+.q-num {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--primary);
+  color: #fff; font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.q-title { font-size: 13px; font-weight: 700; color: var(--primary); flex: 1; }
+.level-tag { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; color: #fff; flex-shrink: 0; }
+.level-하 { background: var(--step1b); }
+.level-중 { background: var(--step2b); }
+.level-상 { background: var(--step3b); }
 
-  .q-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 13px 16px;
-    border-bottom: 1px solid var(--border);
-    background: #fafbfe;
-  }
-  .q-num {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--navy);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .q-title { font-size: 13px; font-weight: 700; color: var(--navy); flex: 1; }
-  .level-tag {
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 99px;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .level-하 { background: var(--step1b); }
-  .level-중 { background: var(--step2b); }
-  .level-상 { background: var(--step3b); }
+/* STEPS */
+.steps-wrap { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.step-block { border-radius: 8px; padding: 12px 14px; border: 1px solid transparent; }
+.step-block.step1 { background: var(--step1); border-color: #bfdbf7; }
+.step-block.step2 { background: var(--step2); border-color: #fde68a; }
+.step-block.step3 { background: var(--step3); border-color: #bbf7d0; }
+.step-label { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+.step1 .step-label { color: var(--step1b); }
+.step2 .step-label { color: var(--step2b); }
+.step3 .step-label { color: var(--step3b); }
+.step-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 900; color: #fff; }
+.step1 .step-dot { background: var(--step1b); }
+.step2 .step-dot { background: var(--step2b); }
+.step3 .step-dot { background: var(--step3b); }
+.step-q { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.6; }
+.step-q em { font-style: normal; color: var(--primary); font-weight: 600; }
 
-  /* ── STEP BLOCKS ── */
-  .steps-wrap { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+/* TEXT INPUT */
+.text-input {
+  border: 1.5px solid #cbd5e1; border-radius: 6px; padding: 7px 10px;
+  font-size: 13px; width: 100%; background: #fff; outline: none;
+  transition: border-color 0.2s; color: var(--text);
+}
+.text-input:focus { border-color: var(--step1b); }
+.text-input.correct { border-color: var(--correct); background: var(--correct-lt); }
+.text-input.wrong { border-color: var(--wrong); background: var(--wrong-lt); }
 
-  .step-block {
-    border-radius: 8px;
-    padding: 12px 14px;
-    border: 1px solid transparent;
-  }
-  .step-block.step1 { background: var(--step1); border-color: #bfdbf7; }
-  .step-block.step2 { background: var(--step2); border-color: #fde68a; }
-  .step-block.step3 { background: var(--step3); border-color: #bbf7d0; }
+/* MC OPTIONS */
+.mc-options { display: flex; flex-direction: column; gap: 6px; }
+.mc-opt {
+  display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px;
+  border: 1.5px solid #d1d5db; border-radius: 7px; background: #fff;
+  cursor: pointer; font-size: 13px; color: var(--text);
+  transition: all 0.15s; text-align: left; width: 100%; line-height: 1.5;
+  font-family: "Noto Sans KR","Nunito",sans-serif;
+}
+.mc-opt:hover { border-color: var(--step1b); background: #eef4fb; }
+.mc-opt.correct { border-color: var(--correct); background: var(--correct-lt); color: var(--correct); font-weight: 700; }
+.mc-opt.wrong { border-color: var(--wrong); background: var(--wrong-lt); color: var(--wrong); }
+.mc-opt.reveal-correct { border-color: var(--correct); background: var(--correct-lt); }
+.opt-num {
+  width: 20px; height: 20px; border-radius: 50%; background: #e5e7eb;
+  font-size: 11px; font-weight: 700; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+.mc-opt.correct .opt-num { background: var(--correct); color: #fff; }
+.mc-opt.wrong .opt-num { background: var(--wrong); color: #fff; }
+.mc-opt.reveal-correct .opt-num { background: var(--correct); color: #fff; }
 
-  .step-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .step1 .step-label { color: var(--step1b); }
-  .step2 .step-label { color: var(--step2b); }
-  .step3 .step-label { color: var(--step3b); }
+/* AB BLANK */
+.blank-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 6px; }
+.blank-row { display: flex; align-items: center; gap: 6px; }
+.blank-label { font-size: 12px; font-weight: 700; color: var(--neutral); width: 30px; flex-shrink: 0; }
+.ab-wrap { display: flex; gap: 5px; flex: 1; }
+.ab-btn {
+  flex: 1; padding: 6px 8px; border: 1.5px solid #d1d5db; border-radius: 6px;
+  background: #fff; font-size: 12px; cursor: pointer; text-align: center;
+  transition: all 0.15s; color: var(--text); font-family: "Nunito",sans-serif;
+}
+.ab-btn:hover { border-color: var(--step1b); }
+.ab-btn.selected { border-color: var(--step1b); background: #dbeafe; }
+.ab-btn.correct { border-color: var(--correct); background: var(--correct-lt); color: var(--correct); font-weight: 700; }
+.ab-btn.wrong { border-color: var(--wrong); background: var(--wrong-lt); color: var(--wrong); }
+.ab-btn.reveal-correct { border-color: var(--correct); background: var(--correct-lt); }
 
-  .step-dot {
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 8px;
-    font-weight: 900;
-    color: #fff;
-  }
-  .step1 .step-dot { background: var(--step1b); }
-  .step2 .step-dot { background: var(--step2b); }
-  .step3 .step-dot { background: var(--step3b); }
+/* ORDER */
+.order-list { display: flex; flex-direction: column; gap: 5px; }
+.order-item {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  border: 1.5px solid #d1d5db; border-radius: 7px; background: #fff;
+  font-size: 12px; cursor: grab; user-select: none; transition: border-color 0.15s; touch-action: none;
+}
+.order-item:active { cursor: grabbing; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.order-item.dragging { opacity: 0.5; border-color: var(--step1b); }
+.order-item.drag-over { border-color: #c9a84c; background: #fef9e7; }
+.order-item.correct-pos { border-color: var(--correct); background: var(--correct-lt); }
+.order-item.wrong-pos { border-color: var(--wrong); background: var(--wrong-lt); }
+.order-handle { color: var(--neutral); font-size: 14px; flex-shrink: 0; }
+.order-letter {
+  width: 22px; height: 22px; border-radius: 4px; background: var(--primary);
+  color: #fff; font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
 
-  .step-q { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.6; }
-  .step-q em { font-style: normal; color: var(--navy); font-weight: 600; }
+/* CHECK BTN */
+.check-btn {
+  margin-top: 10px; padding: 8px 18px; background: var(--text); color: #fff;
+  border: none; border-radius: 7px; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: background 0.15s; width: 100%; font-family: "Nunito",sans-serif;
+}
+.check-btn:hover { background: var(--primary); }
+.check-btn:disabled { background: #9ca3af; cursor: not-allowed; }
 
-  /* ── INPUT ── */
-  .text-input {
-    border: 1.5px solid #cbd5e1;
-    border-radius: 6px;
-    padding: 7px 10px;
-    font-size: 13px;
-    width: 100%;
-    background: #fff;
-    transition: border-color 0.2s;
-    outline: none;
-    color: var(--text);
-  }
-  .text-input:focus { border-color: var(--steel); }
-  .text-input.correct { border-color: var(--green); background: #f0fdf4; }
-  .text-input.wrong { border-color: var(--red); background: #fef2f2; }
+/* FEEDBACK */
+.feedback { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 7px; font-size: 12px; line-height: 1.6; font-family: "Noto Sans KR",sans-serif; }
+.feedback.show { display: block; }
+.feedback.ok { background: var(--correct-lt); border: 1px solid #86efac; color: var(--correct); }
+.feedback.ng { background: var(--wrong-lt); border: 1px solid #fca5a5; color: var(--wrong); }
+.feedback strong { display: block; margin-bottom: 3px; font-size: 13px; }
+.feedback .expl { color: #374151; margin-top: 4px; font-size: 12px; }
 
-  /* ── MC OPTIONS ── */
-  .mc-options { display: flex; flex-direction: column; gap: 6px; }
-  .mc-opt {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 8px 10px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 7px;
-    background: #fff;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text);
-    transition: all 0.15s;
-    text-align: left;
-    width: 100%;
-    line-height: 1.5;
-  }
-  .mc-opt:hover { border-color: var(--steel); background: #eef4fb; }
-  .mc-opt.selected { border-color: var(--steel); background: #dbeafe; }
-  .mc-opt.correct { border-color: var(--green); background: #dcfce7; color: var(--green); font-weight: 700; }
-  .mc-opt.wrong { border-color: var(--red); background: #fee2e2; color: var(--red); }
-  .mc-opt.reveal-correct { border-color: var(--green); background: #dcfce7; }
-  .opt-num {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    font-size: 11px;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .mc-opt.selected .opt-num { background: var(--steel); color: #fff; }
-  .mc-opt.correct .opt-num { background: var(--green); color: #fff; }
-  .mc-opt.wrong .opt-num { background: var(--red); color: #fff; }
-  .mc-opt.reveal-correct .opt-num { background: var(--green); color: #fff; }
+/* SENT BOX */
+.sent-box {
+  background: #f8fafc; border-left: 3px solid var(--step1b);
+  border-radius: 0 6px 6px 0; padding: 8px 12px;
+  font-size: 12.5px; line-height: 1.8; margin-bottom: 8px; color: var(--text);
+}
+.insert-mark {
+  display: inline-block; background: #c9a84c; color: #1a2744;
+  border-radius: 4px; padding: 0 5px; font-size: 11px; font-weight: 800; margin: 0 2px;
+}
 
-  /* ── BLANK OPTIONS (AB choice) ── */
-  .blank-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 6px; }
-  .blank-row { display: flex; align-items: center; gap: 6px; }
-  .blank-label { font-size: 12px; font-weight: 700; color: var(--muted); width: 30px; flex-shrink: 0; }
-  .ab-wrap { display: flex; gap: 5px; flex: 1; }
-  .ab-btn {
-    flex: 1;
-    padding: 6px 8px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 6px;
-    background: #fff;
-    font-size: 12px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-    color: var(--text);
-  }
-  .ab-btn:hover { border-color: var(--steel); }
-  .ab-btn.selected { border-color: var(--steel); background: #dbeafe; }
-  .ab-btn.correct { border-color: var(--green); background: #dcfce7; color: var(--green); font-weight: 700; }
-  .ab-btn.wrong { border-color: var(--red); background: #fee2e2; color: var(--red); }
-  .ab-btn.reveal-correct { border-color: var(--green); background: #dcfce7; }
+/* GRAMMAR FILL */
+.grammar-sentence {
+  background: #f8fafc; border: 1px solid var(--border); border-radius: 7px;
+  padding: 10px 12px; font-size: 13px; line-height: 1.9; margin-bottom: 8px; color: var(--text);
+}
+.gram-blank {
+  display: inline-block; min-width: 80px; border-bottom: 2px solid var(--step1b);
+  margin: 0 3px; text-align: center; font-weight: 700; color: var(--step1b);
+}
 
-  /* ── ORDER DRAG ── */
-  .order-list { display: flex; flex-direction: column; gap: 5px; }
-  .order-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 7px;
-    background: #fff;
-    font-size: 12px;
-    cursor: grab;
-    user-select: none;
-    transition: border-color 0.15s;
-    touch-action: none;
-  }
-  .order-item:active { cursor: grabbing; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-  .order-item.dragging { opacity: 0.5; border-color: var(--steel); }
-  .order-item.drag-over { border-color: var(--gold); background: #fef9e7; }
-  .order-item.correct-pos { border-color: var(--green); background: #dcfce7; }
-  .order-item.wrong-pos { border-color: var(--red); background: #fee2e2; }
-  .order-handle { color: var(--muted); font-size: 14px; flex-shrink: 0; }
-  .order-letter {
-    width: 22px; height: 22px;
-    border-radius: 4px;
-    background: var(--navy);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
+/* SCORE */
+.score-panel { background: var(--primary); color: #fff; border-radius: 10px; padding: 20px; margin-top: 24px; text-align: center; }
+.score-panel h3 { font-size: 14px; color: #fde68a; margin-bottom: 10px; }
+.score-big { font-size: 42px; font-weight: 900; color: #fff; }
+.score-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+.score-reset {
+  margin-top: 14px; padding: 8px 20px; background: #c9a84c; color: #1a2744;
+  border: none; border-radius: 7px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: "Nunito",sans-serif;
+}
 
-  /* ── CHECK BTN ── */
-  .check-btn {
-    margin-top: 10px;
-    padding: 8px 18px;
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.15s;
-    width: 100%;
-  }
-  .check-btn:hover { background: var(--steel); }
-  .check-btn:disabled { background: #9ca3af; cursor: not-allowed; }
-
-  /* ── FEEDBACK ── */
-  .feedback {
-    display: none;
-    margin-top: 10px;
-    padding: 10px 12px;
-    border-radius: 7px;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-  .feedback.show { display: block; }
-  .feedback.ok { background: #f0fdf4; border: 1px solid #86efac; color: var(--green); }
-  .feedback.ng { background: #fef2f2; border: 1px solid #fca5a5; color: var(--red); }
-  .feedback strong { display: block; margin-bottom: 3px; font-size: 13px; }
-  .feedback .expl { color: #374151; margin-top: 4px; font-size: 12px; }
-
-  /* ── SENTENCE CONTEXT ── */
-  .sent-box {
-    background: #f8fafc;
-    border-left: 3px solid var(--steel);
-    border-radius: 0 6px 6px 0;
-    padding: 8px 12px;
-    font-size: 12.5px;
-    line-height: 1.8;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-  .sent-box .insert-mark {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--navy);
-    border-radius: 4px;
-    padding: 0 5px;
-    font-size: 11px;
-    font-weight: 800;
-    margin: 0 2px;
-  }
-
-  /* ── SECTION DIVIDER ── */
-  .section-title {
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin: 24px 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── SCORE PANEL ── */
-  .score-panel {
-    background: var(--navy);
-    color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 24px;
-    text-align: center;
-  }
-  .score-panel h3 { font-size: 14px; color: var(--gold); margin-bottom: 10px; }
-  .score-big { font-size: 42px; font-weight: 900; color: #fff; }
-  .score-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
-  .score-reset {
-    margin-top: 14px;
-    padding: 8px 20px;
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-  }
-
-  /* ── GRAMMAR FILL ── */
-  .grammar-sentence {
-    background: #f8fafc;
-    border: 1px solid #e2e6f0;
-    border-radius: 7px;
-    padding: 10px 12px;
-    font-size: 13px;
-    line-height: 1.9;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-  .gram-blank {
-    display: inline-block;
-    min-width: 80px;
-    border-bottom: 2px solid var(--steel);
-    margin: 0 3px;
-    text-align: center;
-    font-weight: 700;
-    color: var(--steel);
-  }
-
-  @media (max-width: 480px) {
-    main { padding: 10px; }
-    .score-big { font-size: 32px; }
-  }
+@media (max-width: 480px) { main { padding: 10px; } .score-big { font-size: 32px; } }
 </style>
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
-<header>
-  <div class="header-left">
-    <span class="brand">THE PRIME</span>
-    <span class="passage-label">북일여고 6월 고1 · Passage 3</span>
-  </div>
-  <div class="progress-wrap">
-    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
-    <div class="progress-label" id="progressLabel">0 / 0 완료</div>
-  </div>
-  <div class="header-right">
-    <div class="filter-group">
+<header class="site-header">
+  <a href="../../index.html" class="brand-link">
+    <div class="brand-logo">P</div>
+    <span class="brand-name">THE PRIME</span>
+  </a>
+  <a href="../../index.html" class="back-btn">← 목록으로</a>
+</header>
+
+<div class="hero-strip">
+  <div class="hero-inner">
+    <div class="hero-tag">지문 3 · 창의성</div>
+    <div class="hero-title">창의성과 <span>유레카 순간</span></div>
+    <div class="filter-bar">
+      <span class="filter-label">난이도</span>
       <button class="filter-btn active" data-level="전체">전체</button>
       <button class="filter-btn" data-level="하">하</button>
       <button class="filter-btn" data-level="중">중</button>
       <button class="filter-btn" data-level="상">상</button>
     </div>
+    <div class="progress-strip">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">0 / 33 완료</span>
+    </div>
+    <div class="progress-stats">
+      <span class="stat-chip c" id="statCorrect">정답 0</span>
+      <span class="stat-chip w" id="statWrong">오답 0</span>
+      <span class="stat-chip p" id="statPct">0%</span>
+    </div>
   </div>
-</header>
+</div>
 
-<!-- ═══ MAIN ═══ -->
 <main>
 
-  <!-- PASSAGE -->
-  <div class="passage-box">
-    <h2>📖 Passage 3 — Creativity &amp; Eureka Moments</h2>
-    <p class="passage-text">
-      Suppose you have been working on the solution to a challenging technological problem for many years. Let's also suppose that you have been paying attention to whatever else you have encountered that might be related to the problem. In that case, chances are that creative solutions to the problem could suddenly <mark>pop up</mark> in your mind when you are <mark>relaxed</mark>. Such "<mark>eureka moments</mark>" (when great insights lead to discovery or invention) often take place at <mark>unexpected times</mark>. To enhance <mark>spontaneous creativity</mark>, therefore, one must pay attention to the things that could potentially lead to valuable outcomes. This does not mean that you must narrow down your interest to one specific topic. On the contrary, <mark>breadth of experience</mark> is the key to creativity. If your experience is limited to a narrow range of topics, then the scope of your imagination will likewise be <mark>narrow</mark>, which would be harmful to creativity.
-    </p>
+<div class="passage-box">
+  <h2>📖 Passage 3 — Creativity &amp; Eureka Moments</h2>
+  <p class="passage-text">
+    Suppose you have been working on the solution to a challenging technological problem for many years. Let's also suppose that you have been paying attention to <mark>whatever</mark> else you have encountered that might be related to the problem. In that case, chances are that creative solutions to the problem could suddenly <mark>pop up</mark> in your mind when you are <mark>relaxed</mark>. Such "<mark>eureka moments</mark>" (when great insights lead to discovery or invention) often take place at <mark>unexpected times</mark>. To <mark>enhance</mark> <mark>spontaneous creativity</mark>, therefore, one must pay attention to the things <mark>that</mark> could potentially lead to valuable outcomes. This does not mean that you must narrow down your interest to one specific topic. On the contrary, <mark>breadth of experience</mark> is the key to creativity. If your experience is limited to a narrow range of topics, then the scope of your imagination will likewise be <mark>narrow</mark>, <mark>which</mark> would be harmful to creativity.<br><br>
+    <span style="font-size:12px;color:var(--subtext)">* spontaneous: 자연 발생적인</span>
+  </p>
+</div>
+
+<div class="section-title">문 1·2·3 — 어법 선택 (A)(B)(C)</div>
+
+<div class="q-card" data-level="중" id="q1">
+  <div class="q-header">
+    <div class="q-num">1</div>
+    <div class="q-title">문1·2·3 | 어법 선택 (A)(B)(C)</div>
+    <span class="level-tag level-중">중</span>
   </div>
-
-  <!-- ═══ SECTION 1: 어법 영작 ═══ -->
-  <div class="section-title">문 3·4·5 — 어법 영작 (A)(B)(C)</div>
-
-  <!-- Q1: 문3/4/5 어법 -->
-  <div class="q-card" data-level="중" id="q1">
-    <div class="q-header">
-      <div class="q-num">1</div>
-      <div class="q-title">문3·4·5 | 어법 선택 (A)(B)(C)</div>
-      <span class="level-tag level-중">중</span>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 빈칸 확인</div>
+      <div class="step-q">각 네모 안의 선택지 중 올바른 것은 무엇인지 생각해보세요.</div>
+      <div class="grammar-sentence">
+        … you have been paying attention to <span class="gram-blank">(A) whatever / however</span> else you have encountered …<br>
+        … one must pay attention to the things <span class="gram-blank">(B) that / what</span> could potentially lead …<br>
+        … the scope of your imagination will likewise be narrow, <span class="gram-blank">(C) which / that</span> would be harmful to creativity.
+      </div>
     </div>
-    <div class="steps-wrap">
-
-      <!-- Step 1 -->
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 빈칸 확인</div>
-        <div class="step-q">각 밑줄의 품사/역할을 맞혀보세요. (A)는 부사/형용사, (B)는 동사형태, (C)는 접속사/관계사 중 무엇일까요?</div>
-        <div class="grammar-sentence">
-          (A) Such "eureka moments" often take place at <span class="gram-blank">(A) unexpected / expectedly</span> times.<br>
-          (B) To <span class="gram-blank">(B) enhance / enhancing</span> spontaneous creativity, one must pay attention …<br>
-          (C) … the scope of your imagination will <span class="gram-blank">(C) likely / likewise</span> be narrow.
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · A/B 선택</div>
-        <div class="step-q">각 빈칸에 알맞은 어형을 선택하세요.</div>
-        <div class="blank-group" id="q1-ab">
-          <div class="blank-row">
-            <span class="blank-label">(A)</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q1" data-blank="A" data-val="unexpected" onclick="selectAB(this)">unexpected</button>
-              <button class="ab-btn" data-q="q1" data-blank="A" data-val="expectedly" onclick="selectAB(this)">expectedly</button>
-            </div>
-          </div>
-          <div class="blank-row">
-            <span class="blank-label">(B)</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q1" data-blank="B" data-val="enhance" onclick="selectAB(this)">enhance</button>
-              <button class="ab-btn" data-q="q1" data-blank="B" data-val="enhancing" onclick="selectAB(this)">enhancing</button>
-            </div>
-          </div>
-          <div class="blank-row">
-            <span class="blank-label">(C)</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q1" data-blank="C" data-val="likely" onclick="selectAB(this)">likely</button>
-              <button class="ab-btn" data-q="q1" data-blank="C" data-val="likewise" onclick="selectAB(this)">likewise</button>
-            </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · A/B 선택</div>
+      <div class="step-q">각 빈칸에 알맞은 어형을 선택하세요.</div>
+      <div class="blank-group" id="q1-ab">
+        <div class="blank-row">
+          <span class="blank-label">(A)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q1" data-blank="A" data-val="whatever" onclick="selectAB(this)">whatever</button>
+            <button class="ab-btn" data-q="q1" data-blank="A" data-val="however" onclick="selectAB(this)">however</button>
           </div>
         </div>
-        <button class="check-btn" onclick="checkAB('q1', {A:'unexpected',B:'enhance',C:'likewise'}, 'fb-q1-ab')">채점하기</button>
-        <div class="feedback" id="fb-q1-ab"></div>
+        <div class="blank-row">
+          <span class="blank-label">(B)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q1" data-blank="B" data-val="that" onclick="selectAB(this)">that</button>
+            <button class="ab-btn" data-q="q1" data-blank="B" data-val="what" onclick="selectAB(this)">what</button>
+          </div>
+        </div>
+        <div class="blank-row">
+          <span class="blank-label">(C)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q1" data-blank="C" data-val="which" onclick="selectAB(this)">which</button>
+            <button class="ab-btn" data-q="q1" data-blank="C" data-val="that" onclick="selectAB(this)">that</button>
+          </div>
+        </div>
       </div>
-
-      <!-- Step 3 -->
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
-        <div class="step-q">(B)에서 <em>To enhance</em>가 정답인 문법적 이유를 입력하세요.</div>
-        <input class="text-input" id="q1-step3" placeholder="예: to부정사의 부사적 용법 — 목적 (~하기 위해)" />
-        <button class="check-btn" onclick="checkKeyword('q1-step3', ['to부정사','부사','목적'], 'fb-q1-s3', '「To + 동사원형」은 to부정사의 부사적 용법(목적)으로 문장 앞에서 「~하기 위해」를 뜻합니다. enhance가 동사원형이어야 합니다.')">확인하기</button>
-        <div class="feedback" id="fb-q1-s3"></div>
-      </div>
+      <button class="check-btn" onclick="checkAB('q1', {A:'whatever',B:'that',C:'which'}, 'fb-q1-ab')">채점하기</button>
+      <div class="feedback" id="fb-q1-ab"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">(C)에서 <em>which</em>가 정답인 문법적 이유를 입력하세요.</div>
+      <input class="text-input" id="q1-step3" placeholder="예: 계속적 용법의 관계대명사 — 선행사 전체를 받음" />
+      <button class="check-btn" onclick="checkKeyword('q1-step3', ['관계대명사','계속','선행사','절'], 'fb-q1-s3', '앞 절 전체(the scope will be narrow)를 선행사로 받는 계속적 용법의 관계대명사 which가 맞습니다. that은 계속적 용법으로 쓸 수 없습니다.')">확인하기</button>
+      <div class="feedback" id="fb-q1-s3"></div>
     </div>
   </div>
+</div>
 
-  <!-- ═══ SECTION 2: 빈칸 ═══ -->
-  <div class="section-title">문 6 · 27 — 빈칸 추론</div>
+<div class="section-title">문 4 — 어법상 틀린 것</div>
 
-  <!-- Q2: 문6 빈칸 ①②③ -->
-  <div class="q-card" data-level="하" id="q2">
-    <div class="q-header">
-      <div class="q-num">2</div>
-      <div class="q-title">문6 | 빈칸 ①②③ 채우기</div>
-      <span class="level-tag level-하">하</span>
+<div class="q-card" data-level="중" id="q2">
+  <div class="q-header">
+    <div class="q-num">2</div>
+    <div class="q-title">문4 | 어법상 틀린 것 찾기</div>
+    <span class="level-tag level-중">중</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 밑줄 확인</div>
+      <div class="step-q">밑줄 친 부분 중 어법상 <em>틀린</em> 것을 찾아보세요.</div>
+      <div class="sent-box">
+        … you have been paying attention to ① <u>whatever</u> else you have encountered … chances are ② <u>that</u> creative solutions … could suddenly pop up … ③ <u>To enhance</u> spontaneous creativity, therefore, one must pay attention to the things ④ <u>what</u> could potentially lead to valuable outcomes. … the scope of your imagination will likewise be narrow, ⑤ <u>which</u> would be harmful to creativity.
+      </div>
     </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 단어 선택</div>
-        <div class="step-q">보기에서 골라 각 빈칸을 채우세요.<br><em>[unexpected / spontaneous / difficult]</em></div>
-        <div class="blank-group" id="q2-ab">
-          <div class="blank-row">
-            <span class="blank-label">①</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q2" data-blank="1" data-val="unexpected" onclick="selectAB(this)">unexpected</button>
-              <button class="ab-btn" data-q="q2" data-blank="1" data-val="spontaneous" onclick="selectAB(this)">spontaneous</button>
-              <button class="ab-btn" data-q="q2" data-blank="1" data-val="difficult" onclick="selectAB(this)">difficult</button>
-            </div>
-          </div>
-          <div class="blank-row">
-            <span class="blank-label">②</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q2" data-blank="2" data-val="unexpected" onclick="selectAB(this)">unexpected</button>
-              <button class="ab-btn" data-q="q2" data-blank="2" data-val="spontaneous" onclick="selectAB(this)">spontaneous</button>
-              <button class="ab-btn" data-q="q2" data-blank="2" data-val="difficult" onclick="selectAB(this)">difficult</button>
-            </div>
-          </div>
-          <div class="blank-row">
-            <span class="blank-label">③</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q2" data-blank="3" data-val="unexpected" onclick="selectAB(this)">unexpected</button>
-              <button class="ab-btn" data-q="q2" data-blank="3" data-val="spontaneous" onclick="selectAB(this)">spontaneous</button>
-              <button class="ab-btn" data-q="q2" data-blank="3" data-val="difficult" onclick="selectAB(this)">difficult</button>
-            </div>
-          </div>
-        </div>
-        <button class="check-btn" onclick="checkAB('q2', {'1':'unexpected','2':'spontaneous','3':'difficult'}, 'fb-q2-ab')">채점하기</button>
-        <div class="feedback" id="fb-q2-ab"></div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 선택</div>
+      <div class="step-q">어법상 틀린 번호를 선택하세요.</div>
+      <div class="mc-options" id="mc-q2g">
+        <button class="mc-opt" onclick="selectMC(this,'q2g',false)"><span class="opt-num">①</span>whatever</button>
+        <button class="mc-opt" onclick="selectMC(this,'q2g',false)"><span class="opt-num">②</span>that</button>
+        <button class="mc-opt" onclick="selectMC(this,'q2g',false)"><span class="opt-num">③</span>To enhance</button>
+        <button class="mc-opt" onclick="selectMC(this,'q2g',true)"><span class="opt-num">④</span>what</button>
+        <button class="mc-opt" onclick="selectMC(this,'q2g',false)"><span class="opt-num">⑤</span>which</button>
       </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 문맥 확인</div>
-        <div class="step-q">① <em>unexpected times</em>가 자연스러운 이유를 고르세요.</div>
-        <div class="mc-options" id="mc-q2s2">
-          <button class="mc-opt" onclick="selectMC(this,'q2s2',false)"><span class="opt-num">①</span>열심히 노력할 때 아이디어가 나오기 때문에</button>
-          <button class="mc-opt" onclick="selectMC(this,'q2s2',true)"><span class="opt-num">②</span>eureka moment는 편안히 쉴 때 예상치 못하게 일어나기 때문에</button>
-          <button class="mc-opt" onclick="selectMC(this,'q2s2',false)"><span class="opt-num">③</span>시간이 많을 때만 창의성이 생기기 때문에</button>
-        </div>
-        <div class="feedback" id="fb-q2s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 영작</div>
-        <div class="step-q">다음 문장을 완성하세요: "창의적 통찰은 _____ 시간에 일어난다." → 영어로</div>
-        <input class="text-input" id="q2-step3" placeholder="Creative insights often occur at _____ times." />
-        <button class="check-btn" onclick="checkKeyword('q2-step3', ['unexpected'], 'fb-q2-s3', '정답: Creative insights often occur at unexpected times. — eureka moments는 예상치 못한 순간에 찾아옵니다.')">확인하기</button>
-        <div class="feedback" id="fb-q2-s3"></div>
-      </div>
+      <div class="feedback" id="fb-q2g"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">④번이 틀린 이유를 입력하세요.</div>
+      <input class="text-input" id="q2-step3" placeholder="예: 선행사가 있으므로 what이 아닌 that을 써야 함" />
+      <button class="check-btn" onclick="checkKeyword('q2-step3', ['선행사','that','관계대명사'], 'fb-q2-s3', '「the things what」에서 선행사 the things가 있으므로 what 대신 관계대명사 that을 써야 합니다. what은 선행사를 포함한 관계대명사입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q2-s3"></div>
     </div>
   </div>
+</div>
 
-  <!-- Q3: 문27 빈칸 추론 -->
-  <div class="q-card" data-level="중" id="q3">
-    <div class="q-header">
-      <div class="q-num">3</div>
-      <div class="q-title">문27 | 빈칸 추론 — 핵심 주장</div>
-      <span class="level-tag level-중">중</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 핵심어 찾기</div>
-        <div class="step-q">빈칸 앞뒤 문장에서 힌트 단어를 입력하세요. (relaxed, pay attention 중 하나)</div>
-        <input class="text-input" id="q3-step1" placeholder="힌트 단어 입력..." />
-        <button class="check-btn" onclick="checkKeyword('q3-step1', ['relaxed','pay attention','attention'], 'fb-q3-s1', '핵심 힌트: relaxed(편안할 때) + pay attention(주의를 기울인다면) → 아이디어가 떠오른다는 흐름입니다.')">확인하기</button>
-        <div class="feedback" id="fb-q3-s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 정답 선택</div>
-        <div class="step-q">빈칸에 들어갈 가장 적절한 표현은?</div>
-        <div class="sent-box">
-          In that case, chances are that ________________ when you are relaxed.
-        </div>
-        <div class="mc-options" id="mc-q3s2">
-          <button class="mc-opt" onclick="selectMC(this,'q3s2',false)"><span class="opt-num">①</span>you will feel more stressed than before</button>
-          <button class="mc-opt" onclick="selectMC(this,'q3s2',true)"><span class="opt-num">②</span>useful ideas may suddenly come to mind</button>
-          <button class="mc-opt" onclick="selectMC(this,'q3s2',false)"><span class="opt-num">③</span>your focus becomes narrower than ever</button>
-          <button class="mc-opt" onclick="selectMC(this,'q3s2',false)"><span class="opt-num">④</span>the problem will be solved by others</button>
-          <button class="mc-opt" onclick="selectMC(this,'q3s2',false)"><span class="opt-num">⑤</span>you lose interest in the original topic</button>
-        </div>
-        <div class="feedback" id="fb-q3s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 근거 작성</div>
-        <div class="step-q">② 가 정답인 근거를 본문에서 찾아 핵심 단어 2개 이상 써보세요.</div>
-        <input class="text-input" id="q3-step3" placeholder="예: pop up, relaxed..." />
-        <button class="check-btn" onclick="checkKeyword('q3-step3', ['pop up','relaxed','eureka','attention'], 'fb-q3-s3', '근거: "creative solutions could suddenly pop up in your mind when you are relaxed" — 편안할 때 아이디어가 떠오른다는 것이 핵심입니다.')">확인하기</button>
-        <div class="feedback" id="fb-q3-s3"></div>
-      </div>
-    </div>
+<div class="section-title">문 5·6·7 — 어휘 선택 (A)(B)(C)</div>
+
+<div class="q-card" data-level="하" id="q3">
+  <div class="q-header">
+    <div class="q-num">3</div>
+    <div class="q-title">문5·6·7 | 어휘 선택 (A)(B)(C)</div>
+    <span class="level-tag level-하">하</span>
   </div>
-
-  <!-- ═══ SECTION 3: 문장 삽입 ═══ -->
-  <div class="section-title">문 19 · 23 · 47 · 51 · 55 — 문장 삽입</div>
-
-  <!-- Q4: 문19 문장 삽입 -->
-  <div class="q-card" data-level="중" id="q4">
-    <div class="q-header">
-      <div class="q-num">4</div>
-      <div class="q-title">문19 | 문장 삽입 위치</div>
-      <span class="level-tag level-중">중</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 삽입 문장 파악</div>
-        <div class="step-q">삽입할 문장의 핵심 연결어를 고르세요.</div>
-        <div class="sent-box">삽입 문장: <em>Such "eureka moments" often take place at unexpected times.</em></div>
-        <div class="mc-options" id="mc-q4s1">
-          <button class="mc-opt" onclick="selectMC(this,'q4s1',false)"><span class="opt-num">①</span>Therefore (결과)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s1',true)"><span class="opt-num">②</span>Such (앞 내용 지칭)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s1',false)"><span class="opt-num">③</span>However (반전)</button>
-        </div>
-        <div class="feedback" id="fb-q4s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 위치 선택</div>
-        <div class="step-q">문장이 들어갈 위치 번호를 고르세요.</div>
-        <div class="sent-box">
-          <span class="insert-mark">①</span> Suppose you have been working on a challenging problem …
-          <span class="insert-mark">②</span> In that case, chances are that creative solutions could suddenly pop up when relaxed.
-          <span class="insert-mark">③</span> To enhance spontaneous creativity, one must pay attention …
-          <span class="insert-mark">④</span> Breadth of experience is the key to creativity.
-          <span class="insert-mark">⑤</span>
-        </div>
-        <div class="mc-options" id="mc-q4s2">
-          <button class="mc-opt" onclick="selectMC(this,'q4s2',false)"><span class="opt-num">①</span>①</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s2',false)"><span class="opt-num">②</span>②</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s2',true)"><span class="opt-num">③</span>③</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s2',false)"><span class="opt-num">④</span>④</button>
-          <button class="mc-opt" onclick="selectMC(this,'q4s2',false)"><span class="opt-num">⑤</span>⑤</button>
-        </div>
-        <div class="feedback" id="fb-q4s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 근거</div>
-        <div class="step-q">③ 위치가 정답인 이유: Such가 가리키는 내용은 앞 문장의 무엇인가요?</div>
-        <input class="text-input" id="q4-step3" placeholder="예: creative solutions pop up when relaxed" />
-        <button class="check-btn" onclick="checkKeyword('q4-step3', ['pop up','relaxed','solutions','creative'], 'fb-q4-s3', 'Such "eureka moments"의 Such는 바로 앞 「creative solutions could suddenly pop up when relaxed」를 지칭합니다. 앞에 그 내용이 있어야 Such로 받을 수 있습니다.')">확인하기</button>
-        <div class="feedback" id="fb-q4-s3"></div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 빈칸 확인</div>
+      <div class="step-q">문맥에 맞는 낱말을 각 네모에서 고르세요.</div>
+      <div class="grammar-sentence">
+        … To (A) <span class="gram-blank">enhance / hinder</span> spontaneous creativity …<br>
+        … (B) <span class="gram-blank">breadth / limitation</span> of experience is the key to creativity …<br>
+        … which would be (C) <span class="gram-blank">harmful / beneficial</span> to creativity.
       </div>
     </div>
-  </div>
-
-  <!-- Q5: 문23 문장 삽입 -->
-  <div class="q-card" data-level="중" id="q5">
-    <div class="q-header">
-      <div class="q-num">5</div>
-      <div class="q-title">문23 | 문장 삽입 — 역접 연결</div>
-      <span class="level-tag level-중">중</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 연결어 확인</div>
-        <div class="step-q">다음 문장의 연결어 <em>On the contrary</em>는 무엇을 뒤집나요?</div>
-        <div class="sent-box">삽입: <em>On the contrary, breadth of experience is the key to creativity.</em></div>
-        <div class="mc-options" id="mc-q5s1">
-          <button class="mc-opt" onclick="selectMC(this,'q5s1',false)"><span class="opt-num">①</span>창의성이 불필요하다는 생각</button>
-          <button class="mc-opt" onclick="selectMC(this,'q5s1',true)"><span class="opt-num">②</span>관심사를 하나로 좁혀야 한다는 생각</button>
-          <button class="mc-opt" onclick="selectMC(this,'q5s1',false)"><span class="opt-num">③</span>경험이 많으면 집중이 어렵다는 생각</button>
-        </div>
-        <div class="feedback" id="fb-q5s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 삽입 위치</div>
-        <div class="step-q">문장이 들어갈 위치를 고르세요.</div>
-        <div class="sent-box">
-          <span class="insert-mark">①</span> To enhance spontaneous creativity, one must pay attention to valuable things.
-          <span class="insert-mark">②</span> This does not mean you must narrow down your interest to one topic.
-          <span class="insert-mark">③</span> If your experience is limited, your imagination will likewise be narrow.
-          <span class="insert-mark">④</span>
-        </div>
-        <div class="mc-options" id="mc-q5s2">
-          <button class="mc-opt" onclick="selectMC(this,'q5s2',false)"><span class="opt-num">①</span>①</button>
-          <button class="mc-opt" onclick="selectMC(this,'q5s2',false)"><span class="opt-num">②</span>②</button>
-          <button class="mc-opt" onclick="selectMC(this,'q5s2',true)"><span class="opt-num">③</span>③</button>
-          <button class="mc-opt" onclick="selectMC(this,'q5s2',false)"><span class="opt-num">④</span>④</button>
-        </div>
-        <div class="feedback" id="fb-q5s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 영작 완성</div>
-        <div class="step-q">「관심을 하나로 좁힐 필요가 없다」를 영어로 완성하세요.</div>
-        <input class="text-input" id="q5-step3" placeholder="This does not mean that you must _____ your interest to one specific topic." />
-        <button class="check-btn" onclick="checkKeyword('q5-step3', ['narrow down','narrow'], 'fb-q5-s3', '정답: narrow down — narrow down A to B = A를 B로 좁히다. 반의어 breadth(넓이)와 대비됩니다.')">확인하기</button>
-        <div class="feedback" id="fb-q5-s3"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q6: 문47 문장 삽입 -->
-  <div class="q-card" data-level="중" id="q6">
-    <div class="q-header">
-      <div class="q-num">6</div>
-      <div class="q-title">문47 | 문장 삽입 — 경험의 범위</div>
-      <span class="level-tag level-중">중</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 핵심어</div>
-        <div class="step-q">삽입 문장의 주어 <em>it</em>이 가리키는 것을 고르세요.</div>
-        <div class="sent-box">삽입: <em>It is therefore important to expose yourself to a wide variety of fields.</em></div>
-        <div class="mc-options" id="mc-q6s1">
-          <button class="mc-opt" onclick="selectMC(this,'q6s1',false)"><span class="opt-num">①</span>eureka moment</button>
-          <button class="mc-opt" onclick="selectMC(this,'q6s1',true)"><span class="opt-num">②</span>breadth of experience</button>
-          <button class="mc-opt" onclick="selectMC(this,'q6s1',false)"><span class="opt-num">③</span>challenging problem</button>
-        </div>
-        <div class="feedback" id="fb-q6s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 위치 선택</div>
-        <div class="step-q">문장이 들어갈 위치는?</div>
-        <div class="sent-box">
-          <span class="insert-mark">①</span> On the contrary, breadth of experience is the key to creativity.
-          <span class="insert-mark">②</span> If your experience is limited to a narrow range of topics, your imagination will be narrow.
-          <span class="insert-mark">③</span> This would be harmful to creativity.
-          <span class="insert-mark">④</span>
-        </div>
-        <div class="mc-options" id="mc-q6s2">
-          <button class="mc-opt" onclick="selectMC(this,'q6s2',false)"><span class="opt-num">①</span>①</button>
-          <button class="mc-opt" onclick="selectMC(this,'q6s2',true)"><span class="opt-num">②</span>②</button>
-          <button class="mc-opt" onclick="selectMC(this,'q6s2',false)"><span class="opt-num">③</span>③</button>
-          <button class="mc-opt" onclick="selectMC(this,'q6s2',false)"><span class="opt-num">④</span>④</button>
-        </div>
-        <div class="feedback" id="fb-q6s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 어휘 확인</div>
-        <div class="step-q"><em>expose yourself to</em>의 뜻을 입력하세요.</div>
-        <input class="text-input" id="q6-step3" placeholder="한국어로 입력..." />
-        <button class="check-btn" onclick="checkKeyword('q6-step3', ['접하다','노출','경험하다','익히다'], 'fb-q6-s3', 'expose yourself to = ~에 노출시키다, 접하다. 「다양한 분야에 자신을 노출하라」는 breadth of experience를 실천하는 방법입니다.')">확인하기</button>
-        <div class="feedback" id="fb-q6-s3"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SECTION 4: 글의 순서 ═══ -->
-  <div class="section-title">문 31 · 39 · 43 — 글의 순서 배열</div>
-
-  <!-- Q7: 문31 글의 순서 -->
-  <div class="q-card" data-level="상" id="q7">
-    <div class="q-header">
-      <div class="q-num">7</div>
-      <div class="q-title">문31 | 글의 순서 — 창의성 논증</div>
-      <span class="level-tag level-상">상</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 단락 내용 파악</div>
-        <div class="step-q">각 단락의 핵심을 연결하세요. (A→B→C 순 유추)</div>
-        <div class="sent-box">
-          <strong>(A)</strong> If your experience is limited to a narrow range, your imagination will likewise be narrow.<br>
-          <strong>(B)</strong> Creative solutions pop up when you are relaxed and have paid attention to related things.<br>
-          <strong>(C)</strong> Breadth of experience is the key to creativity — don't narrow your interests.
-        </div>
-        <div class="mc-options" id="mc-q7s1">
-          <button class="mc-opt" onclick="selectMC(this,'q7s1',false)"><span class="opt-num">①</span>A → B → C</button>
-          <button class="mc-opt" onclick="selectMC(this,'q7s1',true)"><span class="opt-num">②</span>B → C → A</button>
-          <button class="mc-opt" onclick="selectMC(this,'q7s1',false)"><span class="opt-num">③</span>C → A → B</button>
-          <button class="mc-opt" onclick="selectMC(this,'q7s1',false)"><span class="opt-num">④</span>A → C → B</button>
-        </div>
-        <div class="feedback" id="fb-q7s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 연결 근거</div>
-        <div class="step-q">B→C 사이를 연결하는 논리는?</div>
-        <div class="mc-options" id="mc-q7s2">
-          <button class="mc-opt" onclick="selectMC(this,'q7s2',false)"><span class="opt-num">①</span>B의 반례로 C가 제시됨</button>
-          <button class="mc-opt" onclick="selectMC(this,'q7s2',true)"><span class="opt-num">②</span>B(eureka 조건) → C(따라서 관심 넓혀야 함)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q7s2',false)"><span class="opt-num">③</span>B와 C는 독립적인 주제</button>
-        </div>
-        <div class="feedback" id="fb-q7s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 직접 배열</div>
-        <div class="step-q">단락을 올바른 순서로 드래그하세요.</div>
-        <div class="order-list" id="order-q7" ondragover="onDragOver(event)" ondrop="onDrop(event,'order-q7')">
-          <div class="order-item" draggable="true" data-id="C" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q7')">
-            <span class="order-handle">⠿</span><span class="order-letter">C</span><span>Breadth of experience is the key…</span>
-          </div>
-          <div class="order-item" draggable="true" data-id="A" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q7')">
-            <span class="order-handle">⠿</span><span class="order-letter">A</span><span>If experience is limited, imagination will be narrow…</span>
-          </div>
-          <div class="order-item" draggable="true" data-id="B" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q7')">
-            <span class="order-handle">⠿</span><span class="order-letter">B</span><span>Creative solutions pop up when relaxed…</span>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · A/B 선택</div>
+      <div class="step-q">각 빈칸에 문맥상 알맞은 낱말을 선택하세요.</div>
+      <div class="blank-group" id="q3-ab">
+        <div class="blank-row">
+          <span class="blank-label">(A)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q3" data-blank="A" data-val="enhance" onclick="selectAB(this)">enhance</button>
+            <button class="ab-btn" data-q="q3" data-blank="A" data-val="hinder" onclick="selectAB(this)">hinder</button>
           </div>
         </div>
-        <button class="check-btn" onclick="checkOrder('order-q7', ['B','C','A'], 'fb-q7-ord')">순서 확인</button>
-        <div class="feedback" id="fb-q7-ord"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q8: 문39 글의 순서 -->
-  <div class="q-card" data-level="상" id="q8">
-    <div class="q-header">
-      <div class="q-num">8</div>
-      <div class="q-title">문39 | 글의 순서 — 주의와 창의성</div>
-      <span class="level-tag level-상">상</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 연결어 분석</div>
-        <div class="step-q">다음 중 글의 순서를 결정할 연결 표현을 모두 고르세요.</div>
-        <div class="mc-options" id="mc-q8s1">
-          <button class="mc-opt" onclick="selectMC(this,'q8s1',false)"><span class="opt-num">①</span>therefore (결과)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s1',false)"><span class="opt-num">②</span>on the contrary (역접)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s1',false)"><span class="opt-num">③</span>in that case (조건 결과)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s1',true)"><span class="opt-num">④</span>위 세 가지 모두</button>
-        </div>
-        <div class="feedback" id="fb-q8s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 순서 선택</div>
-        <div class="step-q">주어진 글 다음에 이어질 단락의 순서로 가장 적절한 것은?</div>
-        <div class="sent-box">
-          <strong>주어진 글:</strong> Suppose you have been working on a challenging problem for many years and paying attention to related things.<br>
-          <strong>(A)</strong> Therefore, to enhance spontaneous creativity, one must pay attention to potentially valuable things.<br>
-          <strong>(B)</strong> In that case, creative solutions could suddenly pop up in your mind when you are relaxed.<br>
-          <strong>(C)</strong> Such eureka moments often take place at unexpected times.
-        </div>
-        <div class="mc-options" id="mc-q8s2">
-          <button class="mc-opt" onclick="selectMC(this,'q8s2',false)"><span class="opt-num">①</span>(A) - (B) - (C)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s2',true)"><span class="opt-num">②</span>(B) - (C) - (A)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s2',false)"><span class="opt-num">③</span>(C) - (A) - (B)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s2',false)"><span class="opt-num">④</span>(A) - (C) - (B)</button>
-          <button class="mc-opt" onclick="selectMC(this,'q8s2',false)"><span class="opt-num">⑤</span>(C) - (B) - (A)</button>
-        </div>
-        <div class="feedback" id="fb-q8s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 직접 배열</div>
-        <div class="step-q">단락을 올바른 순서로 드래그하세요.</div>
-        <div class="order-list" id="order-q8" ondragover="onDragOver(event)" ondrop="onDrop(event,'order-q8')">
-          <div class="order-item" draggable="true" data-id="A" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q8')">
-            <span class="order-handle">⠿</span><span class="order-letter">A</span><span>Therefore, pay attention to potentially valuable things…</span>
-          </div>
-          <div class="order-item" draggable="true" data-id="C" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q8')">
-            <span class="order-handle">⠿</span><span class="order-letter">C</span><span>Such eureka moments take place at unexpected times…</span>
-          </div>
-          <div class="order-item" draggable="true" data-id="B" ondragstart="onDragStart(event)" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'order-q8')">
-            <span class="order-handle">⠿</span><span class="order-letter">B</span><span>Creative solutions pop up when relaxed…</span>
+        <div class="blank-row">
+          <span class="blank-label">(B)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q3" data-blank="B" data-val="breadth" onclick="selectAB(this)">breadth</button>
+            <button class="ab-btn" data-q="q3" data-blank="B" data-val="limitation" onclick="selectAB(this)">limitation</button>
           </div>
         </div>
-        <button class="check-btn" onclick="checkOrder('order-q8', ['B','C','A'], 'fb-q8-ord')">순서 확인</button>
-        <div class="feedback" id="fb-q8-ord"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SECTION 5: 내용 일치/불일치 ═══ -->
-  <div class="section-title">문 35 · 63 · 67 · 70 — 내용 일치·불일치</div>
-
-  <!-- Q9: 문35 내용일치 -->
-  <div class="q-card" data-level="하" id="q9">
-    <div class="q-header">
-      <div class="q-num">9</div>
-      <div class="q-title">문35 | 내용 불일치 찾기 ①</div>
-      <span class="level-tag level-하">하</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · T/F 판단</div>
-        <div class="step-q">다음 설명이 지문과 일치하면 T, 불일치하면 F를 고르세요.</div>
-        <div class="blank-group" id="q9-tf">
-          <div class="blank-row">
-            <span class="blank-label" style="width:auto;flex-shrink:0;font-size:11px;">창의적 아이디어는 열심히 집중할 때 나온다</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q9" data-blank="1" data-val="T" onclick="selectAB(this)">T</button>
-              <button class="ab-btn" data-q="q9" data-blank="1" data-val="F" onclick="selectAB(this)">F</button>
-            </div>
-          </div>
-          <div class="blank-row">
-            <span class="blank-label" style="width:auto;flex-shrink:0;font-size:11px;">eureka moment는 예상치 못한 때 일어난다</span>
-            <div class="ab-wrap">
-              <button class="ab-btn" data-q="q9" data-blank="2" data-val="T" onclick="selectAB(this)">T</button>
-              <button class="ab-btn" data-q="q9" data-blank="2" data-val="F" onclick="selectAB(this)">F</button>
-            </div>
+        <div class="blank-row">
+          <span class="blank-label">(C)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q3" data-blank="C" data-val="harmful" onclick="selectAB(this)">harmful</button>
+            <button class="ab-btn" data-q="q3" data-blank="C" data-val="beneficial" onclick="selectAB(this)">beneficial</button>
           </div>
         </div>
-        <button class="check-btn" onclick="checkAB('q9', {'1':'F','2':'T'}, 'fb-q9-tf')">채점하기</button>
-        <div class="feedback" id="fb-q9-tf"></div>
       </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 불일치 선택</div>
-        <div class="step-q">지문 내용과 일치하지 않는 것을 고르세요.</div>
-        <div class="mc-options" id="mc-q9s2">
-          <button class="mc-opt" onclick="selectMC(this,'q9s2',false)"><span class="opt-num">①</span>창의적 아이디어는 긴장이 풀렸을 때 떠오를 수 있다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q9s2',true)"><span class="opt-num">②</span>창의성을 높이려면 관심 분야를 좁혀야 한다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q9s2',false)"><span class="opt-num">③</span>다양한 경험의 폭이 창의성의 핵심이다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q9s2',false)"><span class="opt-num">④</span>관련 있을 수 있는 것들에 주의를 기울여야 한다.</button>
+      <button class="check-btn" onclick="checkAB('q3', {A:'enhance',B:'breadth',C:'harmful'}, 'fb-q3-ab')">채점하기</button>
+      <div class="feedback" id="fb-q3-ab"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">(B) <em>breadth(폭넓음)</em>이 정답인 이유를 입력하세요.</div>
+      <input class="text-input" id="q3-step3" placeholder="예: 경험의 폭이 창의성의 열쇠 — 좁은 범위는 상상력을 제한" />
+      <button class="check-btn" onclick="checkKeyword('q3-step3', ['경험','폭','창의','상상'], 'fb-q3-s3', '글의 핵심 논지는 breadth(폭넓음)의 경험이 창의성의 열쇠라는 것입니다. limitation(제한)을 쓰면 글의 논지와 반대됩니다.')">확인하기</button>
+      <div class="feedback" id="fb-q3-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 8 — 어휘 틀린 것</div>
+
+<div class="q-card" data-level="하" id="q4">
+  <div class="q-header">
+    <div class="q-num">4</div>
+    <div class="q-title">문8 | 어휘 쓰임이 적절하지 않은 것</div>
+    <span class="level-tag level-하">하</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 밑줄 확인</div>
+      <div class="step-q">밑줄 친 낱말 중 문맥상 <em>적절하지 않은</em> 것을 찾으세요.</div>
+      <div class="sent-box">
+        … creative solutions to the problem could suddenly pop up in your mind when you are relaxed. Such "eureka moments" … often take place at ① <u>predictable</u> times. To ② <u>enhance</u> spontaneous creativity, therefore, one must pay attention to the things that could potentially lead to ③ <u>valuable</u> outcomes. … ④ <u>breadth</u> of experience is the key to creativity. If your experience is limited to a ⑤ <u>narrow</u> range of topics …
+      </div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 선택</div>
+      <div class="step-q">문맥상 적절하지 않은 낱말을 고르세요.</div>
+      <div class="mc-options" id="mc-q4v">
+        <button class="mc-opt" onclick="selectMC(this,'q4v',true)"><span class="opt-num">①</span>predictable</button>
+        <button class="mc-opt" onclick="selectMC(this,'q4v',false)"><span class="opt-num">②</span>enhance</button>
+        <button class="mc-opt" onclick="selectMC(this,'q4v',false)"><span class="opt-num">③</span>valuable</button>
+        <button class="mc-opt" onclick="selectMC(this,'q4v',false)"><span class="opt-num">④</span>breadth</button>
+        <button class="mc-opt" onclick="selectMC(this,'q4v',false)"><span class="opt-num">⑤</span>narrow</button>
+      </div>
+      <div class="feedback" id="fb-q4v"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">① predictable을 대체할 올바른 단어를 쓰고 이유를 입력하세요.</div>
+      <input class="text-input" id="q4-step3" placeholder="예: unexpected — 유레카 순간은 예측할 수 없는 시간에 일어남" />
+      <button class="check-btn" onclick="checkKeyword('q4-step3', ['unexpected','예측','예상'], 'fb-q4-s3', 'eureka moments는 unexpected(예상치 못한) 시간에 일어난다고 했으므로, predictable(예측 가능한)은 반대 의미입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q4-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 9 — 빈칸 추론</div>
+
+<div class="q-card" data-level="상" id="q5">
+  <div class="q-header">
+    <div class="q-num">5</div>
+    <div class="q-title">문9 | 빈칸 추론</div>
+    <span class="level-tag level-상">상</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 빈칸 확인</div>
+      <div class="step-q">빈칸에 들어갈 말로 가장 적절한 것은 무엇인지 생각해보세요.</div>
+      <div class="sent-box">
+        … chances are that creative solutions to the problem could <strong>________________________</strong>. Such "eureka moments" often take place at unexpected times.
+      </div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 선택</div>
+      <div class="step-q">빈칸에 들어갈 가장 적절한 것을 고르세요.</div>
+      <div class="mc-options" id="mc-q5b">
+        <button class="mc-opt" onclick="selectMC(this,'q5b',true)"><span class="opt-num">①</span>emerge unexpectedly in a relaxed state of mind</button>
+        <button class="mc-opt" onclick="selectMC(this,'q5b',false)"><span class="opt-num">②</span>appear only through strict and constant concentration</button>
+        <button class="mc-opt" onclick="selectMC(this,'q5b',false)"><span class="opt-num">③</span>disappear when attention moves beyond one topic</button>
+        <button class="mc-opt" onclick="selectMC(this,'q5b',false)"><span class="opt-num">④</span>result from avoiding unrelated experiences entirely</button>
+        <button class="mc-opt" onclick="selectMC(this,'q5b',false)"><span class="opt-num">⑤</span>arise only after all other interests are removed</button>
+      </div>
+      <div class="feedback" id="fb-q5b"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">① 이 정답인 이유를 본문 근거를 들어 입력하세요.</div>
+      <input class="text-input" id="q5-step3" placeholder="예: 뒤에 relaxed 상태에서 eureka moment가 온다는 내용이 이어짐" />
+      <button class="check-btn" onclick="checkKeyword('q5-step3', ['relaxed','유레카','eureka','이완','편안'], 'fb-q5-s3', '빈칸 뒤에 「when you are relaxed」와 eureka moments 언급이 있으므로, 편안한 상태에서 갑자기 아이디어가 떠오른다는 ①이 정답입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q5-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 10 — 요약문 완성</div>
+
+<div class="q-card" data-level="상" id="q6">
+  <div class="q-header">
+    <div class="q-num">6</div>
+    <div class="q-title">문10 | 요약문 완성 (A)(B)</div>
+    <span class="level-tag level-상">상</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 요약문 확인</div>
+      <div class="step-q">다음 요약문의 빈칸 (A)(B)에 알맞은 말을 생각해보세요.</div>
+      <div class="sent-box">
+        Although spontaneous creative breakthroughs seem to arise effortlessly during relaxation, they are essentially nurtured by maintaining a (A) ________ of experiences, since (B) ________ one's intellectual focus strictly to a singular domain severely limits imagination.
+      </div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · A/B 선택</div>
+      <div class="step-q">빈칸 (A)와 (B)에 알맞은 말을 선택하세요.</div>
+      <div class="blank-group" id="q6-ab">
+        <div class="blank-row">
+          <span class="blank-label">(A)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q6" data-blank="A" data-val="convergence" onclick="selectAB(this)">convergence</button>
+            <button class="ab-btn" data-q="q6" data-blank="A" data-val="diversity" onclick="selectAB(this)">diversity</button>
+            <button class="ab-btn" data-q="q6" data-blank="A" data-val="consistency" onclick="selectAB(this)">consistency</button>
+          </div>
         </div>
-        <div class="feedback" id="fb-q9s2"></div>
-      </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 반박 영작</div>
-        <div class="step-q">② 가 틀린 이유를 본문 표현으로 반박하세요. (breadth 사용)</div>
-        <input class="text-input" id="q9-step3" placeholder="예: breadth of experience is the key to creativity..." />
-        <button class="check-btn" onclick="checkKeyword('q9-step3', ['breadth','breadth of experience','experience'], 'fb-q9-s3', '본문: "breadth of experience is the key to creativity" — 관심을 좁히는 것이 아니라 넓히는 것이 창의성의 핵심입니다.')">확인하기</button>
-        <div class="feedback" id="fb-q9-s3"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q10: 문70 내용일치 -->
-  <div class="q-card" data-level="하" id="q10">
-    <div class="q-header">
-      <div class="q-num">10</div>
-      <div class="q-title">문70 | 내용 일치 — 상상력과 경험</div>
-      <span class="level-tag level-하">하</span>
-    </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 핵심 단어</div>
-        <div class="step-q">「경험의 범위가 좁으면 상상력도 ____하다」 — 빈칸을 입력하세요.</div>
-        <input class="text-input" id="q10-step1" placeholder="한 단어 (한국어)" />
-        <button class="check-btn" onclick="checkKeyword('q10-step1', ['좁','협소','제한'], 'fb-q10-s1', '정답: 좁다 — "the scope of your imagination will likewise be narrow" — 경험이 좁으면 상상력의 범위도 같이 좁아집니다.')">확인하기</button>
-        <div class="feedback" id="fb-q10-s1"></div>
-      </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 일치 선택</div>
-        <div class="step-q">지문 내용과 일치하는 것을 고르세요.</div>
-        <div class="mc-options" id="mc-q10s2">
-          <button class="mc-opt" onclick="selectMC(this,'q10s2',false)"><span class="opt-num">①</span>한 분야에 집중할수록 창의력이 높아진다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q10s2',false)"><span class="opt-num">②</span>eureka moment는 노력할 때만 일어난다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q10s2',true)"><span class="opt-num">③</span>경험이 한정되면 상상력의 범위도 같이 좁아진다.</button>
-          <button class="mc-opt" onclick="selectMC(this,'q10s2',false)"><span class="opt-num">④</span>창의성은 타고난 능력이라 훈련으로 개발할 수 없다.</button>
+        <div class="blank-row">
+          <span class="blank-label">(B)</span>
+          <div class="ab-wrap">
+            <button class="ab-btn" data-q="q6" data-blank="B" data-val="broadening" onclick="selectAB(this)">broadening</button>
+            <button class="ab-btn" data-q="q6" data-blank="B" data-val="confining" onclick="selectAB(this)">confining</button>
+            <button class="ab-btn" data-q="q6" data-blank="B" data-val="devoting" onclick="selectAB(this)">devoting</button>
+          </div>
         </div>
-        <div class="feedback" id="fb-q10s2"></div>
       </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 문장 완성</div>
-        <div class="step-q">다음 문장을 완성하세요.</div>
-        <input class="text-input" id="q10-step3" placeholder="If your experience is limited, the scope of your imagination will _____ be narrow." />
-        <button class="check-btn" onclick="checkKeyword('q10-step3', ['likewise','also','similarly'], 'fb-q10-s3', '정답: likewise — likewise는 「마찬가지로」라는 부사입니다. 경험의 좁음이 상상력의 좁음으로 그대로 이어집니다.')">확인하기</button>
-        <div class="feedback" id="fb-q10-s3"></div>
-      </div>
+      <button class="check-btn" onclick="checkAB('q6', {A:'diversity',B:'confining'}, 'fb-q6-ab')">채점하기</button>
+      <div class="feedback" id="fb-q6-ab"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">(A) diversity가 정답인 이유를 본문과 연결지어 쓰세요.</div>
+      <input class="text-input" id="q6-step3" placeholder="예: breadth of experience = diversity of experiences" />
+      <button class="check-btn" onclick="checkKeyword('q6-step3', ['breadth','다양','diversity','경험'], 'fb-q6-s3', '본문의 breadth of experience(경험의 폭)가 요약문에서 diversity(다양성)로 바꿔 표현되었습니다. confining은 limited to a narrow range를 패러프레이즈한 것입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q6-s3"></div>
     </div>
   </div>
+</div>
 
-  <!-- ═══ SECTION 6: 주제 ═══ -->
-  <div class="section-title">문 25 — 글의 주제</div>
+<div class="section-title">문 11 — 내용 불일치</div>
 
-  <!-- Q11: 문25 주제 -->
-  <div class="q-card" data-level="중" id="q11">
-    <div class="q-header">
-      <div class="q-num">11</div>
-      <div class="q-title">문25 | 글의 주제 파악</div>
-      <span class="level-tag level-중">중</span>
+<div class="q-card" data-level="하" id="q7">
+  <div class="q-header">
+    <div class="q-num">7</div>
+    <div class="q-title">문11 | 내용과 일치하지 않는 것</div>
+    <span class="level-tag level-하">하</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 선택지 확인</div>
+      <div class="step-q">본문과 <em>일치하지 않는</em> 것을 찾아보세요.</div>
     </div>
-    <div class="steps-wrap">
-      <div class="step-block step1">
-        <div class="step-label"><span class="step-dot">1</span> Step 1 · 핵심 문장 찾기</div>
-        <div class="step-q">지문에서 주제를 가장 잘 나타내는 문장 첫 단어를 입력하세요.</div>
-        <input class="text-input" id="q11-step1" placeholder="예: To / Breadth / Such..." />
-        <button class="check-btn" onclick="checkKeyword('q11-step1', ['breadth','Breadth','breadth of'], 'fb-q11-s1', '주제 문장: "breadth of experience is the key to creativity" — 경험의 폭이 창의성의 핵심이라는 것이 이 글의 중심 주장입니다.')">확인하기</button>
-        <div class="feedback" id="fb-q11-s1"></div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 선택</div>
+      <div class="step-q">본문과 일치하지 않는 것을 고르세요.</div>
+      <div class="mc-options" id="mc-q7c">
+        <button class="mc-opt" onclick="selectMC(this,'q7c',false)"><span class="opt-num">①</span>Creative answers to difficult problems can unexpectedly emerge in your mind during moments of relaxation.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q7c',false)"><span class="opt-num">②</span>Profound insights leading to discoveries or inventions frequently occur when they are least expected.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q7c',false)"><span class="opt-num">③</span>To foster spontaneous creativity, it is necessary to observe things that might yield valuable results.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q7c',true)"><span class="opt-num">④</span>Prolonged concentration on a single specific topic naturally broadens a researcher's overall scope of imagination.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q7c',false)"><span class="opt-num">⑤</span>Confining your experiences to a limited range of subjects will have a negative impact on your creative potential.</button>
       </div>
-      <div class="step-block step2">
-        <div class="step-label"><span class="step-dot">2</span> Step 2 · 주제 선택</div>
-        <div class="step-q">이 글의 주제로 가장 적절한 것은?</div>
-        <div class="mc-options" id="mc-q11s2">
-          <button class="mc-opt" onclick="selectMC(this,'q11s2',false)"><span class="opt-num">①</span>The importance of focused practice in solving problems</button>
-          <button class="mc-opt" onclick="selectMC(this,'q11s2',false)"><span class="opt-num">②</span>How relaxation leads to better academic performance</button>
-          <button class="mc-opt" onclick="selectMC(this,'q11s2',true)"><span class="opt-num">③</span>The role of broad experience in fostering spontaneous creativity</button>
-          <button class="mc-opt" onclick="selectMC(this,'q11s2',false)"><span class="opt-num">④</span>The influence of consequences on behavioral adjustments</button>
-          <button class="mc-opt" onclick="selectMC(this,'q11s2',false)"><span class="opt-num">⑤</span>Why technological problems require narrow specialization</button>
+      <div class="feedback" id="fb-q7c"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">④가 불일치인 이유를 본문에서 찾아 입력하세요.</div>
+      <input class="text-input" id="q7-step3" placeholder="예: 하나의 주제만 집중하면 상상력이 좁아진다고 했음" />
+      <button class="check-btn" onclick="checkKeyword('q7-step3', ['좁','narrow','breadth','폭','상상'], 'fb-q7-s3', '본문은 하나의 주제에만 집중하면 상상력의 범위가 narrow(좁아진다)고 했습니다. ④는 이와 반대로 범위가 broad해진다고 했으므로 불일치입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q7-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 12 — 글의 순서</div>
+
+<div class="q-card" data-level="상" id="q8">
+  <div class="q-header">
+    <div class="q-num">8</div>
+    <div class="q-title">문12 | 주어진 글 다음 순서</div>
+    <span class="level-tag level-상">상</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 단락 확인</div>
+      <div class="step-q">주어진 첫 문장 다음에 올 순서를 생각해보세요.</div>
+      <div class="sent-box">
+        <strong>주어진 문장:</strong> Suppose you have been working on the solution to a challenging technological problem for many years.<br><br>
+        <strong>(A)</strong> Let's also suppose that you have been paying attention to whatever else you have encountered that might be related to the problem. In that case, creative solutions could suddenly pop up when you are relaxed. Such "eureka moments" often take place at unexpected times.<br><br>
+        <strong>(B)</strong> On the contrary, breadth of experience is the key to creativity. If your experience is limited to a narrow range of topics, the scope of your imagination will likewise be narrow, which would be harmful to creativity.<br><br>
+        <strong>(C)</strong> To enhance spontaneous creativity, therefore, one must pay attention to the things that could potentially lead to valuable outcomes. This does not mean that you must narrow down your interest to one specific topic.
+      </div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 순서 드래그</div>
+      <div class="step-q">드래그하여 올바른 순서로 배열하세요.</div>
+      <div class="order-list" id="ord-q8">
+        <div class="order-item" data-id="A" draggable="true" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event,'ord-q8')" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'ord-q8')">
+          <span class="order-handle">⠿</span><span class="order-letter">A</span>Let's also suppose … creative solutions pop up when relaxed …
         </div>
-        <div class="feedback" id="fb-q11s2"></div>
+        <div class="order-item" data-id="B" draggable="true" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event,'ord-q8')" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'ord-q8')">
+          <span class="order-handle">⠿</span><span class="order-letter">B</span>On the contrary, breadth of experience is the key …
+        </div>
+        <div class="order-item" data-id="C" draggable="true" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event,'ord-q8')" ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event,'ord-q8')">
+          <span class="order-handle">⠿</span><span class="order-letter">C</span>To enhance spontaneous creativity … This does not mean …
+        </div>
       </div>
-      <div class="step-block step3">
-        <div class="step-label"><span class="step-dot">3</span> Step 3 · 한국어 요약</div>
-        <div class="step-q">이 글의 주제를 한국어로 15자 이내로 요약하세요.</div>
-        <input class="text-input" id="q11-step3" placeholder="예: 다양한 경험이 창의성의 핵심이다" />
-        <button class="check-btn" onclick="checkKeyword('q11-step3', ['창의','경험','다양','spontaneous'], 'fb-q11-s3', '모범 요약: 「다양한 경험이 자발적 창의성의 핵심이다」 — breadth of experience → spontaneous creativity')">확인하기</button>
-        <div class="feedback" id="fb-q11-s3"></div>
-      </div>
+      <button class="check-btn" onclick="checkOrder('ord-q8',['A','C','B'],'fb-q8-ord')">순서 확인</button>
+      <div class="feedback" id="fb-q8-ord"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">정답 순서 (A)-(C)-(B)의 연결 단서를 입력하세요.</div>
+      <input class="text-input" id="q8-step3" placeholder="예: (A)의 therefore → (C) 시작, (C)의 this does not mean → (B)의 On the contrary" />
+      <button class="check-btn" onclick="checkKeyword('q8-step3', ['therefore','contrary','이유','연결','단서'], 'fb-q8-s3', '(A) 유레카 모먼트 소개 → (C) therefore로 결론(창의성을 위해 주의 기울여야) → (C) narrow down 언급 → (B) On the contrary로 breadth 강조. 논리적 순서입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q8-s3"></div>
     </div>
   </div>
+</div>
 
-  <!-- SCORE PANEL -->
-  <div class="score-panel">
-    <h3>🏆 최종 점수</h3>
-    <div class="score-big" id="scoreBig">—</div>
-    <div class="score-sub" id="scoreSub">채점 후 결과가 표시됩니다</div>
-    <button class="score-reset" onclick="resetAll()">↺ 처음부터 다시</button>
+<div class="section-title">문 13 — 문장 삽입</div>
+
+<div class="q-card" data-level="중" id="q9">
+  <div class="q-header">
+    <div class="q-num">9</div>
+    <div class="q-title">문13 | 문장이 들어갈 위치</div>
+    <span class="level-tag level-중">중</span>
   </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 삽입 문장 확인</div>
+      <div class="step-q">다음 문장이 들어갈 가장 적절한 위치를 찾으세요.</div>
+      <div class="sent-box">
+        <strong>삽입 문장:</strong> "This does not mean that you must narrow down your interest to one specific topic."
+      </div>
+      <div class="sent-box" style="margin-top:8px">
+        … years. Let's also suppose … might be related to the problem. ( ① ) In that case … pop up in your mind when you are relaxed. ( ② ) Such "eureka moments" … at unexpected times. ( ③ ) To enhance spontaneous creativity, … lead to valuable outcomes. ( ④ ) On the contrary, breadth of experience is the key to creativity. ( ⑤ ) If your experience is limited …
+      </div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 위치 선택</div>
+      <div class="step-q">삽입 문장이 들어갈 위치를 고르세요.</div>
+      <div class="mc-options" id="mc-q9i">
+        <button class="mc-opt" onclick="selectMC(this,'q9i',false)"><span class="opt-num">①</span>①번 위치</button>
+        <button class="mc-opt" onclick="selectMC(this,'q9i',false)"><span class="opt-num">②</span>②번 위치</button>
+        <button class="mc-opt" onclick="selectMC(this,'q9i',false)"><span class="opt-num">③</span>③번 위치</button>
+        <button class="mc-opt" onclick="selectMC(this,'q9i',true)"><span class="opt-num">④</span>④번 위치</button>
+        <button class="mc-opt" onclick="selectMC(this,'q9i',false)"><span class="opt-num">⑤</span>⑤번 위치</button>
+      </div>
+      <div class="feedback" id="fb-q9i"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">④ 위치가 정답인 연결 단서를 입력하세요.</div>
+      <input class="text-input" id="q9-step3" placeholder="예: ③ 뒤 valuable outcomes 이후 → narrow down 언급 → On the contrary로 연결" />
+      <button class="check-btn" onclick="checkKeyword('q9-step3', ['narrow','contrary','연결','단서'], 'fb-q9-s3', '삽입 문장의 「narrow down」이 뒤의 「On the contrary, breadth」로 자연스럽게 이어지므로 ④ 위치가 정답입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q9-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 14 — 주제 / 문 15 — 제목</div>
+
+<div class="q-card" data-level="하" id="q10">
+  <div class="q-header">
+    <div class="q-num">10</div>
+    <div class="q-title">문14 | 주제 / 문15 | 제목</div>
+    <span class="level-tag level-하">하</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 주제 선택</div>
+      <div class="step-q">글의 <em>주제</em>로 가장 적절한 것을 고르세요.</div>
+      <div class="mc-options" id="mc-q10t">
+        <button class="mc-opt" onclick="selectMC(this,'q10t',false)"><span class="opt-num">①</span>the danger of focusing on one technological problem</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10t',true)"><span class="opt-num">②</span>broad experience as a key source of creativity</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10t',false)"><span class="opt-num">③</span>relaxation techniques for producing planned eureka moments</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10t',false)"><span class="opt-num">④</span>the limits of attention in solving unrelated problems</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10t',false)"><span class="opt-num">⑤</span>unexpected timing of creative thoughts during rest</button>
+      </div>
+      <div class="feedback" id="fb-q10t"></div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 제목 선택</div>
+      <div class="step-q">글의 <em>제목</em>으로 가장 적절한 것을 고르세요.</div>
+      <div class="mc-options" id="mc-q10ti">
+        <button class="mc-opt" onclick="selectMC(this,'q10ti',true)"><span class="opt-num">①</span>Creativity Grows from a Wide Field of Experience</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10ti',false)"><span class="opt-num">②</span>Planned Eureka Moments During Restful Breaks</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10ti',false)"><span class="opt-num">③</span>Solving One Technological Problem for Many Years</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10ti',false)"><span class="opt-num">④</span>Relaxation Techniques for Increasing Workplace Imagination</button>
+        <button class="mc-opt" onclick="selectMC(this,'q10ti',false)"><span class="opt-num">⑤</span>Focused Attention on a Single Creative Topic</button>
+      </div>
+      <div class="feedback" id="fb-q10ti"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 이유 쓰기</div>
+      <div class="step-q">주제와 제목 모두 <em>breadth of experience</em>와 관련된 이유를 써보세요.</div>
+      <input class="text-input" id="q10-step3" placeholder="예: 글의 핵심 논지 — 폭넓은 경험이 창의성의 핵심" />
+      <button class="check-btn" onclick="checkKeyword('q10-step3', ['breadth','폭','경험','창의','wide','broad'], 'fb-q10-s3', '이 글은 창의성을 위해서는 한 주제에만 집중하기보다 폭넓은 경험(breadth of experience)이 중요하다는 것이 핵심 논지입니다.')">확인하기</button>
+      <div class="feedback" id="fb-q10-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">문 16 — 요지</div>
+
+<div class="q-card" data-level="하" id="q11">
+  <div class="q-header">
+    <div class="q-num">11</div>
+    <div class="q-title">문16 | 글의 요지</div>
+    <span class="level-tag level-하">하</span>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-block step1">
+      <div class="step-label"><span class="step-dot">1</span> Step 1 · 요지 확인</div>
+      <div class="step-q">글의 <em>요지</em>로 가장 적절한 것을 찾아보세요.</div>
+    </div>
+    <div class="step-block step2">
+      <div class="step-label"><span class="step-dot">2</span> Step 2 · 선택</div>
+      <div class="step-q">요지로 가장 적절한 것을 고르세요.</div>
+      <div class="mc-options" id="mc-q11m">
+        <button class="mc-opt" onclick="selectMC(this,'q11m',true)"><span class="opt-num">①</span>Broad experience helps creative ideas emerge by widening attention and imagination.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q11m',false)"><span class="opt-num">②</span>Relaxed moments produce creative solutions without long preparation or attention.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q11m',false)"><span class="opt-num">③</span>Technological problems require years of narrow focus before solutions appear.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q11m',false)"><span class="opt-num">④</span>Eureka moments can be planned through deliberate relaxation techniques.</button>
+        <button class="mc-opt" onclick="selectMC(this,'q11m',false)"><span class="opt-num">⑤</span>Creativity depends mainly on solving problems within one specialized field.</button>
+      </div>
+      <div class="feedback" id="fb-q11m"></div>
+    </div>
+    <div class="step-block step3">
+      <div class="step-label"><span class="step-dot">3</span> Step 3 · 한국어로 요약</div>
+      <div class="step-q">이 글의 요지를 한국어로 한 문장으로 요약해보세요.</div>
+      <input class="text-input" id="q11-step3" placeholder="예: 폭넓은 경험이 창의성의 핵심이며, 한 가지에만 집중하면 상상력이 제한된다." />
+      <button class="check-btn" onclick="checkKeyword('q11-step3', ['폭','경험','창의','상상','넓'], 'fb-q11-s3', '잘 정리했습니다! 핵심: 폭넓은 경험이 창의성을 키우며, 관심사를 하나로 좁히면 상상력의 범위도 좁아져 창의성에 해롭다.')">확인하기</button>
+      <div class="feedback" id="fb-q11-s3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="score-panel" id="scorePanel">
+  <h3>🎯 최종 결과</h3>
+  <div class="score-big" id="scoreBig">—</div>
+  <div class="score-sub" id="scoreSub">채점 후 결과가 표시됩니다</div>
+  <button class="score-reset" onclick="resetAll()">다시 풀기 →</button>
+</div>
 
 </main>
 
 <script>
-/* ═══════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════ */
 const state = {
-  ab: {},      // {qId: {blank: val}}
-  mc: {},      // {mcId: correct}
-  kw: {},      // {inputId: correct}
-  ord: {},     // {listId: correct}
+  mc: {},
+  ab: {},
+  kw: {},
+  ord: {},
   completed: new Set()
 };
 
-const TOTAL_ITEMS = 33; // approximate checkable items
+const TOTAL_ITEMS = 33;
 
-/* ═══════════════════════════════════════════
-   FILTER
-═══════════════════════════════════════════ */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
     const level = btn.dataset.level;
-    document.querySelectorAll('.q-card').forEach(card => {
-      if (level === '전체' || card.dataset.level === level) {
-        card.classList.remove('hidden');
+    document.querySelectorAll(".q-card").forEach(card => {
+      if (level === "전체" || card.dataset.level === level) {
+        card.classList.remove("hidden");
       } else {
-        card.classList.add('hidden');
+        card.classList.add("hidden");
       }
     });
   });
 });
 
-/* ═══════════════════════════════════════════
-   PROGRESS
-═══════════════════════════════════════════ */
 function updateProgress() {
   const done = state.completed.size;
   const pct = Math.round((done / TOTAL_ITEMS) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = done + ' / ' + TOTAL_ITEMS + ' 완료';
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = done + " / " + TOTAL_ITEMS + " 완료";
+  const mcCorrect = Object.values(state.mc).filter(Boolean).length;
+  const kwCorrect = Object.values(state.kw).filter(Boolean).length;
+  const ordCorrect = Object.values(state.ord).filter(Boolean).length;
+  const mcWrong = Object.values(state.mc).filter(v => v === false).length;
+  const kwWrong = Object.values(state.kw).filter(v => v === false).length;
+  const ordWrong = Object.values(state.ord).filter(v => v === false).length;
+  const totalCorrect = done;
+  const totalWrong = mcWrong + kwWrong + ordWrong;
+  const totalAttempted = totalCorrect + totalWrong;
+  const accPct = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+  document.getElementById("statCorrect").textContent = "정답 " + totalCorrect;
+  document.getElementById("statWrong").textContent = "오답 " + totalWrong;
+  document.getElementById("statPct").textContent = accPct + "%";
   updateScore();
 }
 
@@ -1088,81 +838,68 @@ function updateScore() {
     + Object.values(state.ord).filter(Boolean).length;
   const total = Object.keys(state.mc).length + Object.keys(state.kw).length + Object.keys(state.ord).length;
   if (total > 0) {
-    document.getElementById('scoreBig').textContent = correct + ' / ' + total;
-    document.getElementById('scoreSub').textContent = '맞은 항목 수 (AB 선택 포함)';
+    document.getElementById("scoreBig").textContent = correct + " / " + total;
+    document.getElementById("scoreSub").textContent = "맞은 항목 수";
   }
 }
 
-/* ═══════════════════════════════════════════
-   AB SELECTION (multi-blank)
-═══════════════════════════════════════════ */
 function selectAB(btn) {
   const q = btn.dataset.q;
   const blank = btn.dataset.blank;
-  const val = btn.dataset.val;
-  // deselect siblings in same blank row
-  btn.parentElement.querySelectorAll('.ab-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
+  btn.parentElement.querySelectorAll(".ab-btn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
   if (!state.ab[q]) state.ab[q] = {};
-  state.ab[q][blank] = val;
+  state.ab[q][blank] = btn.dataset.val;
 }
 
 function checkAB(qId, answers, fbId) {
   const sel = state.ab[qId] || {};
   let allCorrect = true;
   let wrongBlanks = [];
-
-  // apply visual feedback to each button
   Object.keys(answers).forEach(blank => {
     const correct = answers[blank];
     const chosen = sel[blank];
-    const wrap = document.querySelector(`[data-q="${qId}"][data-blank="${blank}"]`)?.parentElement;
+    const wrap = document.querySelector('[data-q="' + qId + '"][data-blank="' + blank + '"]')?.parentElement;
     if (!wrap) return;
-    wrap.querySelectorAll('.ab-btn').forEach(btn => {
-      btn.classList.remove('correct','wrong','reveal-correct');
-      if (btn.dataset.val === correct) {
-        if (chosen === correct) {
-          btn.classList.add('correct');
-        } else {
-          btn.classList.add('reveal-correct');
-        }
-      } else if (btn.dataset.val === chosen && chosen !== correct) {
-        btn.classList.add('wrong');
+    wrap.querySelectorAll(".ab-btn").forEach(b => {
+      b.classList.remove("correct","wrong","reveal-correct");
+      if (b.dataset.val === correct) {
+        if (chosen === correct) b.classList.add("correct");
+        else b.classList.add("reveal-correct");
+      } else if (b.dataset.val === chosen && chosen !== correct) {
+        b.classList.add("wrong");
       }
     });
     if (chosen !== correct) { allCorrect = false; wrongBlanks.push(blank); }
   });
-
   const fb = document.getElementById(fbId);
-  fb.classList.add('show');
+  fb.classList.add("show");
   if (allCorrect) {
-    fb.className = 'feedback show ok';
-    fb.innerHTML = '<strong>✅ 모두 정답!</strong><span class="expl">정확히 선택했습니다.</span>';
+    fb.className = "feedback show ok";
+    fb.innerHTML = "<strong>✅ 모두 정답!</strong><span class=\"expl\">정확히 선택했습니다.</span>";
     state.completed.add(fbId);
   } else {
-    fb.className = 'feedback show ng';
-    fb.innerHTML = `<strong>❌ 오답 포함 (${wrongBlanks.join(', ')})</strong><span class="expl">정답(초록)을 확인하세요.</span>`;
+    fb.className = "feedback show ng";
+    fb.innerHTML = "<strong>❌ 오답 포함 (" + wrongBlanks.join(", ") + ")</strong><span class=\"expl\">정답(초록)을 확인하세요.</span>";
   }
   updateProgress();
 }
 
-/* ═══════════════════════════════════════════
-   MC SELECTION (single)
-═══════════════════════════════════════════ */
 function selectMC(btn, mcId, isCorrect) {
-  const container = document.getElementById('mc-' + mcId);
-  container.querySelectorAll('.mc-opt').forEach(b => b.classList.remove('selected','correct','wrong','reveal-correct'));
-
+  const container = document.getElementById("mc-" + mcId);
+  container.querySelectorAll(".mc-opt").forEach(b => {
+    b.classList.remove("correct","wrong","reveal-correct");
+    b.disabled = true;
+  });
   if (isCorrect) {
-    btn.classList.add('correct');
+    btn.classList.add("correct");
     state.mc[mcId] = true;
-    state.completed.add('mc-' + mcId);
+    state.completed.add("mc-" + mcId);
     showMCFeedback(mcId, true);
   } else {
-    btn.classList.add('wrong');
-    // reveal correct
-    container.querySelectorAll('.mc-opt').forEach(b => {
-      if (b.getAttribute('onclick').includes('true')) b.classList.add('reveal-correct');
+    btn.classList.add("wrong");
+    container.querySelectorAll(".mc-opt").forEach(b => {
+      if (b.getAttribute("onclick").includes("true")) b.classList.add("reveal-correct");
     });
     state.mc[mcId] = false;
     showMCFeedback(mcId, false);
@@ -1171,110 +908,84 @@ function selectMC(btn, mcId, isCorrect) {
 }
 
 function showMCFeedback(mcId, correct) {
-  const fbId = 'fb-' + mcId;
-  const fb = document.getElementById(fbId);
+  const fb = document.getElementById("fb-" + mcId);
   if (!fb) return;
-  fb.classList.add('show');
+  fb.classList.add("show");
   if (correct) {
-    fb.className = 'feedback show ok';
-    fb.innerHTML = '<strong>✅ 정답!</strong>';
+    fb.className = "feedback show ok";
+    fb.innerHTML = "<strong>✅ 정답!</strong>";
   } else {
-    fb.className = 'feedback show ng';
-    fb.innerHTML = '<strong>❌ 오답</strong><span class="expl">초록색 선택지가 정답입니다.</span>';
+    fb.className = "feedback show ng";
+    fb.innerHTML = "<strong>❌ 오답</strong><span class=\"expl\">초록색 선택지가 정답입니다.</span>";
   }
 }
 
-/* ═══════════════════════════════════════════
-   KEYWORD CHECK (text input)
-═══════════════════════════════════════════ */
 function checkKeyword(inputId, keywords, fbId, explanation) {
   const val = document.getElementById(inputId).value.trim().toLowerCase();
   const correct = keywords.some(kw => val.includes(kw.toLowerCase()));
   const fb = document.getElementById(fbId);
-  fb.classList.add('show');
+  fb.classList.add("show");
   const input = document.getElementById(inputId);
   if (correct) {
-    fb.className = 'feedback show ok';
-    fb.innerHTML = `<strong>✅ 정답!</strong><span class="expl">${explanation}</span>`;
-    input.classList.add('correct');
+    fb.className = "feedback show ok";
+    fb.innerHTML = "<strong>✅ 정답!</strong><span class=\"expl\">" + explanation + "</span>";
+    input.classList.add("correct");
     state.kw[inputId] = true;
     state.completed.add(fbId);
   } else {
-    fb.className = 'feedback show ng';
-    fb.innerHTML = `<strong>❌ 다시 확인</strong><span class="expl">${explanation}</span>`;
-    input.classList.add('wrong');
+    fb.className = "feedback show ng";
+    fb.innerHTML = "<strong>❌ 다시 확인</strong><span class=\"expl\">" + explanation + "</span>";
+    input.classList.add("wrong");
     state.kw[inputId] = false;
   }
   updateProgress();
 }
 
-/* ═══════════════════════════════════════════
-   DRAG & DROP ORDER (desktop)
-═══════════════════════════════════════════ */
 let dragSrc = null;
-
-function onDragStart(e) {
-  dragSrc = e.currentTarget;
-  e.currentTarget.classList.add('dragging');
-  e.dataTransfer.effectAllowed = 'move';
-}
-
+function onDragStart(e) { dragSrc = e.currentTarget; e.currentTarget.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; }
 function onDragOver(e) {
   e.preventDefault();
-  const target = e.target.closest('.order-item');
+  const target = e.target.closest(".order-item");
   if (target && target !== dragSrc) {
-    document.querySelectorAll('.order-item').forEach(i => i.classList.remove('drag-over'));
-    target.classList.add('drag-over');
+    document.querySelectorAll(".order-item").forEach(i => i.classList.remove("drag-over"));
+    target.classList.add("drag-over");
   }
 }
-
 function onDrop(e, listId) {
   e.preventDefault();
-  const target = e.target.closest('.order-item');
+  const target = e.target.closest(".order-item");
   if (!target || target === dragSrc) return;
   const list = document.getElementById(listId);
-  const items = [...list.querySelectorAll('.order-item')];
+  const items = [...list.querySelectorAll(".order-item")];
   const srcIdx = items.indexOf(dragSrc);
   const tgtIdx = items.indexOf(target);
   if (srcIdx < tgtIdx) list.insertBefore(dragSrc, target.nextSibling);
   else list.insertBefore(dragSrc, target);
-  document.querySelectorAll('.order-item').forEach(i => { i.classList.remove('dragging','drag-over'); });
+  document.querySelectorAll(".order-item").forEach(i => i.classList.remove("dragging","drag-over"));
   dragSrc = null;
 }
 
-/* ═══════════════════════════════════════════
-   TOUCH DRAG ORDER (Samsung Tab)
-═══════════════════════════════════════════ */
 let touchSrc = null;
-let touchClone = null;
-
-function onTouchStart(e) {
-  touchSrc = e.currentTarget;
-  touchSrc.classList.add('dragging');
-}
-
+function onTouchStart(e) { touchSrc = e.currentTarget; touchSrc.classList.add("dragging"); }
 function onTouchMove(e) {
   e.preventDefault();
   const touch = e.touches[0];
-  document.querySelectorAll('.order-item').forEach(item => {
+  document.querySelectorAll(".order-item").forEach(item => {
     const rect = item.getBoundingClientRect();
     if (touch.clientY >= rect.top && touch.clientY <= rect.bottom && item !== touchSrc) {
-      document.querySelectorAll('.order-item').forEach(i => i.classList.remove('drag-over'));
-      item.classList.add('drag-over');
+      document.querySelectorAll(".order-item").forEach(i => i.classList.remove("drag-over"));
+      item.classList.add("drag-over");
     }
   });
 }
-
 function onTouchEnd(e, listId) {
   const touch = e.changedTouches[0];
   const list = document.getElementById(listId);
-  const items = [...list.querySelectorAll('.order-item')];
+  const items = [...list.querySelectorAll(".order-item")];
   let target = null;
   items.forEach(item => {
     const rect = item.getBoundingClientRect();
-    if (touch.clientY >= rect.top && touch.clientY <= rect.bottom && item !== touchSrc) {
-      target = item;
-    }
+    if (touch.clientY >= rect.top && touch.clientY <= rect.bottom && item !== touchSrc) target = item;
   });
   if (target) {
     const srcIdx = items.indexOf(touchSrc);
@@ -1282,80 +993,47 @@ function onTouchEnd(e, listId) {
     if (srcIdx < tgtIdx) list.insertBefore(touchSrc, target.nextSibling);
     else list.insertBefore(touchSrc, target);
   }
-  items.forEach(i => i.classList.remove('dragging','drag-over'));
+  items.forEach(i => i.classList.remove("dragging","drag-over"));
   touchSrc = null;
 }
 
-/* ═══════════════════════════════════════════
-   CHECK ORDER
-═══════════════════════════════════════════ */
 function checkOrder(listId, correctOrder, fbId) {
   const list = document.getElementById(listId);
-  const items = [...list.querySelectorAll('.order-item')];
+  const items = [...list.querySelectorAll(".order-item")];
   const current = items.map(i => i.dataset.id);
   const fb = document.getElementById(fbId);
-  fb.classList.add('show');
-
+  fb.classList.add("show");
   let allOk = true;
   items.forEach((item, idx) => {
-    item.classList.remove('correct-pos','wrong-pos');
-    if (current[idx] === correctOrder[idx]) {
-      item.classList.add('correct-pos');
-    } else {
-      item.classList.add('wrong-pos');
-      allOk = false;
-    }
+    item.classList.remove("correct-pos","wrong-pos");
+    if (current[idx] === correctOrder[idx]) item.classList.add("correct-pos");
+    else { item.classList.add("wrong-pos"); allOk = false; }
   });
-
   if (allOk) {
-    fb.className = 'feedback show ok';
-    fb.innerHTML = `<strong>✅ 정답!</strong><span class="expl">순서: ${correctOrder.join(' → ')}</span>`;
+    fb.className = "feedback show ok";
+    fb.innerHTML = "<strong>✅ 정답!</strong><span class=\"expl\">순서: " + correctOrder.join(" → ") + "</span>";
     state.ord[listId] = true;
     state.completed.add(fbId);
   } else {
-    fb.className = 'feedback show ng';
-    fb.innerHTML = `<strong>❌ 오답</strong><span class="expl">정답 순서: ${correctOrder.join(' → ')}</span>`;
+    fb.className = "feedback show ng";
+    fb.innerHTML = "<strong>❌ 오답</strong><span class=\"expl\">정답 순서: " + correctOrder.join(" → ") + "</span>";
     state.ord[listId] = false;
   }
   updateProgress();
 }
 
-/* ═══════════════════════════════════════════
-   RESET
-═══════════════════════════════════════════ */
 function resetAll() {
-  // reset state
-  Object.keys(state).forEach(k => {
-    if (k === 'completed') state.completed.clear();
-    else state[k] = {};
-  });
-
-  // reset inputs
-  document.querySelectorAll('.text-input').forEach(el => {
-    el.value = '';
-    el.classList.remove('correct','wrong');
-  });
-  // reset buttons
-  document.querySelectorAll('.ab-btn, .mc-opt').forEach(el => {
-    el.classList.remove('selected','correct','wrong','reveal-correct');
-  });
-  // reset order
-  document.querySelectorAll('.order-item').forEach(el => {
-    el.classList.remove('correct-pos','wrong-pos');
-  });
-  // reset feedbacks
-  document.querySelectorAll('.feedback').forEach(el => {
-    el.className = 'feedback';
-    el.innerHTML = '';
-  });
-
-  document.getElementById('scoreBig').textContent = '—';
-  document.getElementById('scoreSub').textContent = '채점 후 결과가 표시됩니다';
+  Object.keys(state).forEach(k => { if (k === "completed") state.completed.clear(); else state[k] = {}; });
+  document.querySelectorAll(".text-input").forEach(el => { el.value = ""; el.classList.remove("correct","wrong"); });
+  document.querySelectorAll(".ab-btn, .mc-opt").forEach(el => { el.classList.remove("selected","correct","wrong","reveal-correct"); el.disabled = false; });
+  document.querySelectorAll(".order-item").forEach(el => el.classList.remove("correct-pos","wrong-pos"));
+  document.querySelectorAll(".feedback").forEach(el => { el.className = "feedback"; el.innerHTML = ""; });
+  document.getElementById("scoreBig").textContent = "—";
+  document.getElementById("scoreSub").textContent = "채점 후 결과가 표시됩니다";
   updateProgress();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// init
 updateProgress();
 </script>
 </body>
